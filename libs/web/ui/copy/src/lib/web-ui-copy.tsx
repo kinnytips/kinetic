@@ -14,17 +14,22 @@ export interface WebUiCopyProps {
 export function WebUiCopy({ disabled, label, size, text }: WebUiCopyProps) {
   const toast = useToast()
 
+  // Render the Tooltip and Button as a single ReactNode
+  const renderButton = (): any => (
+    <Tooltip label={`Copy ${text?.length} characters to clipboard `} placement="top">
+      <Button p={size} variant="outline" disabled={disabled} size={size}>
+        <IconCopy color="gray" size={16} />
+        {label ? typeof label === 'string' ? <Text ml={2}>{label}</Text> : label : null}
+      </Button>
+    </Tooltip>
+  );
+
   return (
     <CopyToClipboard
       text={text ?? ''}
       onCopy={() => toast({ status: 'info', title: `Copied ${text?.length} characters to clipboard` })}
     >
-      <Tooltip label={`Copy ${text?.length} characters to clipboard `} placement="top">
-        <Button p={size} variant="outline" disabled={disabled} size={size}>
-          <IconCopy color="gray" size={16} />
-          {label ? typeof label === 'string' ? <Text ml={2}>{label}</Text> : label : null}
-        </Button>
-      </Tooltip>
+      {renderButton()}
     </CopyToClipboard>
   )
 }

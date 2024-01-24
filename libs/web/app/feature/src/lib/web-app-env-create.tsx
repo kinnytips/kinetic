@@ -13,7 +13,7 @@ import {
 } from '@kin-kinetic/web/util/sdk'
 import { Button, ButtonGroup, Field, Form } from '@saas-ui/react'
 import { FocusEvent, useEffect, useState } from 'react'
-import { GoPrimitiveDot } from 'react-icons/go'
+import { GoDotFill } from 'react-icons/go'
 import { useNavigate } from 'react-router-dom'
 
 export function WebAppEnvCreate() {
@@ -128,7 +128,7 @@ export function ClusterItem({
             <Tag size={'sm'} variant="subtle" colorScheme={cluster.status === ClusterStatus.Active ? 'green' : 'red'}>
               <TagLeftIcon
                 boxSize="12px"
-                as={GoPrimitiveDot}
+                as={GoDotFill}
                 color={cluster.status === ClusterStatus.Active ? 'green.300' : 'red.300'}
               />
               <TagLabel>{cluster.status}</TagLabel>

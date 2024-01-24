@@ -26,7 +26,7 @@ import { WebUiCard } from '@kin-kinetic/web/ui/card'
 import { WebUiPageHeader } from '@kin-kinetic/web/ui/page'
 import { App, AppEnv, UserAppEnvUpdateInput, useUserUpdateAppEnvMutation } from '@kin-kinetic/web/util/sdk'
 import { ReactNode } from 'react'
-import { GoPrimitiveDot } from 'react-icons/go'
+import { GoDotFill } from 'react-icons/go'
 
 export function WebAppEnvSettingsWebhooks({ app, env }: { app: App; env: AppEnv }) {
   const toast = useToast()
@@ -128,7 +128,7 @@ export function WebhookLabel({ enabled, title }: { enabled: boolean; title: Reac
   return (
     <Flex flex="1" alignItems="center">
       <Tag size={'sm'} variant="subtle" colorScheme="primary">
-        <TagLeftIcon boxSize="12px" as={GoPrimitiveDot} color={enabled ? 'green.500' : 'gray.500'} />
+        <TagLeftIcon boxSize="12px" as={GoDotFill} color={enabled ? 'green.500' : 'gray.500'} />
         <TagLabel>{enabled ? 'Enabled' : 'Disabled'}</TagLabel>
       </Tag>
       <Heading ml={2} size="md" mt={1}>

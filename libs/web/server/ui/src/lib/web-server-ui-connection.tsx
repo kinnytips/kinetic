@@ -2,7 +2,7 @@ import { Box, Code, HStack, Progress, Stack, Tag, TagLabel, TagLeftIcon } from '
 import { WebServerEntity } from '@kin-kinetic/web/server/data-access'
 import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
 import { useEffect, useState } from 'react'
-import { GoPrimitiveDot } from 'react-icons/go'
+import { GoDotFill } from 'react-icons/go'
 
 export type ConnectionStatus = 'Connecting' | 'Connected' | 'Idle' | 'Failed'
 
@@ -78,7 +78,7 @@ export function WebServerUiConnection({ server }: { server: WebServerEntity }) {
       <HStack align="start" justify="space-between">
         <Box>
           <Tag cursor="pointer" size="sm" onClick={verifyConnection} variant="subtle" colorScheme={msgColor(status)}>
-            <TagLeftIcon boxSize="12px" as={GoPrimitiveDot} color={statusColor(status)} />
+            <TagLeftIcon boxSize="12px" as={GoDotFill} color={statusColor(status)} />
             <TagLabel>{status}</TagLabel>
           </Tag>
         </Box>

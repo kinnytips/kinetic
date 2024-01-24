@@ -2,7 +2,7 @@ import { Avatar, Badge, Flex, Stack, Tag, TagLabel, TagLeftIcon, Text, Tooltip }
 import { WebUiAddress } from '@kin-kinetic/web/ui/address'
 import { WebUiIdenticon } from '@kin-kinetic/web/ui/identicon'
 import { Mint } from '@kin-kinetic/web/util/sdk'
-import { GoPrimitiveDot } from 'react-icons/go'
+import { GoDotFill } from 'react-icons/go'
 
 export function WebAdminUiMintDetails({ mint }: { mint: Mint }) {
   return (
@@ -32,7 +32,7 @@ export function WebAdminUiMintDetails({ mint }: { mint: Mint }) {
           {mint.airdropPublicKey && (
             <Tooltip label={`Airdrop public key: ${mint.airdropPublicKey}`}>
               <Tag size={'sm'} variant="subtle" colorScheme="primary">
-                <TagLeftIcon boxSize="12px" as={GoPrimitiveDot} color={'green.300'} />
+                <TagLeftIcon boxSize="12px" as={GoDotFill} color={'green.300'} />
                 <TagLabel>Airdrop Enabled</TagLabel>
               </Tag>
             </Tooltip>
