@@ -23,7 +23,6 @@ export function WebServerUiConnectionPanel() {
           <Select
             defaultValue={selected?.name}
             onChange={(id) => selectById(id as string)}
-            placeholder="Select a country"
             options={
               servers?.map((server) => ({
                 label: server.endpoint,

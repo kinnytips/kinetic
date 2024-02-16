@@ -19,7 +19,7 @@ export function WebAdminUiClusterTable({
         {
           accessor: 'name',
           Header: 'Name',
-          Cell: ({ row, value }: CellProps<Cluster>) => <WebUiDataTableLink to={`${row.original.id}`} value={value} />,
+          // Cell: ({ row, value }: CellProps<Cluster>) => <WebUiDataTableLink to={`${row.original.id}`} value={value} />,
         },
         {
           accessor: 'type',
@@ -28,22 +28,22 @@ export function WebAdminUiClusterTable({
         {
           accessor: 'envs',
           Header: 'Environments',
-          Cell: ({ row }: CellProps<Cluster>) => (
-            <Stack>
-              {row.original?.envs?.map((e) => (
-                <Tag
-                  as={Link}
-                  to={`/apps/${e?.app?.id}/environments/${e.id}`}
-                  key={e?.key}
-                  size="sm"
-                  variant="subtle"
-                  colorScheme="primary"
-                >
-                  {e.key}
-                </Tag>
-              ))}
-            </Stack>
-          ),
+          // Cell: ({ row }: CellProps<Cluster>) => (
+          //   <Stack>
+          //     {row.original?.envs?.map((e) => (
+          //       <Tag
+          //         as={Link}
+          //         to={`/apps/${e?.app?.id}/environments/${e.id}`}
+          //         key={e?.key}
+          //         size="sm"
+          //         variant="subtle"
+          //         colorScheme="primary"
+          //       >
+          //         {e.key}
+          //       </Tag>
+          //     ))}
+          //   </Stack>
+          // ),
         },
         {
           accessor: 'status',
@@ -52,11 +52,11 @@ export function WebAdminUiClusterTable({
         {
           accessor: 'id',
           Header: 'Actions',
-          Cell: ({ row }: CellProps<Cluster>) => (
-            <Button disabled={!!row.original?.envs?.length} onClick={() => deleteCluster(`${row.original.id}`)}>
-              Delete
-            </Button>
-          ),
+          // Cell: ({ row }: CellProps<Cluster>) => (
+          //   <Button disabled={!!row.original?.envs?.length} onClick={() => deleteCluster(`${row.original.id}`)}>
+          //     Delete
+          //   </Button>
+          // ),
         },
       ]}
     />

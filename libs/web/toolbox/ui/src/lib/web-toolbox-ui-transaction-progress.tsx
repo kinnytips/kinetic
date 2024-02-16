@@ -32,7 +32,7 @@ export function WebToolboxUiTransactionProgress({
   }
 
   useEffect(() => {
-    if (!sdk || !signature) return
+    if (!sdk || !signature) return undefined
 
     const timer = setInterval(() => {
       updateConfirmations()

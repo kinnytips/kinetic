@@ -19,7 +19,10 @@ export class ApiTransactionService implements OnModuleInit {
 
   private makeTransferRequestCounter: Counter
 
-  constructor(readonly core: ApiCoreService, readonly kinetic: ApiKineticService) {}
+  constructor(
+    readonly core: ApiCoreService,
+    readonly kinetic: ApiKineticService,
+  ) {}
 
   async cleanupStaleTransactions() {
     const stale = await this.getExpiredTransactions()

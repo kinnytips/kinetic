@@ -49,7 +49,7 @@ function WebKeypairProvider({ children }: { children: ReactNode }) {
   }
 
   const updateKeypair = ({ id, name }: { id: number; name: string }) => {
-    if (!id) return
+    if (!id) return undefined
     return webKeypairDb.keypair.update(id, {
       name,
     })

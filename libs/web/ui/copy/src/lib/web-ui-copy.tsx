@@ -22,7 +22,7 @@ export function WebUiCopy({ disabled, label, size, text }: WebUiCopyProps) {
         {label ? typeof label === 'string' ? <Text ml={2}>{label}</Text> : label : null}
       </Button>
     </Tooltip>
-  );
+  )
 
   return (
     <CopyToClipboard

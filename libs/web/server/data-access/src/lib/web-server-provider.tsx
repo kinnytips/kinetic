@@ -27,7 +27,7 @@ function WebServerProvider({ children }: { children: ReactNode }) {
   }
 
   const deleteServer = ({ id }: WebServerEntity) => {
-    if (!id) return
+    if (!id) return undefined
     return webServerDb.server.delete(id)
   }
 
@@ -41,7 +41,7 @@ function WebServerProvider({ children }: { children: ReactNode }) {
   }
 
   const updateServer = ({ id, endpoint, name }: WebServerEntity) => {
-    if (!id) return
+    if (!id) return undefined
     return webServerDb.server.update(id, {
       name,
       endpoint,

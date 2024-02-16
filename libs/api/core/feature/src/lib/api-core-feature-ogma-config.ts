@@ -9,12 +9,10 @@ export class ApiCoreFeatureOgmaConfig implements ModuleConfigFactory<OgmaModuleO
 
   createModuleConfig(): OgmaModuleOptions {
     return {
-      service: {
-        application: this.config.apiName,
-        color: this.config.apiLogColor,
-        json: this.config.apiLogJson,
-        logLevel: this.config.apiLogLevel,
-      },
+      application: this.config.apiName,
+      color: this.config.apiLogColor,
+      json: this.config.apiLogJson,
+      logLevel: this.config.apiLogLevel,
     }
   }
 }

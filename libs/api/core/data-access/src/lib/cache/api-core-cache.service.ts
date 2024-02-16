@@ -1,4 +1,5 @@
-import { CACHE_MANAGER, Inject, Injectable, Logger } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { style } from '@ogma/styler'
 import { Cache } from 'cache-manager'
 
@@ -65,6 +66,6 @@ export class ApiCoreCacheService {
    * Set a value in the cache based on the namespace and key.
    */
   private set<T>(namespace: CacheNamespace, key: string, value: T, ttl?: number) {
-    return this.cache.set<T>(getCacheKey(namespace, key), value, { ttl: ttl ?? 5 })
+    return this.cache.set(getCacheKey(namespace, key), value, ttl)
   }
 }

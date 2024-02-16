@@ -14,12 +14,12 @@ export function WebAdminUiAppTable({ apps, deleteApp }: { apps: App[]; deleteApp
         {
           accessor: 'name',
           Header: 'Name',
-          Cell: ({ row, value }: CellProps<App>) => (
-            <HStack spacing={4}>
-              <WebUiAppAvatar logoUrl={row.original?.logoUrl} size={'sm'} />
-              <WebUiDataTableLink to={row.original.id} value={value} />
-            </HStack>
-          ),
+          // Cell: ({ row, value }: CellProps<App>) => (
+          //   <HStack spacing={4}>
+          //     <WebUiAppAvatar logoUrl={row.original?.logoUrl} size={'sm'} />
+          //     <WebUiDataTableLink to={row.original.id} value={value} />
+          //   </HStack>
+          // ),
         },
         {
           accessor: 'index',
@@ -28,11 +28,11 @@ export function WebAdminUiAppTable({ apps, deleteApp }: { apps: App[]; deleteApp
         {
           accessor: 'id',
           Header: '',
-          Cell: ({ value }: { value: string }) => (
-            <Flex justifyContent="end">
-              <IconButton onClick={() => deleteApp(value)} aria-label={'Delete App'} icon={<MdDelete />}></IconButton>
-            </Flex>
-          ),
+          // Cell: ({ value }: { value: string }) => (
+          //   <Flex justifyContent="end">
+          //     <IconButton onClick={() => deleteApp(value)} aria-label={'Delete App'} icon={<MdDelete />}></IconButton>
+          //   </Flex>
+          // ),
         },
       ]}
     />

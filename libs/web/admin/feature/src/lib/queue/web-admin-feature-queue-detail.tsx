@@ -35,7 +35,7 @@ export function WebAdminFeatureQueueDetail() {
   const [, loadQueue] = useAdminQueueLoadMutation()
 
   useEffect(() => {
-    if (!type) return
+    if (!type) return undefined
 
     const timer = setInterval(() => {
       refresh()

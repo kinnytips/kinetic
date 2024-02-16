@@ -18,7 +18,7 @@ export function WebUiFormModal<T>({
   title,
 }: {
   button?: boolean
-  data?: DeepPartial<T>
+  data?: unknown
   disclosure?: UseDisclosureReturn
   onSubmit: (data: FieldValues) => void
   schema: AnyObjectSchema

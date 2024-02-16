@@ -16,12 +16,12 @@ export function WebAdminUiUserTable({ users }: { users: User[] }) {
         {
           accessor: 'name',
           Header: 'Name',
-          Cell: ({ row, value }: CellProps<User>) => (
-            <HStack spacing={4}>
-              <WebUiAppAvatar logoUrl={row.original?.avatarUrl} size={'sm'} />
-              <WebUiDataTableLink to={row.original.id} value={value} />
-            </HStack>
-          ),
+          // Cell: ({ row, value }: CellProps<User>) => (
+          //   <HStack spacing={4}>
+          //     <WebUiAppAvatar logoUrl={row.original?.avatarUrl} size={'sm'} />
+          //     <WebUiDataTableLink to={row.original.id} value={value} />
+          //   </HStack>
+          // ),
         },
         {
           accessor: 'role',

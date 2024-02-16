@@ -28,7 +28,7 @@ export function WebAppDetailRoutes() {
   const { app, loading } = useWebApp()
   const { setApp } = useWebUiLayout()
   useEffect(() => {
-    if (!app) return
+    if (!app) return undefined
     setApp(app)
     return () => setApp(undefined)
   }, [app, setApp])

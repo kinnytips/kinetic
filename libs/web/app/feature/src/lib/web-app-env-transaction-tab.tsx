@@ -26,7 +26,7 @@ export function WebAppEnvTransactionTab({ app, env }: { app: App; env: AppEnv })
       const id = setTimeout(() => refresh(), 5000)
       return () => clearTimeout(id)
     }
-    return
+    return undefined
   }, [fetching, refresh])
 
   if (error) {

@@ -12,7 +12,7 @@ export function WebUiForm<T>({
   schema,
   submitLabel = 'Submit',
 }: {
-  data?: DeepPartial<T>
+  data?: unknown
   onSubmit: (data: FieldValues) => void
   schema: AnyObjectSchema
   submitLabel?: string

@@ -13,7 +13,6 @@ export function WebToolboxUiSelectCommitment({
       size="lg"
       defaultValue={commitment}
       onChange={(commitment) => setCommitment(commitment as Commitment)}
-      placeholder="Select commitment"
       options={Object.keys(Commitment).map((value) => ({
         label: value,
         value,

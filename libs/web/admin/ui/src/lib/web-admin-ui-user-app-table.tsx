@@ -16,12 +16,12 @@ export function WebAdminUiUserAppTable({ apps }: { apps: AppUser[] }) {
         {
           accessor: 'app',
           Header: 'App',
-          Cell: ({ row, value }: CellProps<AppUser>) => (
-            <HStack spacing={4}>
-              <WebUiAppAvatar logoUrl={row.original?.app?.logoUrl} size={'sm'} />
-              <WebUiDataTableLink to={`/admin/apps/${value.id}`} value={value.name as string} />
-            </HStack>
-          ),
+          // Cell: ({ row, value }: CellProps<AppUser>) => (
+          //   <HStack spacing={4}>
+          //     <WebUiAppAvatar logoUrl={row.original?.app?.logoUrl} size={'sm'} />
+          //     <WebUiDataTableLink to={`/admin/apps/${value.id}`} value={value.name as string} />
+          //   </HStack>
+          // ),
         },
         {
           accessor: 'role',

@@ -37,6 +37,7 @@ import { SignatureStatus } from './entities/signature-status.entity'
 import { validateCloseAccount } from './helpers/validate-close.account'
 import { ProcessTransactionOptions } from './interfaces/process-transaction-options'
 import { TransactionWithErrors } from './interfaces/transaction-with-errors'
+import { AxiosRequestHeaders } from 'axios'
 
 @Injectable()
 export class ApiKineticService implements OnModuleInit {
@@ -289,7 +290,7 @@ export class ApiKineticService implements OnModuleInit {
       headers,
       ip,
       ua,
-    }: { appKey: string; appEnv: AppEnvironment; headers?: Record<string, string>; ip?: string; ua?: string },
+    }: { appKey: string; appEnv: AppEnvironment; headers?: AxiosRequestHeaders; ip?: string; ua?: string },
   ): Promise<Transaction> {
     const processingStartedAt = Date.now()
     this.closeAccountRequestCounter.add(1, { appKey })

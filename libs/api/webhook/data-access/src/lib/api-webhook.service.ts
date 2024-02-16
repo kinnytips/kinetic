@@ -3,7 +3,7 @@ import { getAppKey } from '@kin-kinetic/api/core/util'
 import { HttpService } from '@nestjs/axios'
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common'
 import { App, AppEnv, Transaction, WebhookDirection, WebhookType } from '@prisma/client'
-import { AxiosRequestHeaders } from 'axios'
+import { AxiosHeaders, AxiosRequestHeaders } from 'axios'
 import { Response } from 'express'
 import { IncomingHttpHeaders } from 'http'
 import { switchMap } from 'rxjs'
@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs'
 interface WebhookOptions {
   balance?: number
   publicKey?: string
-  headers?: AxiosRequestHeaders
+  headers?: Record<string, string>
   type: WebhookType
   transaction?: Transaction
 }
@@ -25,7 +25,10 @@ function isValidWebhookType(type: string) {
 @Injectable()
 export class ApiWebhookService {
   private readonly logger = new Logger(ApiWebhookService.name)
-  constructor(private readonly core: ApiCoreService, private readonly http: HttpService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly http: HttpService,
+  ) {}
 
   sendWebhook(appEnv: AppEnv & { app: App }, options: WebhookOptions) {
     const appKey = getAppKey(appEnv.name, appEnv.app?.index)
@@ -227,17 +230,24 @@ export class ApiWebhookService {
   }
 
   private getTxHeaders = (appEnv: AppEnv & { app: App }, options: WebhookOptions) => {
-    // Pass along any request headers that start with 'kinetic'
-    const headers = Object.keys(options.headers || {})
-      .filter((k) => k.startsWith('kinetic-'))
-      .reduce((acc, curr) => ({ ...acc, [curr]: options.headers[curr] }), {})
+    // Initialize a new Headers instance
+    const headers = new AxiosHeaders()
 
+    // Add existing kinetic headers
+    Object.keys(options.headers || {})
+      .filter((k) => k.startsWith('kinetic-'))
+      .forEach((key) => {
+        headers.set(key, options.headers[key])
+      })
+
+    // Add or update the kinetic-tx-id header
+    const txId = options.transaction?.id ? options.transaction.id : 'N/A'
+    headers.set('kinetic-tx-id', txId)
+
+    // Combine with other app-specific headers and return
     return this.getAppEnvHeaders(appEnv, {
       ...options,
-      headers: {
-        ...headers,
-        'kinetic-tx-id': options.transaction?.id ? options.transaction.id : 'N/A',
-      },
+      headers: headers,
     })
   }
 
