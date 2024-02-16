@@ -36,6 +36,7 @@ testem.log
 .env
 hs_err*.log
 /apps/api/src/admin/
+/.nx
 
 # System Files
 .DS_Store
