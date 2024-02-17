@@ -1,16 +1,16 @@
 import { Box, Flex, HStack, Spacer, Stack, Tag, TagLabel, TagLeftIcon, Text, useToast } from '@chakra-ui/react'
-import { useWebApp } from '@kin-kinetic/web/app/data-access'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { WebUiPageFull } from '@kin-kinetic/web/ui/page'
+import { useWebApp } from '@kinny/kinetic-web/app/data-access'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPageFull } from '@kinny/kinetic-web/ui/page'
 import {
   Cluster,
   ClusterStatus,
   UserAppEnvCreateInput,
   useUserClustersQuery,
   useUserCreateAppEnvMutation,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { Button, ButtonGroup, Field, Form } from '@saas-ui/react'
 import { FocusEvent, useEffect, useState } from 'react'
 import { GoPrimitiveDot } from 'react-icons/go'

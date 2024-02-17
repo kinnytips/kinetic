@@ -1,8 +1,8 @@
 import { useToast } from '@chakra-ui/react'
-import { WebAdminUiUserCreateForm } from '@kin-kinetic/web/admin/ui'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiPage, WebUiPageBackButton } from '@kin-kinetic/web/ui/page'
-import { useAdminCreateUserMutation, AdminUserCreateInput } from '@kin-kinetic/web/util/sdk'
+import { WebAdminUiUserCreateForm } from '@kinny/kinetic-web/admin/ui'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiPage, WebUiPageBackButton } from '@kinny/kinetic-web/ui/page'
+import { useAdminCreateUserMutation, AdminUserCreateInput } from '@kinny/kinetic-web/util/sdk'
 import { useNavigate } from 'react-router-dom'
 
 export function WebAdminFeatureUserAdd() {

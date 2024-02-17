@@ -4,8 +4,8 @@ import {
   AuthToken,
   CtxUser,
   UserLoginInput,
-} from '@kin-kinetic/api/auth/data-access'
-import { User } from '@kin-kinetic/api/user/data-access'
+} from '@kinny/kinetic-api/auth/data-access'
+import { User } from '@kinny/kinetic-api/user/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
 

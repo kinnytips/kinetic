@@ -1,8 +1,8 @@
 import { Flex, Stack, Text, useToast } from '@chakra-ui/react'
-import { WebAuthDiscordButton, WebAuthGitHubButton, WebAuthGoogleButton } from '@kin-kinetic/web/auth/ui'
-import { useWebConfig } from '@kin-kinetic/web/shell/data-access'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
+import { WebAuthDiscordButton, WebAuthGitHubButton, WebAuthGoogleButton } from '@kinny/kinetic-web/auth/ui'
+import { useWebConfig } from '@kinny/kinetic-web/shell/data-access'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
 import { useNavigate } from 'react-router-dom'
 import { AuthForm } from './auth-form'
 

@@ -1,5 +1,5 @@
-import { Transaction } from '@kin-kinetic/api/transaction/data-access'
-import { Webhook, WebhookDirection, WebhookType } from '@kin-kinetic/api/webhook/data-access'
+import { Transaction } from '@kinny/kinetic-api/transaction/data-access'
+import { Webhook, WebhookDirection, WebhookType } from '@kinny/kinetic-api/webhook/data-access'
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 
 @Resolver(() => Transaction)

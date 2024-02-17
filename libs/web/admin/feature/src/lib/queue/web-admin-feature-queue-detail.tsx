@@ -1,8 +1,8 @@
 import { Badge, Box, Button, Stack, Text, Tooltip, useToast } from '@chakra-ui/react'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiLoaderPage } from '@kin-kinetic/web/ui/loader'
-import { WebUiPage, WebUiPageBackButton } from '@kin-kinetic/web/ui/page'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiLoaderPage } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPage, WebUiPageBackButton } from '@kinny/kinetic-web/ui/page'
 import {
   JobStatus,
   QueueType,
@@ -11,7 +11,7 @@ import {
   useAdminQueuePauseMutation,
   useAdminQueueQuery,
   useAdminQueueResumeMutation,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { ButtonGroup, Field, Form, SubmitButton } from '@saas-ui/react'
 import { useEffect, useState } from 'react'
 import { MdDelete, MdPause, MdPlayArrow, MdRefresh } from 'react-icons/md'

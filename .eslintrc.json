@@ -10,7 +10,7 @@
           "error",
           {
             "enforceBuildableLibDependency": true,
-            "allow": ["@kin-kinetic/api-app-module"],
+            "allow": ["@kinny/kinetic-api-app-module"],
             "depConstraints": [
               {
                 "sourceTag": "*",

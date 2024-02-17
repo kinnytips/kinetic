@@ -10,11 +10,11 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { WebAppUiMintDisabledPanel, WebAppUiMintEnabledPanel } from '@kin-kinetic/web/app/ui'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { WebUiPageHeader } from '@kin-kinetic/web/ui/page'
+import { WebAppUiMintDisabledPanel, WebAppUiMintEnabledPanel } from '@kinny/kinetic-web/app/ui'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPageHeader } from '@kinny/kinetic-web/ui/page'
 import {
   App,
   AppEnv,
@@ -24,7 +24,7 @@ import {
   useUserAppEnvMintSetWalletMutation,
   useUserAppEnvQuery,
   useUserUpdateAppMintMutation,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { WebhookLabel } from './web-app-env-settings-webhooks'
 
 export function WebAppEnvSettingsMints({ app, env }: { app: App; env: AppEnv }) {

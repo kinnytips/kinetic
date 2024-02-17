@@ -1,4 +1,4 @@
-import { App } from '@kin-kinetic/api/app/data-access'
+import { App } from '@kinny/kinetic-api/app/data-access'
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 
 @Resolver(() => App)

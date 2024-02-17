@@ -9,9 +9,9 @@ import {
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react'
-import { Keypair } from '@kin-kinetic/keypair'
-import { useWebKeypair } from '@kin-kinetic/web/keypair/data-access'
-import { WebKeypairUiImport, WebKeypairUiItem } from '@kin-kinetic/web/keypair/ui'
+import { Keypair } from '@kinny/kinetic-keypair'
+import { useWebKeypair } from '@kinny/kinetic-web/keypair/data-access'
+import { WebKeypairUiImport, WebKeypairUiItem } from '@kinny/kinetic-web/keypair/ui'
 import { Button, ButtonGroup } from '@saas-ui/react'
 import { useState } from 'react'
 import { WebToolboxUiExplorerLink } from './web-toolbox-ui-explorer-link'

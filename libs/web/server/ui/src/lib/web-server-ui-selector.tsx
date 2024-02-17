@@ -1,6 +1,6 @@
 import { Tag } from '@chakra-ui/react'
-import { useWebServer } from '@kin-kinetic/web/server/data-access'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
+import { useWebServer } from '@kinny/kinetic-web/server/data-access'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
 import { List } from '@saas-ui/react'
 
 export function WebServerUiSelector() {

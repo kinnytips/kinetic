@@ -1,6 +1,6 @@
 import { Box, Stack } from '@chakra-ui/react'
-import { Keypair } from '@kin-kinetic/keypair'
-import { AppConfigMint, KineticSdk } from '@kin-kinetic/sdk'
+import { Keypair } from '@kinny/kinetic-keypair'
+import { AppConfigMint, KineticSdk } from '@kinny/kinetic-sdk'
 import { Button } from '@saas-ui/react'
 import { useEffect, useState } from 'react'
 import { WebToolboxUiAppConfig } from './web-toolbox-ui-app-config'

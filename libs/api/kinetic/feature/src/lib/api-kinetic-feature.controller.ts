@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common'
-import { ApiKineticService } from '@kin-kinetic/api/kinetic/data-access'
+import { ApiKineticService } from '@kinny/kinetic-api/kinetic/data-access'
 
 @Controller('kinetic')
 export class ApiKineticFeatureController {

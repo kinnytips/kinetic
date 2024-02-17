@@ -1,4 +1,4 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

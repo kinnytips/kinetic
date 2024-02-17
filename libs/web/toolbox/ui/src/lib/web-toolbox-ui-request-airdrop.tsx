@@ -1,7 +1,7 @@
 import { Box, useToast } from '@chakra-ui/react'
-import { Keypair } from '@kin-kinetic/keypair'
-import { AppConfigMint, KineticSdk, RequestAirdropResponse } from '@kin-kinetic/sdk'
-import { Commitment } from '@kin-kinetic/solana'
+import { Keypair } from '@kinny/kinetic-keypair'
+import { AppConfigMint, KineticSdk, RequestAirdropResponse } from '@kinny/kinetic-sdk'
+import { Commitment } from '@kinny/kinetic-solana'
 
 import { ButtonGroup, Field, Form, SubmitButton } from '@saas-ui/react'
 import { useState } from 'react'

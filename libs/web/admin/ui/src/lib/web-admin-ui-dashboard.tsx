@@ -1,6 +1,6 @@
 import { Heading, SimpleGrid, Stack, useColorModeValue } from '@chakra-ui/react'
-import { WebUiLinks } from '@kin-kinetic/web/ui/link'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
+import { WebUiLinks } from '@kinny/kinetic-web/ui/link'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
 import { Link } from 'react-router-dom'
 
 export function WebAdminUiDashboard({ links, title }: { links: WebUiLinks; title: string }) {

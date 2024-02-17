@@ -1,4 +1,4 @@
-import { WebToolboxProvider } from '@kin-kinetic/web/toolbox/data-access'
+import { WebToolboxProvider } from '@kinny/kinetic-web/toolbox/data-access'
 import { Route, Routes } from 'react-router-dom'
 import { WebToolboxIndexFeature } from './web-toolbox-index.feature'
 

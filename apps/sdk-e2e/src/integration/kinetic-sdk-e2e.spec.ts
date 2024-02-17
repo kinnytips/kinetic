@@ -1,4 +1,4 @@
-import { KineticSdk } from '@kin-kinetic/sdk'
+import { KineticSdk } from '@kinny/kinetic-sdk'
 import { DEFAULT_MINT } from './helpers'
 
 describe('KineticSdk (e2e)', () => {

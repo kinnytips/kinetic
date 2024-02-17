@@ -1,8 +1,8 @@
-import { useWebApps } from '@kin-kinetic/web/app/data-access'
-import { WebAppUiAppGrid } from '@kin-kinetic/web/app/ui'
-import { useWebAuth } from '@kin-kinetic/web/auth/data-access'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
+import { useWebApps } from '@kinny/kinetic-web/app/data-access'
+import { WebAppUiAppGrid } from '@kinny/kinetic-web/app/ui'
+import { useWebAuth } from '@kinny/kinetic-web/auth/data-access'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
 import { Button } from '@saas-ui/react'
 import { Link } from 'react-router-dom'
 

@@ -1,10 +1,16 @@
-import { ApiAppService } from '@kin-kinetic/api/app/data-access'
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
-import { createReference, getAppKey } from '@kin-kinetic/api/core/util'
-import { ApiKineticService, CloseAccountRequest } from '@kin-kinetic/api/kinetic/data-access'
-import { Transaction } from '@kin-kinetic/api/transaction/data-access'
-import { Keypair } from '@kin-kinetic/keypair'
-import { BalanceMint, BalanceSummary, Commitment, parseAndSignTransaction, PublicKeyString } from '@kin-kinetic/solana'
+import { ApiAppService } from '@kinny/kinetic-api/app/data-access'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
+import { createReference, getAppKey } from '@kinny/kinetic-api/core/util'
+import { ApiKineticService, CloseAccountRequest } from '@kinny/kinetic-api/kinetic/data-access'
+import { Transaction } from '@kinny/kinetic-api/transaction/data-access'
+import { Keypair } from '@kinny/kinetic-keypair'
+import {
+  BalanceMint,
+  BalanceSummary,
+  Commitment,
+  parseAndSignTransaction,
+  PublicKeyString,
+} from '@kinny/kinetic-solana'
 import { Injectable, OnModuleInit } from '@nestjs/common'
 import { Counter } from '@opentelemetry/api-metrics'
 import { Request } from 'express'

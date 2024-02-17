@@ -1,5 +1,5 @@
-import { ApiConfigDataAccessModule, ApiConfigService } from '@kin-kinetic/api/config/data-access'
-import { ApiCoreDataAccessModule } from '@kin-kinetic/api/core/data-access'
+import { ApiConfigDataAccessModule, ApiConfigService } from '@kinny/kinetic-api/config/data-access'
+import { ApiCoreDataAccessModule } from '@kinny/kinetic-api/core/data-access'
 import { BullModule } from '@nestjs/bull'
 import { Module } from '@nestjs/common'
 import { ApiQueueService } from './api-queue.service'

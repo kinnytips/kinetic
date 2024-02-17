@@ -1,12 +1,12 @@
-import { getAppKey } from '@kin-kinetic/api/core/util'
+import { getAppKey } from '@kinny/kinetic-api/core/util'
 import {
   GetTransactionResponse,
   LatestBlockhashResponse,
   MinimumRentExemptionBalanceRequest,
   MinimumRentExemptionBalanceResponse,
-} from '@kin-kinetic/api/kinetic/data-access'
-import { ApiTransactionService, MakeTransferRequest, Transaction } from '@kin-kinetic/api/transaction/data-access'
-import { Commitment } from '@kin-kinetic/solana'
+} from '@kinny/kinetic-api/kinetic/data-access'
+import { ApiTransactionService, MakeTransferRequest, Transaction } from '@kinny/kinetic-api/transaction/data-access'
+import { Commitment } from '@kinny/kinetic-solana'
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Req } from '@nestjs/common'
 import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { Request } from 'express'

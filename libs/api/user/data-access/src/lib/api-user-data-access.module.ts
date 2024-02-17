@@ -1,4 +1,4 @@
-import { ApiCoreDataAccessModule } from '@kin-kinetic/api/core/data-access'
+import { ApiCoreDataAccessModule } from '@kinny/kinetic-api/core/data-access'
 import { Module } from '@nestjs/common'
 import { ApiUserAdminService } from './api-user-admin.service'
 import { ApiUserUserService } from './api-user-user.service'

@@ -1,5 +1,5 @@
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
 import { WebUiLoader } from './web-ui-loader'
 
 export function WebUiLoaderPage({ title = 'Loading...' }: { title?: string }) {

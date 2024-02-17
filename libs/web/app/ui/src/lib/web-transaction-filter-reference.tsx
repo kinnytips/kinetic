@@ -1,5 +1,5 @@
 import { FormControl, Input } from '@chakra-ui/react'
-import { useWebTransaction } from '@kin-kinetic/web/app/data-access'
+import { useWebTransaction } from '@kinny/kinetic-web/app/data-access'
 import { useState } from 'react'
 import { MdTag } from 'react-icons/md'
 import { WebTransactionFilterPopover } from './web-transaction-filter-popover'

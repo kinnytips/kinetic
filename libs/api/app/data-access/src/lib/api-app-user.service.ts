@@ -1,5 +1,5 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
-import { UserRole } from '@kin-kinetic/api/user/data-access'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
+import { UserRole } from '@kinny/kinetic-api/user/data-access'
 import { BadRequestException, Injectable, Logger } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import slugify from 'slugify'
@@ -15,7 +15,10 @@ import { UserAppUserUpdateRoleInput } from './dto/user-app-user-update-role.inpu
 @Injectable()
 export class ApiAppUserService {
   private readonly logger = new Logger(ApiAppUserService.name)
-  constructor(private readonly app: ApiAppService, private readonly core: ApiCoreService) {}
+  constructor(
+    private readonly app: ApiAppService,
+    private readonly core: ApiCoreService,
+  ) {}
 
   async userApps(userId: string) {
     const user = await this.core.getUserById(userId)

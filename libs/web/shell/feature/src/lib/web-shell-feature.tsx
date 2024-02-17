@@ -1,8 +1,8 @@
-import { WebAuthProvider } from '@kin-kinetic/web/auth/data-access'
-import { WebConfigProvider } from '@kin-kinetic/web/shell/data-access'
-import { WebUiLayout } from '@kin-kinetic/web/ui/layout'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { GraphQLProvider } from '@kin-kinetic/web/util/sdk'
+import { WebAuthProvider } from '@kinny/kinetic-web/auth/data-access'
+import { WebConfigProvider } from '@kinny/kinetic-web/shell/data-access'
+import { WebUiLayout } from '@kinny/kinetic-web/ui/layout'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { GraphQLProvider } from '@kinny/kinetic-web/util/sdk'
 import { Suspense } from 'react'
 import { WebShellFeatureRoutes } from './web-shell-feature-routes'
 

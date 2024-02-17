@@ -1,8 +1,8 @@
-import { Airdrop } from '@kin-kinetic/api/airdrop/util'
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
-import { getAppKey } from '@kin-kinetic/api/core/util'
-import { ApiKineticService } from '@kin-kinetic/api/kinetic/data-access'
-import { Commitment } from '@kin-kinetic/solana'
+import { Airdrop } from '@kinny/kinetic-api/airdrop/util'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
+import { getAppKey } from '@kinny/kinetic-api/core/util'
+import { ApiKineticService } from '@kinny/kinetic-api/kinetic/data-access'
+import { Commitment } from '@kinny/kinetic-solana'
 import { BadRequestException, Injectable, Logger } from '@nestjs/common'
 import { RequestAirdropRequest } from './dto/request-airdrop-request.dto'
 import { RequestAirdropResponse } from './entity/request-airdrop-response.entity'
@@ -12,7 +12,10 @@ export class ApiAirdropService {
   private readonly airdrop = new Map<string, Airdrop>()
   private readonly logger = new Logger(ApiAirdropService.name)
 
-  constructor(private readonly core: ApiCoreService, private readonly kinetic: ApiKineticService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly kinetic: ApiKineticService,
+  ) {}
 
   async requestAirdrop(input: RequestAirdropRequest): Promise<RequestAirdropResponse> {
     const appKey = getAppKey(input.environment, input.index)

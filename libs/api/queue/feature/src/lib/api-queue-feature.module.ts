@@ -1,4 +1,4 @@
-import { ApiQueueDataAccessModule } from '@kin-kinetic/api/queue/data-access'
+import { ApiQueueDataAccessModule } from '@kinny/kinetic-api/queue/data-access'
 import { Module } from '@nestjs/common'
 import { ApiQueueAdminFeatureResolver } from './api-queue-admin-feature.resolver'
 

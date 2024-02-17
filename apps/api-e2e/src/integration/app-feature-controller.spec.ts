@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
-import { Keypair } from '@kin-kinetic/keypair'
+import { Keypair } from '@kinny/kinetic-keypair'
 import { getEndpoint, initializeE2eApp, postEndpoint } from '../helpers'
 
 describe('AppFeatureController (e2e)', () => {

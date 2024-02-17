@@ -1,9 +1,9 @@
 import { Box } from '@chakra-ui/react'
-import { WebAdminUiDashboard } from '@kin-kinetic/web/admin/ui'
-import { WebAppUiSettingsLayout } from '@kin-kinetic/web/app/ui'
-import { WebUiLinks } from '@kin-kinetic/web/ui/link'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
-import { useUptimeQuery } from '@kin-kinetic/web/util/sdk'
+import { WebAdminUiDashboard } from '@kinny/kinetic-web/admin/ui'
+import { WebAppUiSettingsLayout } from '@kinny/kinetic-web/app/ui'
+import { WebUiLinks } from '@kinny/kinetic-web/ui/link'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
+import { useUptimeQuery } from '@kinny/kinetic-web/util/sdk'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 export function WebDevFeature() {

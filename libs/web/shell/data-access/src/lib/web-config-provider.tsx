@@ -1,5 +1,5 @@
 import { useToast } from '@chakra-ui/react'
-import { useWebConfigQuery, WebConfig } from '@kin-kinetic/web/util/sdk'
+import { useWebConfigQuery, WebConfig } from '@kinny/kinetic-web/util/sdk'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 export interface WebConfigProviderContextProps {

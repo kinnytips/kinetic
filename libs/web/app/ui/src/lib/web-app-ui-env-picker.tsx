@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Stack, Text } from '@chakra-ui/react'
-import { App } from '@kin-kinetic/web/util/sdk'
+import { App } from '@kinny/kinetic-web/util/sdk'
 import { Link } from 'react-router-dom'
 import { WebAppUiEnvDropdown } from './web-app-ui-env-dropdown'
 

@@ -1,7 +1,7 @@
 import { Avatar, Flex, Text } from '@chakra-ui/react'
-import { WebUiAddress } from '@kin-kinetic/web/ui/address'
-import { WebUiIdenticon } from '@kin-kinetic/web/ui/identicon'
-import { Mint } from '@kin-kinetic/web/util/sdk'
+import { WebUiAddress } from '@kinny/kinetic-web/ui/address'
+import { WebUiIdenticon } from '@kinny/kinetic-web/ui/identicon'
+import { Mint } from '@kinny/kinetic-web/util/sdk'
 
 export function WebClusterUiMintDetails({ mint }: { mint: Mint }) {
   return (

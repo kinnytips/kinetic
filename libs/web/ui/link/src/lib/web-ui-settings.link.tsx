@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react'
-import { WebUiTooltip } from '@kin-kinetic/web/ui/tooltip'
+import { WebUiTooltip } from '@kinny/kinetic-web/ui/tooltip'
 import { MdSettings } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 

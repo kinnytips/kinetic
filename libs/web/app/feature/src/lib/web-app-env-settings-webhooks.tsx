@@ -20,11 +20,11 @@ import {
   WebWebhookUiDebuggingForm,
   WebWebhookUiEventForm,
   WebWebhookUiVerifyForm,
-} from '@kin-kinetic/web/app/ui'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiPageHeader } from '@kin-kinetic/web/ui/page'
-import { App, AppEnv, UserAppEnvUpdateInput, useUserUpdateAppEnvMutation } from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/app/ui'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiPageHeader } from '@kinny/kinetic-web/ui/page'
+import { App, AppEnv, UserAppEnvUpdateInput, useUserUpdateAppEnvMutation } from '@kinny/kinetic-web/util/sdk'
 import { ReactNode } from 'react'
 import { GoPrimitiveDot } from 'react-icons/go'
 

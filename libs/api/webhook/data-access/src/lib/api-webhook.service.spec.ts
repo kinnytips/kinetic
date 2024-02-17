@@ -1,4 +1,4 @@
-import { ApiCoreDataAccessModule } from '@kin-kinetic/api/core/data-access'
+import { ApiCoreDataAccessModule } from '@kinny/kinetic-api/core/data-access'
 import { HttpModule } from '@nestjs/axios'
 import { Test } from '@nestjs/testing'
 import { ApiWebhookService } from './api-webhook.service'

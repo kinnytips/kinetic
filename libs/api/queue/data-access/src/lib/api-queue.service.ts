@@ -1,5 +1,5 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
-import { getAppKey } from '@kin-kinetic/api/core/util'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
+import { getAppKey } from '@kinny/kinetic-api/core/util'
 import { Injectable, Logger, NotFoundException } from '@nestjs/common'
 import { AdminQueueLoadInput } from './dto/admin-queue-load.input'
 import { JobStatus, JobStatusClean } from './entity/job-status.enum'
@@ -11,7 +11,10 @@ import { ApiQueueCloseAccountService } from './queue/close-account/api-queue-clo
 @Injectable()
 export class ApiQueueService {
   private readonly logger = new Logger(ApiQueueService.name)
-  constructor(private readonly core: ApiCoreService, private readonly accountQueue: ApiQueueCloseAccountService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly accountQueue: ApiQueueCloseAccountService,
+  ) {}
 
   async adminQueues(): Promise<Queue[]> {
     const queues = [this.accountQueue]

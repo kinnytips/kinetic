@@ -1,9 +1,9 @@
-import { ApiCoreService, AppEnvironment } from '@kin-kinetic/api/core/data-access'
-import { createReference, ellipsify, parseAppKey } from '@kin-kinetic/api/core/util'
-import { parseTransactionError } from '@kin-kinetic/api/kinetic/util'
-import { ApiSolanaService } from '@kin-kinetic/api/solana/data-access'
-import { ApiWebhookService, WebhookType } from '@kin-kinetic/api/webhook/data-access'
-import { Keypair } from '@kin-kinetic/keypair'
+import { ApiCoreService, AppEnvironment } from '@kinny/kinetic-api/core/data-access'
+import { createReference, ellipsify, parseAppKey } from '@kinny/kinetic-api/core/util'
+import { parseTransactionError } from '@kinny/kinetic-api/kinetic/util'
+import { ApiSolanaService } from '@kinny/kinetic-api/solana/data-access'
+import { ApiWebhookService, WebhookType } from '@kinny/kinetic-api/webhook/data-access'
+import { Keypair } from '@kinny/kinetic-keypair'
 import {
   BalanceMint,
   Commitment,
@@ -12,7 +12,7 @@ import {
   PublicKeyString,
   removeDecimals,
   Solana,
-} from '@kin-kinetic/solana'
+} from '@kinny/kinetic-solana'
 import {
   BadRequestException,
   Injectable,

@@ -1,4 +1,4 @@
-import { ClusterType } from '@kin-kinetic/api/cluster/data-access'
+import { ClusterType } from '@kinny/kinetic-api/cluster/data-access'
 import { ApiProperty } from '@nestjs/swagger'
 
 export class AppConfigCluster {

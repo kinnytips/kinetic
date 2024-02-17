@@ -16,7 +16,7 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react'
-import { useWebAuth } from '@kin-kinetic/web/auth/data-access'
+import { useWebAuth } from '@kinny/kinetic-web/auth/data-access'
 import { Link as RouterLink, NavLink } from 'react-router-dom'
 import { WebUiLayoutHeaderApps } from './web-ui-layout-header-apps'
 import { WebUiLayoutThemeToggle } from './web-ui-layout-theme-toggle'

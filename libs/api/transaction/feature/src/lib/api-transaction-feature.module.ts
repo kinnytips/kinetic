@@ -1,4 +1,4 @@
-import { ApiTransactionDataAccessModule } from '@kin-kinetic/api/transaction/data-access'
+import { ApiTransactionDataAccessModule } from '@kinny/kinetic-api/transaction/data-access'
 import { Module } from '@nestjs/common'
 import { ApiTransactionFeatureController } from './api-transaction-feature.controller'
 import { ApiTransactionFeatureResolver } from './api-transaction-feature.resolver'

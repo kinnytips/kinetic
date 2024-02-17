@@ -1,4 +1,4 @@
-import { ApiConfigDataAccessModule } from '@kin-kinetic/api/config/data-access'
+import { ApiConfigDataAccessModule } from '@kinny/kinetic-api/config/data-access'
 import { Test } from '@nestjs/testing'
 import { OpenTelemetryCoreModule } from 'nestjs-otel/lib/opentelemetry-core.module'
 import { ApiCoreService } from './api-core.service'

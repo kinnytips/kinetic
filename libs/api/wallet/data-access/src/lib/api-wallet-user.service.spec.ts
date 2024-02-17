@@ -1,6 +1,6 @@
-import { ApiCoreDataAccessModule } from '@kin-kinetic/api/core/data-access'
-import { ApiKineticDataAccessModule } from '@kin-kinetic/api/kinetic/data-access'
-import { ApiWebhookDataAccessModule } from '@kin-kinetic/api/webhook/data-access'
+import { ApiCoreDataAccessModule } from '@kinny/kinetic-api/core/data-access'
+import { ApiKineticDataAccessModule } from '@kinny/kinetic-api/kinetic/data-access'
+import { ApiWebhookDataAccessModule } from '@kinny/kinetic-api/webhook/data-access'
 import { Test } from '@nestjs/testing'
 import { ApiWalletUserService } from './api-wallet-user.service'
 

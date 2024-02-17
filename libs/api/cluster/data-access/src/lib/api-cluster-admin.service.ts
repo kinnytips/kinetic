@@ -1,7 +1,7 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
-import { getAppKey } from '@kin-kinetic/api/core/util'
-import { ApiKineticService } from '@kin-kinetic/api/kinetic/data-access'
-import { Keypair } from '@kin-kinetic/keypair'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
+import { getAppKey } from '@kinny/kinetic-api/core/util'
+import { ApiKineticService } from '@kinny/kinetic-api/kinetic/data-access'
+import { Keypair } from '@kinny/kinetic-keypair'
 import { BadRequestException, Injectable, Logger } from '@nestjs/common'
 import { MintType, Prisma } from '@prisma/client'
 import { AdminClusterCreateInput } from './dto/admin-cluster-create.input'
@@ -12,7 +12,10 @@ import { ClusterStatus } from './entity/cluster-status.enum'
 @Injectable()
 export class ApiClusterAdminService {
   private readonly logger = new Logger(ApiClusterAdminService.name)
-  constructor(private readonly core: ApiCoreService, private readonly kinetic: ApiKineticService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly kinetic: ApiKineticService,
+  ) {}
 
   async adminCreateCluster(userId: string, data: AdminClusterCreateInput) {
     await this.core.ensureAdminUser(userId)

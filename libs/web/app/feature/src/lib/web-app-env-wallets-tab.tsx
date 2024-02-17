@@ -1,10 +1,10 @@
 import { Alert, Avatar, Badge, Box, Code, Flex, SimpleGrid, Stack, Text, useToast } from '@chakra-ui/react'
-import { KineticSdk, RequestAirdropResponse } from '@kin-kinetic/sdk'
-import { Commitment } from '@kin-kinetic/solana'
-import { WebAppUiWallet } from '@kin-kinetic/web/app/ui'
-import { WebToolboxUiCard } from '@kin-kinetic/web/toolbox/ui'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
+import { KineticSdk, RequestAirdropResponse } from '@kinny/kinetic-sdk'
+import { Commitment } from '@kinny/kinetic-solana'
+import { WebAppUiWallet } from '@kinny/kinetic-web/app/ui'
+import { WebToolboxUiCard } from '@kinny/kinetic-web/toolbox/ui'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
 import {
   App,
   AppEnv,
@@ -13,7 +13,7 @@ import {
   useUserImportWalletMutation,
   useUserWalletsQuery,
   Wallet,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { Button, ButtonGroup, Field, Form, SubmitButton } from '@saas-ui/react'
 import { useEffect, useState } from 'react'
 

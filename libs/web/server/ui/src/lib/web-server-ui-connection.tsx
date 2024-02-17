@@ -1,6 +1,6 @@
 import { Box, Code, HStack, Progress, Stack, Tag, TagLabel, TagLeftIcon } from '@chakra-ui/react'
-import { WebServerEntity } from '@kin-kinetic/web/server/data-access'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
+import { WebServerEntity } from '@kinny/kinetic-web/server/data-access'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
 import { useEffect, useState } from 'react'
 import { GoPrimitiveDot } from 'react-icons/go'
 

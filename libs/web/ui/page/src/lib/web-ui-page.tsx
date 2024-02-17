@@ -1,5 +1,5 @@
 import { Stack } from '@chakra-ui/react'
-import { WebUiContainer } from '@kin-kinetic/web/ui/container'
+import { WebUiContainer } from '@kinny/kinetic-web/ui/container'
 import { ReactNode } from 'react'
 import { WebUiPageHeader, WebUiPageHeaderProps } from './web-ui-page-header'
 

@@ -1,10 +1,10 @@
-import { ApiAuthGraphqlGuard, CtxUser } from '@kin-kinetic/api/auth/data-access'
+import { ApiAuthGraphqlGuard, CtxUser } from '@kinny/kinetic-api/auth/data-access'
 import {
   ApiUserAdminService,
   User,
   AdminUserCreateInput,
   AdminUserUpdateInput,
-} from '@kin-kinetic/api/user/data-access'
+} from '@kinny/kinetic-api/user/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 

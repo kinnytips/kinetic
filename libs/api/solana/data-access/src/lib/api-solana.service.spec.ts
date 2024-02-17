@@ -1,4 +1,4 @@
-import { ApiCoreDataAccessModule } from '@kin-kinetic/api/core/data-access'
+import { ApiCoreDataAccessModule } from '@kinny/kinetic-api/core/data-access'
 import { Test } from '@nestjs/testing'
 import { ApiSolanaService } from './api-solana.service'
 

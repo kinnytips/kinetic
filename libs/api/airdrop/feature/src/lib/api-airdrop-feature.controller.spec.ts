@@ -1,4 +1,4 @@
-import { ApiAirdropDataAccessModule } from '@kin-kinetic/api/airdrop/data-access'
+import { ApiAirdropDataAccessModule } from '@kinny/kinetic-api/airdrop/data-access'
 import { Test } from '@nestjs/testing'
 import { ApiAirdropFeatureController } from './api-airdrop-feature.controller'
 

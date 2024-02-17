@@ -1,6 +1,6 @@
 import { Badge, Box, useToast } from '@chakra-ui/react'
-import { Keypair } from '@kin-kinetic/keypair'
-import { AccountInfo, KineticSdk } from '@kin-kinetic/sdk'
+import { Keypair } from '@kinny/kinetic-keypair'
+import { AccountInfo, KineticSdk } from '@kinny/kinetic-sdk'
 import { ButtonGroup, Field, Form, SubmitButton } from '@saas-ui/react'
 import { useEffect, useState } from 'react'
 import { WebToolboxUiCard } from './web-toolbox-ui-card'

@@ -1,5 +1,5 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
-import { Solana, SolanaLogger } from '@kin-kinetic/solana'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
+import { Solana, SolanaLogger } from '@kinny/kinetic-solana'
 import { Injectable, Logger } from '@nestjs/common'
 
 @Injectable()

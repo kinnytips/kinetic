@@ -1,7 +1,7 @@
-import { AppEnv, AppMint } from '@kin-kinetic/api/app/data-access'
-import { ApiAuthGraphqlGuard, CtxUser } from '@kin-kinetic/api/auth/data-access'
-import { User } from '@kin-kinetic/api/user/data-access'
-import { ApiWalletAdminService, Wallet } from '@kin-kinetic/api/wallet/data-access'
+import { AppEnv, AppMint } from '@kinny/kinetic-api/app/data-access'
+import { ApiAuthGraphqlGuard, CtxUser } from '@kinny/kinetic-api/auth/data-access'
+import { User } from '@kinny/kinetic-api/user/data-access'
+import { ApiWalletAdminService, Wallet } from '@kinny/kinetic-api/wallet/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 

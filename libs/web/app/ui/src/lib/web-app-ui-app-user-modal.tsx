@@ -16,7 +16,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
 
 import {
   AppUser,
@@ -24,7 +24,7 @@ import {
   UserAppUserAddInput,
   UserAppUserUpdateRoleInput,
   useUserSearchUsersQuery,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { FieldValues } from '@saas-ui/forms'
 import { Field, Form, List, SubmitHandler } from '@saas-ui/react'
 import React, { FocusEvent, useState } from 'react'

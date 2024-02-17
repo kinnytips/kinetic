@@ -1,6 +1,6 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
-import { UserRole } from '@kin-kinetic/api/user/data-access'
-import { Keypair } from '@kin-kinetic/keypair'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
+import { UserRole } from '@kinny/kinetic-api/user/data-access'
+import { Keypair } from '@kinny/kinetic-keypair'
 import { BadRequestException, Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import slugify from 'slugify'
@@ -13,7 +13,10 @@ import { AppUserRole } from './entity/app-user-role.enum'
 export class ApiAppAdminService implements OnModuleInit {
   private readonly logger = new Logger(ApiAppAdminService.name)
 
-  constructor(private readonly app: ApiAppService, private readonly core: ApiCoreService) {}
+  constructor(
+    private readonly app: ApiAppService,
+    private readonly core: ApiCoreService,
+  ) {}
 
   async onModuleInit() {
     await this.configureProvisionedApps()

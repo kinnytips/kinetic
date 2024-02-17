@@ -1,4 +1,4 @@
-import { getPublicKey } from '@kin-kinetic/solana'
+import { getPublicKey } from '@kinny/kinetic-solana'
 import { getAssociatedTokenAddress } from '@solana/spl-token'
 
 export async function getTokenAddress({ account, mint }: { account: string; mint: string }): Promise<string> {

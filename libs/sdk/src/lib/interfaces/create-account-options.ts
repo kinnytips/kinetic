@@ -1,4 +1,4 @@
-import { Keypair } from '@kin-kinetic/keypair'
+import { Keypair } from '@kinny/kinetic-keypair'
 import { Commitment } from '../../generated'
 
 export interface CreateAccountOptions {

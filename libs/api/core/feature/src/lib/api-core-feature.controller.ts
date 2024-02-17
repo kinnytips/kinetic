@@ -1,5 +1,5 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
-import { OpenTelemetrySdk } from '@kin-kinetic/api/core/util'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
+import { OpenTelemetrySdk } from '@kinny/kinetic-api/core/util'
 import { Controller, Get, NotFoundException, Response } from '@nestjs/common'
 import { ApiExcludeEndpoint } from '@nestjs/swagger'
 

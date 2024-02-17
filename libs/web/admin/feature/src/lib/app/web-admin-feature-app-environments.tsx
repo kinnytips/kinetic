@@ -1,7 +1,7 @@
 import { Flex, Tag } from '@chakra-ui/react'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { AppEnv, AppMint } from '@kin-kinetic/web/util/sdk'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { AppEnv, AppMint } from '@kinny/kinetic-web/util/sdk'
 import { IconButton, List } from '@saas-ui/react'
 import { MdDelete } from 'react-icons/md'
 

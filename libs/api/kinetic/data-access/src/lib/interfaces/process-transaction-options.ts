@@ -1,4 +1,4 @@
-import { Commitment } from '@kin-kinetic/solana'
+import { Commitment } from '@kinny/kinetic-solana'
 import { App, AppEnv } from '@prisma/client'
 import { Transaction as SolanaTransaction } from '@solana/web3.js'
 

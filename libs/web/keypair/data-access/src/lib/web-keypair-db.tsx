@@ -1,5 +1,5 @@
-import { Keypair } from '@kin-kinetic/keypair'
-import { ellipsify } from '@kin-kinetic/web/app/ui'
+import { Keypair } from '@kinny/kinetic-keypair'
+import { ellipsify } from '@kinny/kinetic-web/app/ui'
 import { Dexie, Table } from 'dexie'
 import { WebKeypairEntity } from './web-keypair.entity'
 

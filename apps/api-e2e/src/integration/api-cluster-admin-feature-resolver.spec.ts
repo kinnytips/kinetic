@@ -1,4 +1,4 @@
-import { Keypair } from '@kin-kinetic/keypair'
+import { Keypair } from '@kinny/kinetic-keypair'
 import { INestApplication } from '@nestjs/common'
 import { Response } from 'supertest'
 import { AdminClusters, AdminCreateApp, AdminMintCreate, AdminMintCreateInput } from '../generated/api-sdk'

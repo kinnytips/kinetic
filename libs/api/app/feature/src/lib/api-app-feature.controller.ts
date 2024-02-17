@@ -1,5 +1,5 @@
-import { ApiAppService, AppConfig, AppHealth } from '@kin-kinetic/api/app/data-access'
-import { getAppKey } from '@kin-kinetic/api/core/util'
+import { ApiAppService, AppConfig, AppHealth } from '@kinny/kinetic-api/app/data-access'
+import { getAppKey } from '@kinny/kinetic-api/core/util'
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common'
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger'
 

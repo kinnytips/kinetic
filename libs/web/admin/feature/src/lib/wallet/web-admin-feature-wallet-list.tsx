@@ -1,8 +1,8 @@
-import { WebAdminUiWalletTable } from '@kin-kinetic/web/admin/ui'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
-import { useAdminWalletsQuery } from '@kin-kinetic/web/util/sdk'
+import { WebAdminUiWalletTable } from '@kinny/kinetic-web/admin/ui'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
+import { useAdminWalletsQuery } from '@kinny/kinetic-web/util/sdk'
 
 export function WebAdminFeatureWalletList() {
   const [{ data, fetching }] = useAdminWalletsQuery()

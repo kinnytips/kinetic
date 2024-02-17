@@ -1,5 +1,5 @@
 import { IconButton, Menu, MenuButton, MenuItem, MenuList, useDisclosure, useToast } from '@chakra-ui/react'
-import { WebServerEntity } from '@kin-kinetic/web/server/data-access'
+import { WebServerEntity } from '@kinny/kinetic-web/server/data-access'
 import { BiDotsVertical } from 'react-icons/bi'
 import { MdDelete, MdSelectAll, MdSettings } from 'react-icons/md'
 import { WebServerUiSettingsForm } from './web-server-ui-settings.form'

@@ -1,4 +1,4 @@
-import { WebAppsProvider } from '@kin-kinetic/web/app/data-access'
+import { WebAppsProvider } from '@kinny/kinetic-web/app/data-access'
 import { Route, Routes } from 'react-router-dom'
 import { WebAppCreate } from './web-app-create'
 import { WebAppDetail } from './web-app-detail'

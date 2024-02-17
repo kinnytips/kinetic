@@ -4,7 +4,7 @@ import {
   ApiAuthGithubGuard,
   ApiAuthGoogleGuard,
   AuthRequest,
-} from '@kin-kinetic/api/auth/data-access'
+} from '@kinny/kinetic-api/auth/data-access'
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common'
 import { ApiExcludeEndpoint } from '@nestjs/swagger'
 import { Response } from 'express'

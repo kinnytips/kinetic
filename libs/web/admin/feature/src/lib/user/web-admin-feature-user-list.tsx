@@ -1,9 +1,9 @@
 import { Button } from '@chakra-ui/react'
-import { WebAdminUiUserTable } from '@kin-kinetic/web/admin/ui'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
-import { useAdminUsersQuery } from '@kin-kinetic/web/util/sdk'
+import { WebAdminUiUserTable } from '@kinny/kinetic-web/admin/ui'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
+import { useAdminUsersQuery } from '@kinny/kinetic-web/util/sdk'
 import { Link } from 'react-router-dom'
 
 export function WebAdminFeatureUserList() {

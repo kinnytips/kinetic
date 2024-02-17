@@ -1,5 +1,5 @@
 import { Alert, Box, Flex, SimpleGrid, Stack, useToast } from '@chakra-ui/react'
-import { Mint } from '@kin-kinetic/web/util/sdk'
+import { Mint } from '@kinny/kinetic-web/util/sdk'
 import { Button } from '@saas-ui/react'
 import { WebAdminUiMintDetails } from './web-admin-ui-mint-details'
 

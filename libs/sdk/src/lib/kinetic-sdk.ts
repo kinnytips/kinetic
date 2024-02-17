@@ -1,4 +1,4 @@
-import { Solana } from '@kin-kinetic/solana'
+import { Solana } from '@kinny/kinetic-solana'
 import {
   AccountInfo,
   AppConfig,

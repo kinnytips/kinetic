@@ -1,5 +1,5 @@
-import { hashPassword } from '@kin-kinetic/api/auth/util'
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
+import { hashPassword } from '@kinny/kinetic-api/auth/util'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { AdminUserCreateInput } from './dto/admin-user-create.input'
 import { AdminUserUpdateInput } from './dto/admin-user-update.input'

@@ -1,4 +1,4 @@
-import { ApiAuthGraphqlGuard, CtxUser } from '@kin-kinetic/api/auth/data-access'
+import { ApiAuthGraphqlGuard, CtxUser } from '@kinny/kinetic-api/auth/data-access'
 import {
   AdminClusterCreateInput,
   AdminClusterUpdateInput,
@@ -6,8 +6,8 @@ import {
   ApiClusterAdminService,
   Cluster,
   Mint,
-} from '@kin-kinetic/api/cluster/data-access'
-import { User } from '@kin-kinetic/api/user/data-access'
+} from '@kinny/kinetic-api/cluster/data-access'
+import { User } from '@kinny/kinetic-api/user/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 

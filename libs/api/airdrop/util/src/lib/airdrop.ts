@@ -1,4 +1,4 @@
-import { Commitment, convertCommitment, getPublicKey, PublicKeyString } from '@kin-kinetic/solana'
+import { Commitment, convertCommitment, getPublicKey, PublicKeyString } from '@kinny/kinetic-solana'
 import { BadRequestException } from '@nestjs/common'
 import { createAssociatedTokenAccount, transferChecked } from '@solana/spl-token'
 import { Connection, Keypair, PublicKey } from '@solana/web3.js'

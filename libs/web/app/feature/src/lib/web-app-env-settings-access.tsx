@@ -11,9 +11,9 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { WebAppUiAppEnvAccessForm } from '@kin-kinetic/web/app/ui'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiPageHeader } from '@kin-kinetic/web/ui/page'
+import { WebAppUiAppEnvAccessForm } from '@kinny/kinetic-web/app/ui'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiPageHeader } from '@kinny/kinetic-web/ui/page'
 import {
   App,
   AppEnv,
@@ -25,7 +25,7 @@ import {
   useUserAppEnvRemoveAllowedUaMutation,
   useUserAppEnvRemoveBlockedIpMutation,
   useUserAppEnvRemoveBlockedUaMutation,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { WebhookLabel } from './web-app-env-settings-webhooks'
 
 export function WebAppEnvSettingsAccess({ env }: { app: App; env: AppEnv }) {

@@ -1,5 +1,5 @@
-import { Mint } from '@kin-kinetic/api/cluster/data-access'
-import { Keypair } from '@kin-kinetic/keypair'
+import { Mint } from '@kinny/kinetic-api/cluster/data-access'
+import { Keypair } from '@kinny/kinetic-keypair'
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 
 @Resolver(() => Mint)

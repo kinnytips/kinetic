@@ -1,4 +1,4 @@
-import { useWebAuth } from '@kin-kinetic/web/auth/data-access'
+import { useWebAuth } from '@kinny/kinetic-web/auth/data-access'
 
 import { Field, FieldErrors, Form, FormLayout, FormProps, SubmitHandler } from '@saas-ui/forms'
 import { Button } from '@saas-ui/react'

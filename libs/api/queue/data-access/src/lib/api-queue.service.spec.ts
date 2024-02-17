@@ -1,4 +1,4 @@
-import { ApiCoreDataAccessModule } from '@kin-kinetic/api/core/data-access'
+import { ApiCoreDataAccessModule } from '@kinny/kinetic-api/core/data-access'
 import { Test } from '@nestjs/testing'
 import { ApiQueueService } from './api-queue.service'
 import { ApiQueueCloseAccountModule } from './queue/close-account/api-queue-close-account.module'

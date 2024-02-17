@@ -1,6 +1,6 @@
-import { ApiCoreDataAccessModule } from '@kin-kinetic/api/core/data-access'
-import { ApiSolanaDataAccessModule } from '@kin-kinetic/api/solana/data-access'
-import { ApiWebhookDataAccessModule } from '@kin-kinetic/api/webhook/data-access'
+import { ApiCoreDataAccessModule } from '@kinny/kinetic-api/core/data-access'
+import { ApiSolanaDataAccessModule } from '@kinny/kinetic-api/solana/data-access'
+import { ApiWebhookDataAccessModule } from '@kinny/kinetic-api/webhook/data-access'
 import { Test } from '@nestjs/testing'
 import { ApiKineticService } from './api-kinetic.service'
 

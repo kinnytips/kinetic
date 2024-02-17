@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * @kin-kinetic/api
+ * @kinny/kinetic-api
  * The OpenAPI definition of the Kinetic API
  *
  * The version of the OpenAPI document: 1.0.0-rc.18

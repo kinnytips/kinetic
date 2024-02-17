@@ -1,9 +1,9 @@
 import { Button, useToast } from '@chakra-ui/react'
-import { WebAdminUiClusterTable } from '@kin-kinetic/web/admin/ui'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
-import { useAdminClustersQuery, useAdminDeleteClusterMutation } from '@kin-kinetic/web/util/sdk'
+import { WebAdminUiClusterTable } from '@kinny/kinetic-web/admin/ui'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
+import { useAdminClustersQuery, useAdminDeleteClusterMutation } from '@kinny/kinetic-web/util/sdk'
 import { Link } from 'react-router-dom'
 
 export function WebAdminFeatureClusterList() {

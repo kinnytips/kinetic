@@ -1,4 +1,4 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { Request } from 'express'

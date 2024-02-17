@@ -1,5 +1,5 @@
-import { ApiTransactionDataAccessModule } from '@kin-kinetic/api/transaction/data-access'
-import { ApiWalletDataAccessModule } from '@kin-kinetic/api/wallet/data-access'
+import { ApiTransactionDataAccessModule } from '@kinny/kinetic-api/transaction/data-access'
+import { ApiWalletDataAccessModule } from '@kinny/kinetic-api/wallet/data-access'
 import { Test } from '@nestjs/testing'
 import { ApiCronService } from './api-cron.service'
 

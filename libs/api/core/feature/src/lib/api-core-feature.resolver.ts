@@ -1,7 +1,7 @@
-import { ApiAuthGraphqlGuard, CtxUser } from '@kin-kinetic/api/auth/data-access'
-import { WebConfig } from '@kin-kinetic/api/config/data-access'
-import { ApiCoreService, Migration, MigrationStatus } from '@kin-kinetic/api/core/data-access'
-import { User } from '@kin-kinetic/api/user/data-access'
+import { ApiAuthGraphqlGuard, CtxUser } from '@kinny/kinetic-api/auth/data-access'
+import { WebConfig } from '@kinny/kinetic-api/config/data-access'
+import { ApiCoreService, Migration, MigrationStatus } from '@kinny/kinetic-api/core/data-access'
+import { User } from '@kinny/kinetic-api/user/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Float, Mutation, Query, Resolver } from '@nestjs/graphql'
 

@@ -1,4 +1,4 @@
-import { BalanceMintMap } from '@kin-kinetic/solana'
+import { BalanceMintMap } from '@kinny/kinetic-solana'
 import { ApiProperty } from '@nestjs/swagger'
 import { BalanceToken } from './balance-token.entity'
 

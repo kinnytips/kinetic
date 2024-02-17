@@ -1,6 +1,6 @@
 import { Stack, Tag } from '@chakra-ui/react'
-import { WebUiDataTable, WebUiDataTableLink } from '@kin-kinetic/web/ui/table'
-import { Cluster } from '@kin-kinetic/web/util/sdk'
+import { WebUiDataTable, WebUiDataTableLink } from '@kinny/kinetic-web/ui/table'
+import { Cluster } from '@kinny/kinetic-web/util/sdk'
 import { Button } from '@saas-ui/react'
 import { Link } from 'react-router-dom'
 import { CellProps } from 'react-table'

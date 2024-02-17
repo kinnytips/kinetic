@@ -1,4 +1,4 @@
-import { AppEnv } from '@kin-kinetic/api/app/data-access'
+import { AppEnv } from '@kinny/kinetic-api/app/data-access'
 import { Field, HideField, Int, ObjectType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { GraphQLJSON } from 'graphql-scalars'

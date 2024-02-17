@@ -17,7 +17,7 @@ describe('ConfigFeatureController (e2e)', () => {
       .expect(200)
       .then((res) => {
         expect(res.body.environment).toEqual('test')
-        expect(res.body.name).toContain('@kin-kinetic/api')
+        expect(res.body.name).toContain('@kinny/kinetic-api')
         expect(res.body.version).toBeDefined()
       })
   })

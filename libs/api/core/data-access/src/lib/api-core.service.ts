@@ -1,10 +1,10 @@
-import { AirdropConfig } from '@kin-kinetic/api/airdrop/util'
-import { hashPassword } from '@kin-kinetic/api/auth/util'
-import { ProvisionedCluster } from '@kin-kinetic/api/cluster/util'
-import { ApiConfigService } from '@kin-kinetic/api/config/data-access'
-import { parseAppKey } from '@kin-kinetic/api/core/util'
-import { Keypair } from '@kin-kinetic/keypair'
-import { getPublicKey } from '@kin-kinetic/solana'
+import { AirdropConfig } from '@kinny/kinetic-api/airdrop/util'
+import { hashPassword } from '@kinny/kinetic-api/auth/util'
+import { ProvisionedCluster } from '@kinny/kinetic-api/cluster/util'
+import { ApiConfigService } from '@kinny/kinetic-api/config/data-access'
+import { parseAppKey } from '@kinny/kinetic-api/core/util'
+import { Keypair } from '@kinny/kinetic-keypair'
+import { getPublicKey } from '@kinny/kinetic-solana'
 import { Injectable, Logger, NotFoundException, OnModuleInit, UnauthorizedException } from '@nestjs/common'
 import { Counter } from '@opentelemetry/api-metrics'
 import {
@@ -41,7 +41,11 @@ export class ApiCoreService extends PrismaClient implements OnModuleInit {
   private getAppByEnvironmentIndexCounter: Counter
   private getAppByIndexCounter: Counter
 
-  constructor(readonly cache: ApiCoreCacheService, readonly config: ApiConfigService, readonly metrics: MetricService) {
+  constructor(
+    readonly cache: ApiCoreCacheService,
+    readonly config: ApiConfigService,
+    readonly metrics: MetricService,
+  ) {
     super()
   }
 

@@ -1,5 +1,5 @@
 import { Progress } from '@chakra-ui/react'
-import { KineticSdk } from '@kin-kinetic/sdk'
+import { KineticSdk } from '@kinny/kinetic-sdk'
 import { useEffect, useState } from 'react'
 
 export function WebToolboxUiTransactionProgress({

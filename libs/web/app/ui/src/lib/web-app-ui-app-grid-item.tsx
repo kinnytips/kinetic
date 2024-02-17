@@ -1,5 +1,5 @@
 import { Divider, Stack } from '@chakra-ui/react'
-import { App } from '@kin-kinetic/web/util/sdk'
+import { App } from '@kinny/kinetic-web/util/sdk'
 import { WebAppUiAppHeader } from './web-app-ui-app-header'
 import { WebAppUiEnvPicker } from './web-app-ui-env-picker'
 

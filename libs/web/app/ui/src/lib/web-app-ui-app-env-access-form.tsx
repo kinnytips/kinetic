@@ -1,5 +1,5 @@
 import { Box, Input, Stack, Text } from '@chakra-ui/react'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
 import { Button, ButtonGroup } from '@saas-ui/react'
 import { ChangeEvent, useState } from 'react'
 

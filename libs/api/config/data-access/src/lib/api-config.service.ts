@@ -1,4 +1,4 @@
-import { getProvisionedClusters, ProvisionedCluster } from '@kin-kinetic/api/cluster/util'
+import { getProvisionedClusters, ProvisionedCluster } from '@kinny/kinetic-api/cluster/util'
 import { ApolloDriverConfig } from '@nestjs/apollo'
 import { INestApplication, Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'

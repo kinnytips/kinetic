@@ -1,5 +1,5 @@
-import { addDecimals, removeDecimals } from '@kin-kinetic/solana'
-export { addDecimals, removeDecimals } from '@kin-kinetic/solana'
+import { addDecimals, removeDecimals } from '@kinny/kinetic-solana'
+export { addDecimals, removeDecimals } from '@kinny/kinetic-solana'
 import BigNumber from 'bignumber.js'
 
 export function quarksToKin(amount: string): string {

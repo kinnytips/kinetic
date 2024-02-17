@@ -1,8 +1,8 @@
 import { HStack } from '@chakra-ui/react'
-import { WebUiAppAvatar } from '@kin-kinetic/web/ui/app-avatar'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiDataTable, WebUiDataTableLink } from '@kin-kinetic/web/ui/table'
-import { User } from '@kin-kinetic/web/util/sdk'
+import { WebUiAppAvatar } from '@kinny/kinetic-web/ui/app-avatar'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiDataTable, WebUiDataTableLink } from '@kinny/kinetic-web/ui/table'
+import { User } from '@kinny/kinetic-web/util/sdk'
 import { CellProps } from 'react-table'
 
 export function WebAdminUiUserTable({ users }: { users: User[] }) {

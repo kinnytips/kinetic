@@ -5,7 +5,7 @@ import {
   PublicKeyString,
   serializeTransaction,
   TransactionType,
-} from '@kin-kinetic/solana'
+} from '@kinny/kinetic-solana'
 import { AxiosRequestConfig } from 'axios'
 import {
   AccountApi,

@@ -1,5 +1,5 @@
 import { HStack, Stack } from '@chakra-ui/react'
-import { useWebServer } from '@kin-kinetic/web/server/data-access'
+import { useWebServer } from '@kinny/kinetic-web/server/data-access'
 import { Button, Form, Select } from '@saas-ui/react'
 import { Link } from 'react-router-dom'
 import { WebServerUiConnection } from './web-server-ui-connection'

@@ -1,7 +1,7 @@
 import { Code, Stack, Text, useToast } from '@chakra-ui/react'
-import { ellipsify } from '@kin-kinetic/web/app/ui'
-import { useWebKeypair, WebKeypairEntity } from '@kin-kinetic/web/keypair/data-access'
-import { WebUiCopy } from '@kin-kinetic/web/ui/copy'
+import { ellipsify } from '@kinny/kinetic-web/app/ui'
+import { useWebKeypair, WebKeypairEntity } from '@kinny/kinetic-web/keypair/data-access'
+import { WebUiCopy } from '@kinny/kinetic-web/ui/copy'
 
 import { Button, ButtonGroup } from '@saas-ui/react'
 import { IconEye, IconEyeOff } from '@tabler/icons'

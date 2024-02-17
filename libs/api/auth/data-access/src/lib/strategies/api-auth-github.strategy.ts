@@ -1,4 +1,4 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { UserIdentityType } from '@prisma/client'
@@ -8,7 +8,10 @@ import { ApiAuthService } from '../api-auth.service'
 
 @Injectable()
 export class ApiAuthGithubStrategy extends PassportStrategy(Strategy, 'github') {
-  constructor(private core: ApiCoreService, private service: ApiAuthService) {
+  constructor(
+    private core: ApiCoreService,
+    private service: ApiAuthService,
+  ) {
     // TODO: We need to make sure to dynamically load ApiAuthGithubStrategy only when the
     //       environment variable is set.
     super({

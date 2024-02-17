@@ -1,5 +1,5 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
 import { AppShell } from '@saas-ui/app-shell'
 import { ReactNode, Suspense } from 'react'
 import { WebUiLayoutFooter } from './web-ui-layout-footer'

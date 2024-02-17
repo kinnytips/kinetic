@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react'
-import { useWebServer, WebServerEntity } from '@kin-kinetic/web/server/data-access'
-import { WebServerUiAddForm, WebServerUiConnection, WebServerUiList } from '@kin-kinetic/web/server/ui'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
+import { useWebServer, WebServerEntity } from '@kinny/kinetic-web/server/data-access'
+import { WebServerUiAddForm, WebServerUiConnection, WebServerUiList } from '@kinny/kinetic-web/server/ui'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
 import { Button } from '@saas-ui/react'
 import { useState } from 'react'
 

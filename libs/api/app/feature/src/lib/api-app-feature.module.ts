@@ -1,5 +1,5 @@
-import { ApiAppDataAccessModule } from '@kin-kinetic/api/app/data-access'
-import { ApiCoreDataAccessModule } from '@kin-kinetic/api/core/data-access'
+import { ApiAppDataAccessModule } from '@kinny/kinetic-api/app/data-access'
+import { ApiCoreDataAccessModule } from '@kinny/kinetic-api/core/data-access'
 import { Module } from '@nestjs/common'
 import { ApiAppAdminFeatureResolver } from './api-app-admin-feature.resolver'
 import { ApiAppEnvAdminFeatureResolver } from './api-app-env-admin-feature.resolver'

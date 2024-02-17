@@ -13,16 +13,16 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiPageHeader } from '@kin-kinetic/web/ui/page'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiPageHeader } from '@kinny/kinetic-web/ui/page'
 import {
   App,
   AppEnv,
   TransactionStatus,
   useUserAppEnvPurgeTransactionsMutation,
   useUserAppEnvStatsQuery,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { Button, List, ListItem, ListItemLabel, ListItemTertiary } from '@saas-ui/react'
 
 export function WebAppEnvSettingsMaintenance({ env }: { app: App; env: AppEnv }) {

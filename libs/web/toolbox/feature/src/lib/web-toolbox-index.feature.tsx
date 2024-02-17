@@ -1,7 +1,7 @@
 import { Box, Button, Text } from '@chakra-ui/react'
-import { useWebToolbox } from '@kin-kinetic/web/toolbox/data-access'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
+import { useWebToolbox } from '@kinny/kinetic-web/toolbox/data-access'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
 
 export function WebToolboxIndexFeature() {
   const { keypair, server } = useWebToolbox()

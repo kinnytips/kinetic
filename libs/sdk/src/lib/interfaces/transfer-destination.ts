@@ -1,4 +1,4 @@
-import { PublicKeyString } from '@kin-kinetic/solana'
+import { PublicKeyString } from '@kinny/kinetic-solana'
 
 export interface TransferDestination {
   amount: string

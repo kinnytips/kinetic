@@ -1,5 +1,5 @@
 import { Avatar, Badge, Box, Flex, HStack, Stack, Text, useColorModeValue } from '@chakra-ui/react'
-import { AppConfig, AppConfigMint } from '@kin-kinetic/sdk'
+import { AppConfig, AppConfigMint } from '@kinny/kinetic-sdk'
 
 export function WebToolboxUiAppConfig({
   config,

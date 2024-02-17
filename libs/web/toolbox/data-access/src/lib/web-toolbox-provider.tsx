@@ -1,5 +1,5 @@
-import { useWebKeypair, WebKeypairEntity } from '@kin-kinetic/web/keypair/data-access'
-import { useWebServer, WebServerEntity } from '@kin-kinetic/web/server/data-access'
+import { useWebKeypair, WebKeypairEntity } from '@kinny/kinetic-web/keypair/data-access'
+import { useWebServer, WebServerEntity } from '@kinny/kinetic-web/server/data-access'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 export interface WebToolboxProviderContext {

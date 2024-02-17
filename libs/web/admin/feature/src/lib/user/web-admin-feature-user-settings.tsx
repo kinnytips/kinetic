@@ -1,12 +1,12 @@
 import { Box, Button, Stack, useToast } from '@chakra-ui/react'
-import { WebAdminUiUserUpdateForm } from '@kin-kinetic/web/admin/ui'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
+import { WebAdminUiUserUpdateForm } from '@kinny/kinetic-web/admin/ui'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
 import {
   useAdminUpdateUserMutation,
   User,
   AdminUserUpdateInput,
   useAdminDeleteUserMutation,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { useNavigate } from 'react-router-dom'
 
 export function WebAdminFeatureUserSettings({ user }: { user: User }) {

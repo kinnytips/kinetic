@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react'
-import { Keypair } from '@kin-kinetic/keypair'
-import { AppConfigMint, KineticSdk } from '@kin-kinetic/sdk'
+import { Keypair } from '@kinny/kinetic-keypair'
+import { AppConfigMint, KineticSdk } from '@kinny/kinetic-sdk'
 import { yupResolver } from '@saas-ui/forms/yup'
 import {
   ArrayFieldAddButton,

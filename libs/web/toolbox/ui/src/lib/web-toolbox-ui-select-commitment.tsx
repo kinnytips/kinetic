@@ -1,4 +1,4 @@
-import { Commitment } from '@kin-kinetic/solana'
+import { Commitment } from '@kinny/kinetic-solana'
 import { Select } from '@saas-ui/react'
 
 export function WebToolboxUiSelectCommitment({

@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup, chakra, useColorModeValue } from '@chakra-ui/react'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiLinks } from '@kin-kinetic/web/ui/link'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiLinks } from '@kinny/kinetic-web/ui/link'
 import { Divider } from '@saas-ui/react'
 import { PropsWithChildren } from 'react'
 import { NavLink } from 'react-router-dom'

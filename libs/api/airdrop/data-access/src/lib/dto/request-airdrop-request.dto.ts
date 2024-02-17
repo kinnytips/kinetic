@@ -1,4 +1,4 @@
-import { Commitment } from '@kin-kinetic/solana'
+import { Commitment } from '@kinny/kinetic-solana'
 import { ApiProperty } from '@nestjs/swagger'
 
 export class RequestAirdropRequest {

@@ -1,4 +1,4 @@
-import { ApiAuthGraphqlGuard } from '@kin-kinetic/api/auth/data-access'
+import { ApiAuthGraphqlGuard } from '@kinny/kinetic-api/auth/data-access'
 import {
   AdminQueueLoadInput,
   ApiQueueService,
@@ -6,7 +6,7 @@ import {
   JobStatus,
   Queue,
   QueueType,
-} from '@kin-kinetic/api/queue/data-access'
+} from '@kinny/kinetic-api/queue/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 

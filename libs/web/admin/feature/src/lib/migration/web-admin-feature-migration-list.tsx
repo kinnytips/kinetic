@@ -1,7 +1,7 @@
 import { Box, Button, Heading, SimpleGrid, Stack, useColorModeValue } from '@chakra-ui/react'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
-import { useAdminMigrateMutation, useAdminMigrationsQuery } from '@kin-kinetic/web/util/sdk'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
+import { useAdminMigrateMutation, useAdminMigrationsQuery } from '@kinny/kinetic-web/util/sdk'
 import { ButtonGroup } from '@saas-ui/react'
 import React, { ReactNode, useState } from 'react'
 

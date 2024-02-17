@@ -1,5 +1,5 @@
 import { Tag } from '@chakra-ui/react'
-import { WebServerEntity } from '@kin-kinetic/web/server/data-access'
+import { WebServerEntity } from '@kinny/kinetic-web/server/data-access'
 import { List } from '@saas-ui/react'
 import { WebServerUiListItemMenu } from './web-server-ui-list-item.menu'
 

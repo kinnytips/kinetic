@@ -1,6 +1,6 @@
-import { ApiAppEnvAdminService, AppEnv } from '@kin-kinetic/api/app/data-access'
-import { ApiAuthGraphqlGuard, CtxUser } from '@kin-kinetic/api/auth/data-access'
-import { User } from '@kin-kinetic/api/user/data-access'
+import { ApiAppEnvAdminService, AppEnv } from '@kinny/kinetic-api/app/data-access'
+import { ApiAuthGraphqlGuard, CtxUser } from '@kinny/kinetic-api/auth/data-access'
+import { User } from '@kinny/kinetic-api/user/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation } from '@nestjs/graphql'
 

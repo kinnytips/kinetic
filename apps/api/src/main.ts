@@ -1,5 +1,5 @@
-import { ApiConfigService } from '@kin-kinetic/api/config/data-access'
-import { OpenTelemetrySdk } from '@kin-kinetic/api/core/util'
+import { ApiConfigService } from '@kinny/kinetic-api/config/data-access'
+import { OpenTelemetrySdk } from '@kinny/kinetic-api/core/util'
 import { Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { OgmaService } from '@ogma/nestjs-module'
@@ -40,8 +40,8 @@ async function bootstrap() {
         config.corsBypass
           ? 'Bypassed'
           : config?.corsOrigins
-          ? `enabled for: ${Array.isArray(config?.corsOrigins) ? config?.corsOrigins?.join(', ') : config?.corsOrigins}`
-          : 'disabled'
+            ? `enabled for: ${Array.isArray(config?.corsOrigins) ? config?.corsOrigins?.join(', ') : config?.corsOrigins}`
+            : 'disabled'
       }`,
     )
 

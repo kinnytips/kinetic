@@ -630,7 +630,7 @@
     }
   },
   "info": {
-    "title": "@kin-kinetic/api",
+    "title": "@kinny/kinetic-api",
     "description": "The OpenAPI definition of the Kinetic API",
     "version": "1.0.0-rc.18",
     "contact": {}

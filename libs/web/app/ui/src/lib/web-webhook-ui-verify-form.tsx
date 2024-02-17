@@ -1,4 +1,4 @@
-import { AppEnv, UserAppEnvUpdateInput } from '@kin-kinetic/web/util/sdk'
+import { AppEnv, UserAppEnvUpdateInput } from '@kinny/kinetic-web/util/sdk'
 import { Field } from '@saas-ui/react'
 import { ChangeEvent } from 'react'
 import * as Yup from 'yup'

@@ -1,5 +1,5 @@
-import { getAppKey } from '@kin-kinetic/api/core/util'
-import { ApiWebhookService } from '@kin-kinetic/api/webhook/data-access'
+import { getAppKey } from '@kinny/kinetic-api/core/util'
+import { ApiWebhookService } from '@kinny/kinetic-api/webhook/data-access'
 import { Controller, Param, ParseIntPipe, Post, Req, Res } from '@nestjs/common'
 import { ApiExcludeEndpoint } from '@nestjs/swagger'
 import { Request, Response } from 'express'

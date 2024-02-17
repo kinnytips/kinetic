@@ -15,5 +15,5 @@ export type {
   Transaction,
 } from './generated'
 export { Commitment } from './generated'
-export { Keypair, SolanaPublicKey, SolanaKeypair } from '@kin-kinetic/keypair'
-export { getPublicKey, removeDecimals, addDecimals, TransactionType } from '@kin-kinetic/solana'
+export { Keypair, SolanaPublicKey, SolanaKeypair } from '@kinny/kinetic-keypair'
+export { getPublicKey, removeDecimals, addDecimals, TransactionType } from '@kinny/kinetic-solana'

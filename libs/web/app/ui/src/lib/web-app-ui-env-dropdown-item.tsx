@@ -1,6 +1,6 @@
 import { MenuItem, Stack, Text } from '@chakra-ui/react'
-import { WebUiSettingsLink } from '@kin-kinetic/web/ui/link'
-import { AppEnv } from '@kin-kinetic/web/util/sdk'
+import { WebUiSettingsLink } from '@kinny/kinetic-web/ui/link'
+import { AppEnv } from '@kinny/kinetic-web/util/sdk'
 import { Link } from 'react-router-dom'
 
 export interface WebAppUiEnvDropdownItemProps {

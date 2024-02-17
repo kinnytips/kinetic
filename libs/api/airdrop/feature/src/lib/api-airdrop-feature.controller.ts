@@ -1,4 +1,8 @@
-import { ApiAirdropService, RequestAirdropRequest, RequestAirdropResponse } from '@kin-kinetic/api/airdrop/data-access'
+import {
+  ApiAirdropService,
+  RequestAirdropRequest,
+  RequestAirdropResponse,
+} from '@kinny/kinetic-api/airdrop/data-access'
 import { Body, Controller, Post } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 

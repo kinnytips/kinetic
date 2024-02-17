@@ -1,5 +1,5 @@
 import { Flex, Stack } from '@chakra-ui/react'
-import { Mint } from '@kin-kinetic/web/util/sdk'
+import { Mint } from '@kinny/kinetic-web/util/sdk'
 import { Button } from '@saas-ui/react'
 import { WebClusterUiMintDetails } from './web-cluster-ui-mint-details'
 

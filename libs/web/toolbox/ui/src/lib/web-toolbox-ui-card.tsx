@@ -1,6 +1,6 @@
 import { Box, Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react'
-import { KineticSdk } from '@kin-kinetic/sdk'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
+import { KineticSdk } from '@kinny/kinetic-sdk'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
 import { Button, ButtonGroup } from '@saas-ui/react'
 import { IconEye, IconEyeOff } from '@tabler/icons'
 import { ReactNode, useState } from 'react'

@@ -1,4 +1,4 @@
-import { WebShellFeature } from '@kin-kinetic/web/shell/feature'
+import { WebShellFeature } from '@kinny/kinetic-web/shell/feature'
 import { SaasProvider } from '@saas-ui/react'
 
 export function App() {

@@ -1,4 +1,4 @@
-import { getAuthUsers } from '@kin-kinetic/api/config/data-access'
+import { getAuthUsers } from '@kinny/kinetic-api/config/data-access'
 import { UserRole } from '@prisma/client'
 
 const users = getAuthUsers(process.env.AUTH_USERS)

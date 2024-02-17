@@ -1,5 +1,5 @@
 import { ModuleConfigFactory } from '@golevelup/nestjs-modules'
-import { ApiConfigService } from '@kin-kinetic/api/config/data-access'
+import { ApiConfigService } from '@kinny/kinetic-api/config/data-access'
 import { Injectable } from '@nestjs/common'
 import { OgmaModuleOptions } from '@ogma/nestjs-module'
 

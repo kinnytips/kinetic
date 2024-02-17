@@ -1,4 +1,4 @@
-import { KineticSdk } from '@kin-kinetic/sdk'
+import { KineticSdk } from '@kinny/kinetic-sdk'
 import { aliceKeypair, daveKeypair, usdcMint } from './fixtures'
 
 describe('KineticSdk (e2e) - Airdrop', () => {

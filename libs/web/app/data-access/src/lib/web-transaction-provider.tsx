@@ -1,4 +1,4 @@
-import { TransactionStatus } from '@kin-kinetic/web/util/sdk'
+import { TransactionStatus } from '@kinny/kinetic-web/util/sdk'
 import { createContext, ReactNode, useContext, useState } from 'react'
 
 export interface WebTransactionProviderContext {

@@ -1,6 +1,6 @@
-import { Wallet } from '@kin-kinetic/api/wallet/data-access'
+import { Wallet } from '@kinny/kinetic-api/wallet/data-access'
 import { Field, Int, ObjectType } from '@nestjs/graphql'
-import { Mint } from '@kin-kinetic/api/cluster/data-access'
+import { Mint } from '@kinny/kinetic-api/cluster/data-access'
 
 @ObjectType()
 export class AppMint {

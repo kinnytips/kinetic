@@ -1,5 +1,5 @@
-import { ApiCoreDataAccessModule } from '@kin-kinetic/api/core/data-access'
-import { ApiKineticDataAccessModule } from '@kin-kinetic/api/kinetic/data-access'
+import { ApiCoreDataAccessModule } from '@kinny/kinetic-api/core/data-access'
+import { ApiKineticDataAccessModule } from '@kinny/kinetic-api/kinetic/data-access'
 import { BullModule } from '@nestjs/bull'
 import { Module } from '@nestjs/common'
 import { QueueType } from '../../entity/queue-type.enum'

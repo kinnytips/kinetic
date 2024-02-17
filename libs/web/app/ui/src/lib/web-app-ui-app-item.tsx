@@ -1,6 +1,6 @@
 import { Stack, Text } from '@chakra-ui/react'
-import { WebUiAppAvatar } from '@kin-kinetic/web/ui/app-avatar'
-import { App } from '@kin-kinetic/web/util/sdk'
+import { WebUiAppAvatar } from '@kinny/kinetic-web/ui/app-avatar'
+import { App } from '@kinny/kinetic-web/util/sdk'
 import { Link as RouterLink } from 'react-router-dom'
 
 export function WebAppUiAppItem({ app }: { app: App }) {

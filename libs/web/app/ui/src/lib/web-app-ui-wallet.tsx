@@ -1,13 +1,13 @@
 import { RepeatIcon } from '@chakra-ui/icons'
 import { Avatar, AvatarGroup, Box, Code, Flex, Input, Stack, useToast } from '@chakra-ui/react'
-import { WebUiCopy } from '@kin-kinetic/web/ui/copy'
-import { WebUiIdenticon } from '@kin-kinetic/web/ui/identicon'
+import { WebUiCopy } from '@kinny/kinetic-web/ui/copy'
+import { WebUiIdenticon } from '@kinny/kinetic-web/ui/identicon'
 import {
   useUserAppEnvWalletRemoveMutation,
   useUserWalletAirdropQuery,
   useUserWalletBalanceQuery,
   Wallet,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { Button, ButtonGroup } from '@saas-ui/react'
 import { ChangeEvent, useState } from 'react'
 import { Link } from 'react-router-dom'

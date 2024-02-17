@@ -1,6 +1,6 @@
 import { Box, Tag, TagLabel } from '@chakra-ui/react'
-import { WebUiDataTable, WebUiDataTableLink } from '@kin-kinetic/web/ui/table'
-import { AppEnv, Wallet } from '@kin-kinetic/web/util/sdk'
+import { WebUiDataTable, WebUiDataTableLink } from '@kinny/kinetic-web/ui/table'
+import { AppEnv, Wallet } from '@kinny/kinetic-web/util/sdk'
 import { CellProps } from 'react-table'
 
 export function WebAdminUiWalletTable({ wallets }: { wallets: Wallet[] }) {

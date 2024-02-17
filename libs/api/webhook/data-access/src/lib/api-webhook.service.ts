@@ -1,5 +1,5 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
-import { getAppKey } from '@kin-kinetic/api/core/util'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
+import { getAppKey } from '@kinny/kinetic-api/core/util'
 import { HttpService } from '@nestjs/axios'
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common'
 import { App, AppEnv, Transaction, WebhookDirection, WebhookType } from '@prisma/client'
@@ -25,7 +25,10 @@ function isValidWebhookType(type: string) {
 @Injectable()
 export class ApiWebhookService {
   private readonly logger = new Logger(ApiWebhookService.name)
-  constructor(private readonly core: ApiCoreService, private readonly http: HttpService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly http: HttpService,
+  ) {}
 
   sendWebhook(appEnv: AppEnv & { app: App }, options: WebhookOptions) {
     const appKey = getAppKey(appEnv.name, appEnv.app?.index)

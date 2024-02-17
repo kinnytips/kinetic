@@ -1,11 +1,14 @@
-import { ApiTransactionService } from '@kin-kinetic/api/transaction/data-access'
-import { ApiWalletUserService } from '@kin-kinetic/api/wallet/data-access'
+import { ApiTransactionService } from '@kinny/kinetic-api/transaction/data-access'
+import { ApiWalletUserService } from '@kinny/kinetic-api/wallet/data-access'
 import { Injectable } from '@nestjs/common'
 import { Cron } from '@nestjs/schedule'
 
 @Injectable()
 export class ApiCronService {
-  constructor(private readonly wallet: ApiWalletUserService, private readonly transaction: ApiTransactionService) {}
+  constructor(
+    private readonly wallet: ApiWalletUserService,
+    private readonly transaction: ApiTransactionService,
+  ) {}
 
   @Cron('25 * * * * *')
   checkBalance() {

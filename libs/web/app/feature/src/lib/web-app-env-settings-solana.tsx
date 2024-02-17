@@ -11,9 +11,9 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiPageHeader } from '@kin-kinetic/web/ui/page'
-import { App, AppEnv, useUserUpdateAppEnvMutation } from '@kin-kinetic/web/util/sdk'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiPageHeader } from '@kinny/kinetic-web/ui/page'
+import { App, AppEnv, useUserUpdateAppEnvMutation } from '@kinny/kinetic-web/util/sdk'
 import { yupResolver } from '@saas-ui/forms/yup'
 import { Field, Form, FormLayout, Link, SubmitButton, SwitchField } from '@saas-ui/react'
 import * as Yup from 'yup'

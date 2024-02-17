@@ -1,4 +1,4 @@
-import { App, AppUserRole, useUserAppQuery } from '@kin-kinetic/web/util/sdk'
+import { App, AppUserRole, useUserAppQuery } from '@kinny/kinetic-web/util/sdk'
 import { createContext, ReactNode, useContext } from 'react'
 
 export interface WebAppProviderContext {

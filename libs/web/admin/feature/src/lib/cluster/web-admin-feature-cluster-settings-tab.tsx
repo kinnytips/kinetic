@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react'
-import { WebAdminUiClusterUpdateForm } from '@kin-kinetic/web/admin/ui'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { Cluster, AdminClusterUpdateInput, useAdminUpdateClusterMutation } from '@kin-kinetic/web/util/sdk'
+import { WebAdminUiClusterUpdateForm } from '@kinny/kinetic-web/admin/ui'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { Cluster, AdminClusterUpdateInput, useAdminUpdateClusterMutation } from '@kinny/kinetic-web/util/sdk'
 
 export function WebAdminFeatureClusterSettingsTab({ cluster }: { cluster: Cluster }) {
   const toast = useToast()

@@ -1,4 +1,4 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
 import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { UserTransactionListInput } from './dto/user-transaction-list.input'

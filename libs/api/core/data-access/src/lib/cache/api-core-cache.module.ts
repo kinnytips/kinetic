@@ -1,4 +1,4 @@
-import { ApiConfigDataAccessModule, ApiConfigService } from '@kin-kinetic/api/config/data-access'
+import { ApiConfigDataAccessModule, ApiConfigService } from '@kinny/kinetic-api/config/data-access'
 import { CacheModule, Module } from '@nestjs/common'
 import * as redisStore from 'cache-manager-redis-store'
 

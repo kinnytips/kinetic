@@ -1,4 +1,4 @@
-import { NAME, VERSION } from '@kin-kinetic/api/core/data-access'
+import { NAME, VERSION } from '@kinny/kinetic-api/core/data-access'
 
 // Remove trailing slashes from the URLs to avoid double slashes
 const API_URL = getUrl('API_URL')

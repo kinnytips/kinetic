@@ -1,5 +1,5 @@
-import { Keypair } from '@kin-kinetic/keypair'
-import { ellipsify } from '@kin-kinetic/web/app/ui'
+import { Keypair } from '@kinny/kinetic-keypair'
+import { ellipsify } from '@kinny/kinetic-web/app/ui'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { createContext, ReactNode, useContext } from 'react'
 import { webKeypairDb } from './web-keypair-db'

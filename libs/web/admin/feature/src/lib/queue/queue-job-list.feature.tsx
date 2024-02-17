@@ -14,15 +14,15 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
+import { WebUiAlert } from '@kinny/kinetic-web/ui/alert'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
 import {
   Job,
   JobStatus,
   QueueType,
   useAdminQueueDeleteJobMutation,
   useAdminQueueJobsQuery,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { ButtonGroup } from '@saas-ui/react'
 import { useState } from 'react'
 

@@ -1,4 +1,4 @@
-# @kin-kinetic/keypair
+# @kinny/kinetic-keypair
 
 Kinetic is an open-source suite of tools that make it easy to build apps that integrate Solana.
 

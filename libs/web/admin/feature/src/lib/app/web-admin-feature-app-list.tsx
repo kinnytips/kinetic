@@ -1,9 +1,9 @@
 import { Button, useToast } from '@chakra-ui/react'
-import { WebAdminUiAppTable } from '@kin-kinetic/web/admin/ui'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
-import { WebUiLoader } from '@kin-kinetic/web/ui/loader'
-import { WebUiPage } from '@kin-kinetic/web/ui/page'
-import { useAdminAppsQuery, useAdminDeleteAppMutation } from '@kin-kinetic/web/util/sdk'
+import { WebAdminUiAppTable } from '@kinny/kinetic-web/admin/ui'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
+import { WebUiLoader } from '@kinny/kinetic-web/ui/loader'
+import { WebUiPage } from '@kinny/kinetic-web/ui/page'
+import { useAdminAppsQuery, useAdminDeleteAppMutation } from '@kinny/kinetic-web/util/sdk'
 import { Link } from 'react-router-dom'
 
 export function WebAdminFeatureAppList() {

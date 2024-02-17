@@ -1,6 +1,6 @@
-import { AppUser } from '@kin-kinetic/api/app/data-access'
-import { ApiAuthGraphqlGuard } from '@kin-kinetic/api/auth/data-access'
-import { ApiUserUserService, User, UserSearchUserInput } from '@kin-kinetic/api/user/data-access'
+import { AppUser } from '@kinny/kinetic-api/app/data-access'
+import { ApiAuthGraphqlGuard } from '@kinny/kinetic-api/auth/data-access'
+import { ApiUserUserService, User, UserSearchUserInput } from '@kinny/kinetic-api/user/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 

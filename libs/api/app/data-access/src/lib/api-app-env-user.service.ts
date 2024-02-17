@@ -1,4 +1,4 @@
-import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
+import { ApiCoreService } from '@kinny/kinetic-api/core/data-access'
 import { Injectable, Logger } from '@nestjs/common'
 import { TransactionStatus } from '@prisma/client'
 import { AppEnvStats } from './entity/app-env-stats.entity'

@@ -1,6 +1,6 @@
 import { Stack, useToast } from '@chakra-ui/react'
-import { WebAppUiAppUserList, WebAppUiAppUserModal } from '@kin-kinetic/web/app/ui'
-import { WebUiCard } from '@kin-kinetic/web/ui/card'
+import { WebAppUiAppUserList, WebAppUiAppUserModal } from '@kinny/kinetic-web/app/ui'
+import { WebUiCard } from '@kinny/kinetic-web/ui/card'
 import {
   App,
   UserAppUserAddInput,
@@ -9,7 +9,7 @@ import {
   useUserAppUserAddMutation,
   useUserAppUserRemoveMutation,
   useUserAppUserUpdateRoleMutation,
-} from '@kin-kinetic/web/util/sdk'
+} from '@kinny/kinetic-web/util/sdk'
 import { CardHeader, CardTitle } from '@saas-ui/react'
 
 export function WebAppSettingsUsersTab({ app }: { app: App }) {

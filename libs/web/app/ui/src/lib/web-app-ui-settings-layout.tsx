@@ -1,5 +1,5 @@
 import { Box, Stack } from '@chakra-ui/react'
-import { WebUiLinks } from '@kin-kinetic/web/ui/link'
+import { WebUiLinks } from '@kinny/kinetic-web/ui/link'
 import { AppShell } from '@saas-ui/app-shell'
 import { NavGroup, NavItem, Sidebar, SidebarSection } from '@saas-ui/sidebar'
 import { ReactNode } from 'react'

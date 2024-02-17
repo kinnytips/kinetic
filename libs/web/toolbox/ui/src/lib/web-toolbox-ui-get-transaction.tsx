@@ -1,5 +1,5 @@
 import { Box, useToast } from '@chakra-ui/react'
-import { GetTransactionResponse, KineticSdk } from '@kin-kinetic/sdk'
+import { GetTransactionResponse, KineticSdk } from '@kinny/kinetic-sdk'
 import { Button, ButtonGroup, Field, Form, SubmitButton } from '@saas-ui/react'
 import { useState } from 'react'
 import { WebToolboxUiCard } from './web-toolbox-ui-card'

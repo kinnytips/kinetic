@@ -1,4 +1,4 @@
-import { ApiAccountDataAccessModule } from '@kin-kinetic/api/account/data-access'
+import { ApiAccountDataAccessModule } from '@kinny/kinetic-api/account/data-access'
 import { Test } from '@nestjs/testing'
 import { ApiAccountFeatureController } from './api-account-feature.controller'
 

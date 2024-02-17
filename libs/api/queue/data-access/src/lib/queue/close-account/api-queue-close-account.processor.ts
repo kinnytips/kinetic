@@ -1,6 +1,6 @@
-import { getAppKey } from '@kin-kinetic/api/core/util'
-import { ApiKineticService, validateCloseAccount } from '@kin-kinetic/api/kinetic/data-access'
-import { Commitment } from '@kin-kinetic/solana'
+import { getAppKey } from '@kinny/kinetic-api/core/util'
+import { ApiKineticService, validateCloseAccount } from '@kinny/kinetic-api/kinetic/data-access'
+import { Commitment } from '@kinny/kinetic-solana'
 import { Process, Processor } from '@nestjs/bull'
 import { Logger } from '@nestjs/common'
 import { DoneCallback, Job } from 'bull'
@@ -11,7 +11,10 @@ import { ApiQueueCloseAccountService } from './api-queue-close-account.service'
 export class ApiQueueCloseAccountProcessor {
   private readonly logger = new Logger(ApiQueueCloseAccountProcessor.name)
 
-  constructor(private readonly kinetic: ApiKineticService, private readonly service: ApiQueueCloseAccountService) {}
+  constructor(
+    private readonly kinetic: ApiKineticService,
+    private readonly service: ApiQueueCloseAccountService,
+  ) {}
 
   @Process(QueueOptions[QueueType.CloseAccount])
   async handleProcess(job: Job, cb: DoneCallback) {
