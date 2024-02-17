@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@kin-kinetic-dev/jest": ["libs/dev/jest/src/index.ts"],
       "@kinny/kinetic-api-app-module": ["apps/api/src/app/app.module.ts"],
       "@kinny/kinetic-api/account/data-access": ["libs/api/account/data-access/src/index.ts"],
       "@kinny/kinetic-api/account/feature": ["libs/api/account/feature/src/index.ts"],
@@ -50,6 +49,7 @@
       "@kinny/kinetic-api/wallet/feature": ["libs/api/wallet/feature/src/index.ts"],
       "@kinny/kinetic-api/webhook/data-access": ["libs/api/webhook/data-access/src/index.ts"],
       "@kinny/kinetic-api/webhook/feature": ["libs/api/webhook/feature/src/index.ts"],
+      "@kinny/kinetic-jest": ["libs/dev/jest/src/index.ts"],
       "@kinny/kinetic-keypair": ["libs/keypair/src/index.ts"],
       "@kinny/kinetic-sdk": ["libs/sdk/src/index.ts"],
       "@kinny/kinetic-solana": ["libs/solana/src/index.ts"],
