@@ -135,9 +135,7 @@ export function WebToolboxUiKeypairCard({ keypair, explorer }: { keypair?: Keypa
           </Stack>
           {importForm ? 'Yes' : 'No'}
           {importForm ? <WebKeypairUiImport onSubmit={importKeypair} /> : null}
-          {keypairs?.map((keypair, index) => (
-            <WebKeypairUiItem key={keypair.id} keypair={keypair} />
-          ))}
+          {keypairs?.map((keypair, index) => <WebKeypairUiItem key={keypair.id} keypair={keypair} />)}
         </Stack>
       )}
     </Stack>
