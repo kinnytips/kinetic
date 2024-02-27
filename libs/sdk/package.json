@@ -1,5 +1,7 @@
 {
   "name": "@kinny/kinetic-sdk",
-  "version": "1.0.0-rc.18-3",
-  "license": "MIT"
+  "version": "1.0.0-rc.18-9",
+  "license": "MIT",
+  "main": "./src/index.js",
+  "type": "commonjs"
 }

@@ -1,5 +1,7 @@
 {
   "name": "@kinny/kinetic-solana",
-  "version": "1.0.0-rc.18",
-  "license": "MIT"
+  "version": "1.0.0-rc.18-5",
+  "license": "MIT",
+  "main": "./src/index.js",
+  "type": "commonjs"
 }

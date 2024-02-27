@@ -5,7 +5,9 @@
   "scripts": {
     "build": "yarn build:web && yarn prisma generate && yarn build:api",
     "build:api": "nx build api --prod",
-    "build:sdk": "yarn openapi-generator-cli generate -i ./api-swagger.json -g typescript-axios -o libs/sdk/src/generated --additional-properties=withInterfaces=true && nx format:write --uncommitted",
+    "build:sdk": "nx build sdk --with-deps=true --publishable && cross-env NX_TASK_TARGET_PROJECT=keypair node tools/populate-package-json.js && cross-env NX_TASK_TARGET_PROJECT=solana node tools/populate-package-json.js && cross-env NX_TASK_TARGET_PROJECT=sdk node tools/populate-package-json.js &&  yarn openapi-generator-cli generate -i ./api-swagger.json -g typescript-axios -o libs/sdk/src/generated --additional-properties=withInterfaces=true && nx format:write --uncommitted",
+    "build:solana": "nx build solana --with-deps=true --publishable && cross-env NX_TASK_TARGET_PROJECT=solana node tools/populate-package-json.js",
+    "build:keypair": "nx build keypair --with-deps=true --publishable && cross-env NX_TASK_TARGET_PROJECT=keypair node tools/populate-package-json.js",
     "build:web": "nx build web --prod",
     "build:web-sdk": "graphql-codegen --config libs/web/util/sdk/src/codegen.yml",
     "dev:api": "nx serve api",
@@ -205,6 +207,7 @@
     "@typescript-eslint/parser": "5.48.1",
     "babel-jest": "28.1.3",
     "babel-loader": "9.1.2",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
     "cypress": "^12.3.0",
     "eslint": "8.31.0",
