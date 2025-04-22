@@ -33,6 +33,7 @@ export class ApiTransactionFeatureController {
       signature,
     })
   }
+
   @Get('latest-blockhash/:environment/:index')
   @ApiOperation({ operationId: 'getLatestBlockhash' })
   @ApiParam({ name: 'index', type: 'integer' })
@@ -65,13 +66,34 @@ export class ApiTransactionFeatureController {
   @ApiOperation({ operationId: 'getTransaction' })
   @ApiParam({ name: 'index', type: 'integer' })
   @ApiQuery({ name: 'commitment', enum: Commitment, enumName: 'Commitment' })
+  @ApiQuery({ name: 'maxSupportedTransactionVersion', type: 'number', required: false, description: 'Maximum supported transaction version for versioned transactions' })
   @ApiResponse({ type: GetTransactionResponse })
   getTransaction(
     @Param('environment') environment: string,
     @Param('index', ParseIntPipe) index: number,
     @Param('signature') signature: string,
     @Query('commitment') commitment: Commitment,
+    @Query('maxSupportedTransactionVersion') maxSupportedTransactionVersion?: number,
   ) {
-    return this.service.kinetic.getTransaction(getAppKey(environment, index), signature, commitment)
+    return this.service.kinetic.getTransaction(
+      getAppKey(environment, index),
+      signature,
+      commitment,
+      maxSupportedTransactionVersion
+    )
+  }
+
+  @Get('address-lookup-tables/:environment/:index')
+  @ApiOperation({ operationId: 'getAddressLookupTables', description: 'Retrieves address lookup tables for versioned transactions' })
+  @ApiParam({ name: 'environment', type: 'string' })
+  @ApiParam({ name: 'index', type: 'integer' })
+  @ApiQuery({ name: 'addresses', type: [String], required: true, description: 'Base58-encoded addresses of lookup tables to retrieve' })
+  @ApiResponse({ type: 'object', isArray: true, description: 'Array of address lookup table accounts' })
+  getAddressLookupTables(
+    @Param('environment') environment: string,
+    @Param('index', ParseIntPipe) index: number,
+    @Query('addresses') addresses: string[],
+  ) {
+    return this.service.kinetic.getAddressLookupTableAccounts(getAppKey(environment, index), addresses)
   }
 }

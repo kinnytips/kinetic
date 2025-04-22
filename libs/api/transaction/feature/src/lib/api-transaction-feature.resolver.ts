@@ -8,6 +8,7 @@ import {
 import { User } from '@kin-kinetic/api/user/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
+import { GraphQLJSON } from 'graphql-scalars'
 
 @Resolver(() => Transaction)
 @UseGuards(ApiAuthGraphqlGuard)
@@ -49,5 +50,17 @@ export class ApiTransactionFeatureResolver {
   @ResolveField(() => String, { nullable: true })
   explorerUrl(@Parent() tx: Transaction) {
     return this.service.explorerUrl(tx)
+  }
+
+  // Add resolver for isVersioned field
+  @ResolveField(() => Boolean, { nullable: true, defaultValue: false })
+  isVersioned(@Parent() tx: Transaction) {
+    return tx.isVersioned || false
+  }
+
+  // Add resolver for addressLookupTables field
+  @ResolveField(() => GraphQLJSON, { nullable: true })
+  addressLookupTables(@Parent() tx: Transaction) {
+    return tx.addressLookupTables
   }
 }

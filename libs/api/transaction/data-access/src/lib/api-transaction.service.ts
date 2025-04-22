@@ -56,15 +56,22 @@ export class ApiTransactionService implements OnModuleInit {
     signature,
     solanaStart,
     status,
+    isVersioned,
   }: Transaction): Promise<Transaction> {
-    this.logger.verbose(`verifyTransaction: ${transactionId} ${appKey} ${status} ${signature}`)
+    this.logger.verbose(`verifyTransaction: ${transactionId} ${appKey} ${status} ${signature} ${isVersioned ? '(versioned)' : ''}`)
     if (appKey && signature) {
       try {
         const status = await this.kinetic.getSignatureStatus(appKey, signature)
 
         if (status?.confirmationStatus === 'finalized') {
           const solana = await this.kinetic.getSolanaConnection(appKey)
-          const solanaTransaction = await solana.connection.getParsedTransaction(signature, 'finalized')
+          // Handle versioned transactions by specifying maxSupportedTransactionVersion
+          const solanaTransaction = await solana.connection.getParsedTransaction(
+            signature,
+            'finalized',
+            isVersioned ? { maxSupportedTransactionVersion: 0 } : undefined
+          )
+
           const finalizedTx = await this.kinetic.storeFinalizedTransaction(
             appKey,
             transactionId,
@@ -72,6 +79,7 @@ export class ApiTransactionService implements OnModuleInit {
             solanaStart,
             createdAt,
             solanaTransaction,
+            isVersioned
           )
 
           const appEnv = await this.core.getAppEnvironmentByAppKey(appKey)
@@ -145,6 +153,11 @@ export class ApiTransactionService implements OnModuleInit {
     // Process the Solana transaction
     const signer = Keypair.fromSecret(mint.wallet?.secretKey)
 
+    // Check for address lookup tables if this is a versioned transaction
+    const addressLookupTableAccounts = input.isVersioned && input.addressLookupTableAccounts
+      ? await this.kinetic.getAddressLookupTableAccounts(appKey, input.addressLookupTableAccounts)
+      : [];
+
     const {
       amount,
       blockhash,
@@ -152,9 +165,11 @@ export class ApiTransactionService implements OnModuleInit {
       feePayer,
       source,
       transaction: solanaTransaction,
+      isVersioned, // Get the versioned flag from the parser
     } = parseAndSignTokenTransfer({
       tx: Buffer.from(input.tx, 'base64'),
       signer: signer.solana,
+      addressLookupTableAccounts, // Pass lookup tables if provided
     })
 
     return this.kinetic.processTransaction({
@@ -176,6 +191,7 @@ export class ApiTransactionService implements OnModuleInit {
       source,
       tx: input.tx,
       ua,
+      isVersioned, // Pass the versioned flag
     })
   }
 }
