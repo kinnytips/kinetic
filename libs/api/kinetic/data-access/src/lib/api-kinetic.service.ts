@@ -4,6 +4,7 @@ import { parseTransactionError } from '@kin-kinetic/api/kinetic/util'
 import { ApiSolanaService } from '@kin-kinetic/api/solana/data-access'
 import { ApiWebhookService, WebhookType } from '@kin-kinetic/api/webhook/data-access'
 import { Keypair } from '@kin-kinetic/keypair'
+import { PublicKey } from '@solana/web3.js'
 import {
   BalanceMint,
   Commitment,
@@ -303,7 +304,7 @@ export class ApiKineticService implements OnModuleInit {
 
     for (const address of addresses) {
       try {
-        const account = await solana.connection.getAddressLookupTable(address);
+        const account = await solana.connection.getAddressLookupTable(new PublicKey(address));
         if (account?.value) {
           lookupTableAccounts.push(account.value);
         }
@@ -784,3 +785,11 @@ export class ApiKineticService implements OnModuleInit {
       status: TransactionStatus.Failed,
       errors: { create: error },
     })
+  private updateTransaction(id: string, data: Prisma.TransactionUpdateInput): Promise<TransactionWithErrors> {
+    return this.core.transaction.update({
+      where: { id },
+      data,
+      include: { errors: true },
+    })
+  }  
+  }

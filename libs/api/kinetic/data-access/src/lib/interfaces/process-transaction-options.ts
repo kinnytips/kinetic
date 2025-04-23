@@ -1,7 +1,7 @@
 import { Commitment } from '@kin-kinetic/solana'
 import { App, AppEnv } from '@prisma/client'
 import { Transaction as SolanaTransaction } from '@solana/web3.js'
-
+import { VersionedTransaction } from '@solana/web3.js'
 export interface ProcessTransactionOptions {
   amount?: bigint
   appEnv: AppEnv & { app: App }
@@ -17,8 +17,9 @@ export interface ProcessTransactionOptions {
   mintPublicKey: string
   processingStartedAt: number
   reference: string
-  solanaTransaction: SolanaTransaction
+  solanaTransaction: SolanaTransaction | VersionedTransaction
   source: string
   tx: string
   ua: string
+  isVersioned?: boolean
 }

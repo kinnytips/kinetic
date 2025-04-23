@@ -38,3 +38,11 @@ export class ApiSolanaService {
     }
   }
 }
+// Update the method signature in ApiSolanaService to accept options
+async getSignatureStatus(signature: string, options?: { maxSupportedTransactionVersion?: number }): Promise<SignatureStatus> {
+  // Implementation
+}
+
+async getTransaction(signature: string, commitment: Commitment, options?: { maxSupportedTransactionVersion?: number }): Promise<GetTransactionResponse> {
+  // Implementation
+}

@@ -40,13 +40,17 @@ export function parseAndSignTokenTransfer({
     // Get the fee payer (first account in static account keys)
     const feePayer = message.staticAccountKeys[0].toBase58();
 
-    // Get the blockhash
-    const blockhash = message.recentBlockhash.toBase58();
+    // Get the blockhash - handle null case explicitly
+    let blockhash = '';
+    if (message.recentBlockhash) {
+      // Make TypeScript happy by checking for null first
+      blockhash = message.recentBlockhash.toString();
+    }
 
-    // Find the token transfer instruction
-    let amount: bigint;
-    let destination: AccountMeta;
-    let source: string;
+    // Initialize variables to undefined
+    let amount: bigint | undefined = undefined;
+    let destination: AccountMeta | undefined = undefined;
+    let source: string | undefined = undefined;
 
     // Loop through instructions to find token transfer
     for (let i = 0; i < message.compiledInstructions.length; i++) {
@@ -65,8 +69,10 @@ export function parseAndSignTokenTransfer({
           const accountIndices = instruction.accountKeyIndexes;
 
           // Resolve account keys using both static keys and lookup tables
-          const resolvedKeys = accountIndices.map(idx => {
-            let pubkey: PublicKey;
+          const resolvedKeys: PublicKey[] = [];
+          
+          for (const idx of accountIndices) {
+            let pubkey: PublicKey | undefined = undefined;
 
             if (idx < message.staticAccountKeys.length) {
               pubkey = message.staticAccountKeys[idx];
@@ -102,14 +108,14 @@ export function parseAndSignTokenTransfer({
                   }
                 }
               }
-
-              if (!pubkey) {
-                throw new TransactionError(`Could not resolve account key at index ${idx}`);
-              }
             }
 
-            return pubkey;
-          });
+            if (!pubkey) {
+              throw new Error(`Could not resolve account key at index ${idx}`);
+            }
+            
+            resolvedKeys.push(pubkey);
+          }
 
           // For TransferChecked instruction, the accounts are:
           // 0. `[writable]` The source account.
@@ -136,8 +142,8 @@ export function parseAndSignTokenTransfer({
       }
     }
 
-    if (!amount || !destination || !source) {
-      throw new TransactionError('Could not find token transfer information in versioned transaction');
+    if (amount === undefined || destination === undefined || source === undefined) {
+      throw new Error('Could not find token transfer information in versioned transaction');
     }
 
     // Sign the transaction
@@ -162,7 +168,7 @@ export function parseAndSignTokenTransfer({
     );
 
     if (!instruction) {
-      throw new TransactionError(`parseAndSignTokenTransfer: Can't find token transfer instruction`);
+      throw new Error(`parseAndSignTokenTransfer: Can't find token transfer instruction`);
     }
 
     // Get the amount and destination from the instruction
