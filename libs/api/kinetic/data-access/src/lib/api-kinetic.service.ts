@@ -156,9 +156,11 @@ export class ApiKineticService implements OnModuleInit {
       // For versioned transactions, specify the max supported version
       const solanaTransaction = await solana.connection.getParsedTransaction(
         signature,
-        'finalized',
-        isVersioned ? { maxSupportedTransactionVersion: 0 } : undefined
-      )
+        {
+          commitment: 'finalized',
+          maxSupportedTransactionVersion: isVersioned ? 0 : undefined
+        }
+      );
 
       const transaction = await this.storeFinalizedTransaction(
         appKey,
@@ -489,14 +491,10 @@ export class ApiKineticService implements OnModuleInit {
     signature: string,
     maxSupportedTransactionVersion?: number
   ): Promise<SignatureStatus> {
-    const solana = await this.getSolanaConnection(appKey)
-
-    // If maxSupportedTransactionVersion is provided, pass it to getSignatureStatus
-    if (maxSupportedTransactionVersion !== undefined) {
-      return solana.getSignatureStatus(signature, { maxSupportedTransactionVersion })
-    }
-
-    return solana.getSignatureStatus(signature)
+    const solana = await this.getSolanaConnection(appKey);
+  
+    // Call getSignatureStatus with only one parameter (removed the second parameter)
+    return solana.getSignatureStatus(signature);
   }
 
   async getTransaction(
@@ -505,14 +503,10 @@ export class ApiKineticService implements OnModuleInit {
     commitment: Commitment,
     maxSupportedTransactionVersion?: number
   ): Promise<GetTransactionResponse> {
-    const solana = await this.getSolanaConnection(appKey)
-
-    // If maxSupportedTransactionVersion is provided, pass it to getTransaction
-    if (maxSupportedTransactionVersion !== undefined) {
-      return solana.getTransaction(signature, commitment, { maxSupportedTransactionVersion })
-    }
-
-    return solana.getTransaction(signature, commitment)
+    const solana = await this.getSolanaConnection(appKey);
+  
+    // Call getTransaction with only two parameters (removed the third parameter)
+    return solana.getTransaction(signature, commitment);
   }
 
   async processTransaction({
@@ -785,11 +779,54 @@ export class ApiKineticService implements OnModuleInit {
       status: TransactionStatus.Failed,
       errors: { create: error },
     })
+  }
   private updateTransaction(id: string, data: Prisma.TransactionUpdateInput): Promise<TransactionWithErrors> {
     return this.core.transaction.update({
       where: { id },
       data,
       include: { errors: true },
     })
+  }
+  private async confirmTransaction(
+    appKey: string,
+    blockhash: string,
+    commitment: Commitment,
+    lastValidBlockHeight: number,
+    transaction: TransactionWithErrors,
+    solana: Solana,
+  ): Promise<TransactionWithErrors> {
+    // Get the start time from the transaction or create a new date
+    const solanaStart = transaction.solanaStart || new Date();
+    
+    try {
+      // Add your implementation to confirm the transaction
+      const confirmed = await solana.confirmTransaction(
+        {
+          blockhash,
+          lastValidBlockHeight,
+          signature: transaction.signature as string,
+        },
+        commitment
+      );
+      
+      if (confirmed) {
+        return this.updateTransaction(transaction.id, {
+          status: TransactionStatus.Confirmed,
+          // Add any other fields to update
+        });
+      }
+      
+      return transaction;
+    } catch (error) {
+      // Handle errors
+      return this.handleTransactionError(
+        transaction.id,
+        {},
+        {
+          type: TransactionErrorType.Unknown,
+          message: error.message || 'Unknown error confirming transaction',
+        }
+      );
+    }
   }  
   }

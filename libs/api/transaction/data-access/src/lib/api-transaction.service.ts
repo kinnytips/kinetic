@@ -68,9 +68,11 @@ export class ApiTransactionService implements OnModuleInit {
           // Handle versioned transactions by specifying maxSupportedTransactionVersion
           const solanaTransaction = await solana.connection.getParsedTransaction(
             signature,
-            'finalized',
-            isVersioned ? { maxSupportedTransactionVersion: 0 } : undefined
-          )
+            {
+              commitment: 'finalized',
+              maxSupportedTransactionVersion: isVersioned ? 0 : undefined
+            }
+          );
 
           const finalizedTx = await this.kinetic.storeFinalizedTransaction(
             appKey,
