@@ -621,12 +621,24 @@ export class ApiKineticService implements OnModuleInit {
   }
 
   validateMint(appEnv: AppEnvironment, appKey: string, inputMint: string) {
-    const found = appEnv.mints.find(({ mint }) => mint.address === inputMint)
-    if (!found) {
-      this.mintNotFoundErrorCounter.add(1, { appKey, mint: inputMint.toString() })
-      throw new BadRequestException(`${appKey}: Can't find mint ${inputMint}`)
+    // Add null check and error logging
+    if (!appEnv) {
+      this.logger.error(`${appKey}: AppEnvironment is null when validating mint ${inputMint}`);
+      throw new BadRequestException(`${appKey}: Application environment not found`);
     }
-    return found
+    
+    // Add additional check for mints property
+    if (!appEnv.mints || !Array.isArray(appEnv.mints)) {
+      this.logger.error(`${appKey}: AppEnvironment.mints is ${appEnv.mints ? 'not an array' : 'null'} when validating mint ${inputMint}`);
+      throw new BadRequestException(`${appKey}: Application environment is not properly configured`);
+    }
+    
+    const found = appEnv.mints.find(({ mint }) => mint.address === inputMint);
+    if (!found) {
+      this.mintNotFoundErrorCounter.add(1, { appKey, mint: inputMint.toString() });
+      throw new BadRequestException(`${appKey}: Can't find mint ${inputMint}`);
+    }
+    return found;
   }
 
   // FIXME: Validating the request should be done in a NestJS guard or interceptor

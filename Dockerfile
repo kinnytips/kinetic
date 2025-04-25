@@ -63,7 +63,7 @@ RUN yarn install --production
 # - copy the dist folder from the builder image
 # - copy the node_modules folder from the node_modules image
 ################################################################################
-FROM base as final
+FROM base AS final
 
 #RUN apk --no-cache add krb5-libs
 

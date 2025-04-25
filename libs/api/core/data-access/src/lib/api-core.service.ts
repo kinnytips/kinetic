@@ -37,7 +37,7 @@ export type AppEnvironment = AppEnv & {
 export class ApiCoreService extends PrismaClient implements OnModuleInit {
   private readonly logger = new Logger(ApiCoreService.name)
   readonly airdropConfig = new Map<string, Omit<AirdropConfig, 'connection'>>()
-
+  
   private getAppByEnvironmentIndexCounter: Counter
   private getAppByIndexCounter: Counter
 

@@ -160,31 +160,39 @@ export function parseAndSignTokenTransfer({
     };
   } else {
     // Use existing implementation for legacy transactions
-    const { blockhash, feePayer, source, transaction } = parseAndSignTransaction({ tx, signer });
+    const { blockhash, feePayer, source, transaction, isVersioned: txIsVersioned } = parseAndSignTransaction({ tx, signer });
 
-    // Get the first token account transfer
-    const instruction = transaction.instructions.find(
-      (instruction) => instruction?.programId?.toBase58() === TOKEN_PROGRAM_ID?.toBase58(),
-    );
+    // We need to cast transaction to Transaction to access instructions
+    // We know it's a Transaction because txIsVersioned is false
+    if (!txIsVersioned) {
+      const legacyTransaction = transaction as Transaction;
+    
+      // Get the first token account transfer
+      const instruction = legacyTransaction.instructions.find(
+        (instruction) => instruction?.programId?.toBase58() === TOKEN_PROGRAM_ID?.toBase58(),
+      );
 
-    if (!instruction) {
-      throw new Error(`parseAndSignTokenTransfer: Can't find token transfer instruction`);
+      if (!instruction) {
+        throw new Error(`parseAndSignTokenTransfer: Can't find token transfer instruction`);
+      }
+
+      // Get the amount and destination from the instruction
+      const {
+        data: { amount },
+        keys: { destination },
+      } = decodeTransferCheckedInstruction(instruction, TOKEN_PROGRAM_ID);
+
+      return {
+        amount,
+        blockhash,
+        destination,
+        feePayer,
+        source,
+        transaction,
+        isVersioned: false
+      };
+    } else {
+      throw new Error(`parseAndSignTokenTransfer: Received versioned transaction in legacy code path`);
     }
-
-    // Get the amount and destination from the instruction
-    const {
-      data: { amount },
-      keys: { destination },
-    } = decodeTransferCheckedInstruction(instruction, TOKEN_PROGRAM_ID);
-
-    return {
-      amount,
-      blockhash,
-      destination,
-      feePayer,
-      source,
-      transaction,
-      isVersioned: false
-    };
   }
 }
