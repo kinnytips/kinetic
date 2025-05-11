@@ -27,7 +27,7 @@ export function WebUiCopy({ disabled, label, size = 'sm', text = '' }: WebUiCopy
     <Tooltip label={`Copy ${text.length} characters to clipboard`} placement="top">
       <Button p={size} variant="outline" disabled={disabled} size={size} onClick={handleCopy}>
         <IconCopy color="gray" size={16} />
-        {label ? (typeof label === 'string' ? <Text ml={2}>{label}</Text> : label) : null}
+        {label ? typeof label === 'string' ? <Text ml={2}>{label}</Text> : label : null}
       </Button>
     </Tooltip>
   )
