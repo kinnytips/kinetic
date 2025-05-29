@@ -1,4 +1,6 @@
 {
+  "nxCloudAccessToken": "ZTRiZDM5NGItZWVlNy00MDZjLTgzNGYtYWFjN2M3ZTliNjdifHJlYWQtd3JpdGU=",
+  "nxCloudUrl": "https://cloud.nx.app",
   "npmScope": "kin-kinetic",
   "affected": {
     "defaultBase": "dev"
