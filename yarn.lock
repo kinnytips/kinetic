@@ -18361,9 +18361,9 @@ sync-fetch@^0.3.1:
     node-fetch "^2.6.1"
 
 systeminformation@^5.0.0:
-  version "5.11.16"
-  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.11.16.tgz#5f6fda2447fafe204bd2ab543475f1ffa8c14a85"
-  integrity sha512-/a1VfP9WELKLT330yhAHJ4lWCXRYynel1kMMHKc/qdzCgDt3BIcMlo+3tKcTiRHFefjV3fz4AvqMx7dGO/72zw==
+  version "5.27.1"
+  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.27.1.tgz#9a54d97502f7ff6b99f628fc0a2d7ab54ccba5c5"
+  integrity sha512-FgkVpT6GgATtNvADgtEzDxI/SVaBisfnQ4fmgQZhCJ4335noTgt9q6O81ioHwzs9HgnJaaFSdHSEMIkneZ55iA==
 
 tapable@^2.1.1, tapable@^2.2.0, tapable@^2.2.1:
   version "2.2.1"
