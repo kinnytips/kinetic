@@ -32,9 +32,9 @@ services:
       AUTH_USERS: "Greg|kinetic|Admin|gregfitzhugh@mail.com"
       AUTH_PASSWORD: "kinetic"
       # Provision more apps by providing the byte array of the fee payer, name and optionally a logo URL.
-      APP_1_FEE_PAYER_BYTE_ARRAY: "[24,20,238,188,26,234,120,209,88,63,170,46,66,98,21,113,194,120,143,228,231,37,91,0,242,32,180,99,243,179,57,144,11,233,235,235,203,20,105,33,47,140,152,253,12,148,72,175,141,253,242,110,225,110,21,211,118,87,111,206,208,166,190,78]"
-      #APP_1_FEE_PAYER_SECRET:
-      APP_1_NAME: "Kinnected"
+      #APP_1_FEE_PAYER_BYTE_ARRAY: "[24,20,238,188,26,234,120,209,88,63,170,46,66,98,21,113,194,120,143,228,231,37,91,0,242,32,180,99,243,179,57,144,11,233,235,235,203,20,105,33,47,140,152,253,12,148,72,175,141,253,242,110,225,110,21,211,118,87,111,206,208,166,190,78]"
+      APP_1_FEE_PAYER_SECRET: "3HicmKK88kuwRcvwfiVWMbzTY9mnzmmGuNN4V9Dwn5gCpFYDPCWfR8WmHPAZP4S3DSTPQvNGB4SXdoheCrj49dgW"
+      APP_1_NAME: "KinnectedTest"
       COOKIE_DOMAINS: "localhost,local.kinetic.host,pages.dev"
       CORS_BYPASS: "false"
       GITHUB_CLIENT_ID: "Ov23lim9zzgXL9QAn9Ux"
@@ -54,7 +54,7 @@ services:
       # SolanaDevnet
       # Devnet is enabled by default, you need to explicitly enable mainnet.
       SOLANA_DEVNET_ENABLED: "true"
-      SOLANA_MAINNET_ENABLED: "true"
+      #SOLANA_MAINNET_ENABLED: "true"
       
       WEB_URL: "http://localhost:3000"
     logging:
