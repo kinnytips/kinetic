@@ -2,7 +2,10 @@ import { ApiCoreService } from '@kin-kinetic/api/core/data-access'
 import { createReference, getAppKey } from '@kin-kinetic/api/core/util'
 import { ApiKineticService, TransactionWithErrors } from '@kin-kinetic/api/kinetic/data-access'
 import { Keypair } from '@kin-kinetic/keypair'
-import { parseAndSignTokenTransfer } from '@kin-kinetic/solana'
+import { 
+  parseAndSignTokenTransfer, 
+  parseAndSignVersionedTokenTransfer 
+} from '@kin-kinetic/solana'
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
 import { Counter } from '@opentelemetry/api-metrics'
 import { Transaction, TransactionErrorType, TransactionStatus } from '@prisma/client'
@@ -152,27 +155,101 @@ export class ApiTransactionService implements OnModuleInit {
     const mint = this.kinetic.validateMint(appEnv, appKey, input.mint)
     const reference = input?.reference || createReference(input?.referenceType, input?.referenceId)
 
-    // Process the Solana transaction
+    // Process the Solana transaction - let Solana handle the routing
     const signer = Keypair.fromSecret(mint.wallet?.secretKey)
+    const txBuffer = Buffer.from(input.tx, 'base64')
 
-    // Check for address lookup tables if this is a versioned transaction
-    const addressLookupTableAccounts = input.isVersioned && input.addressLookupTableAccounts
-      ? await this.kinetic.getAddressLookupTableAccounts(appKey, input.addressLookupTableAccounts)
-      : [];
+    let amount: bigint
+    let blockhash: string
+    let destination: any
+    let feePayer: string
+    let source: string
+    let solanaTransaction: any
+    let isVersioned: boolean
 
-    const {
-      amount,
-      blockhash,
-      destination,
-      feePayer,
-      source,
-      transaction: solanaTransaction,
-      isVersioned, // Get the versioned flag from the parser
-    } = parseAndSignTokenTransfer({
-      tx: Buffer.from(input.tx, 'base64'),
-      signer: signer.solana,
-      addressLookupTableAccounts, // Pass lookup tables if provided
-    })
+    if (input.isVersioned) {
+      // Handle versioned transactions when explicitly flagged
+      try {
+        const addressLookupTableAccounts = input.addressLookupTableAccounts
+          ? await this.kinetic.getAddressLookupTableAccounts(appKey, input.addressLookupTableAccounts)
+          : []
+
+        console.log(`Processing explicitly versioned transaction...`)
+        const versionedResult = parseAndSignVersionedTokenTransfer({
+          tx: txBuffer,
+          signer: signer.solana,
+          addressLookupTableAccounts,
+        })
+
+        amount = versionedResult.amount
+        blockhash = versionedResult.blockhash
+        destination = versionedResult.destination
+        feePayer = versionedResult.feePayer
+        source = versionedResult.source
+        solanaTransaction = versionedResult.transaction
+        isVersioned = true
+        console.log(`Successfully parsed versioned transaction`)
+
+      } catch (versionedError) {
+        const errorMessage = versionedError?.message || String(versionedError)
+        console.log(`Versioned parsing failed: ${errorMessage}`)
+        throw new Error(`Failed to parse versioned transaction: ${errorMessage}`)
+      }
+    } else {
+      // Try legacy first, but catch Solana's specific versioned error
+      try {
+        console.log(`Trying legacy transaction parsing...`)
+        const legacyResult = parseAndSignTokenTransfer({
+          tx: txBuffer,
+          signer: signer.solana,
+        })
+
+        amount = legacyResult.amount
+        blockhash = legacyResult.blockhash
+        destination = legacyResult.destination
+        feePayer = legacyResult.feePayer
+        source = legacyResult.source
+        solanaTransaction = legacyResult.transaction
+        isVersioned = false
+        console.log(`Successfully parsed as legacy transaction`)
+
+      } catch (legacyError) {
+        // Check if Solana specifically says this is versioned
+        const errorMessage = legacyError?.message || String(legacyError)
+        if (errorMessage.includes('Versioned messages must be deserialized with VersionedMessage.deserialize')) {
+          console.log(`Legacy parser says this is versioned, retrying with versioned parser...`)
+          
+          try {
+            const addressLookupTableAccounts = input.addressLookupTableAccounts
+              ? await this.kinetic.getAddressLookupTableAccounts(appKey, input.addressLookupTableAccounts)
+              : []
+
+            const versionedResult = parseAndSignVersionedTokenTransfer({
+              tx: txBuffer,
+              signer: signer.solana,
+              addressLookupTableAccounts,
+            })
+
+            amount = versionedResult.amount
+            blockhash = versionedResult.blockhash
+            destination = versionedResult.destination
+            feePayer = versionedResult.feePayer
+            source = versionedResult.source
+            solanaTransaction = versionedResult.transaction
+            isVersioned = true
+            console.log(`Successfully parsed as versioned transaction after legacy rejection`)
+
+          } catch (versionedError) {
+            const versionedErrorMessage = versionedError?.message || String(versionedError)
+            console.log(`Both parsing methods failed. Legacy error: ${errorMessage}, Versioned error: ${versionedErrorMessage}`)
+            throw new Error(`Failed to parse transaction: Legacy parsing failed (${errorMessage}), Versioned parsing failed (${versionedErrorMessage})`)
+          }
+        } else {
+          console.log(`Legacy parsing failed with non-versioned error: ${errorMessage}`)
+          throw new Error(`Failed to parse legacy transaction: ${errorMessage}`)
+        }
+      }
+    }
 
     return this.kinetic.processTransaction({
       amount,
@@ -193,7 +270,7 @@ export class ApiTransactionService implements OnModuleInit {
       source,
       tx: input.tx,
       ua,
-      isVersioned, // Pass the versioned flag
+      isVersioned,
     })
   }
 }

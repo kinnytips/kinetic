@@ -3,7 +3,7 @@ version: "3.3"
 services:
   kinetic:
     #image: ghcr.io/kin-labs/kinetic:1.0.0-rc.6
-    image: kinetic-versioned:1.0.0-rc.1
+    build: .  # Build locally instead of pulling image
     restart: unless-stopped
     container_name: kinetic
     hostname: kinetic
@@ -49,7 +49,7 @@ services:
       # SolanaLocal
       SOLANA_LOCAL_ENABLED: "true"
       SOLANA_LOCAL_MINT_KIN: "KinDesK3dYWo3R2wDk6Ucaf31tvQCCSYyL8Fuqp33GX,5,Kin"
-      SOLANA_LOCAL_MINT_KIN_AIRDROP_SECRET: "UvfuF3FPqLyvS8xGjSu4AUfdsY5QvLdnin8SKBLAi3UqgbmEWCDshPY3UcxvBgRAqHLzh5Ni1eypLVZArsis6FF"
+      SOLANA_LOCAL_MINT_KIN_AIRDROP_SECRET: "UvfuF3FPqLyvS8xGjSu4AUfdsY5QvLdnin8SKBLAi3UqgbmEWCCSYyL8Fuqp33GX"
       SOLANA_LOCAL_RPC_ENDPOINT: "http://localhost:8899"
       # SolanaDevnet
       # Devnet is enabled by default, you need to explicitly enable mainnet.
