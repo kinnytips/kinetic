@@ -1,4 +1,5 @@
-import { Badge, Box, Button, Stack, Text, Tooltip, useToast } from '@chakra-ui/react'
+import { Badge, Box, Button, Stack, Text, useToast } from '@chakra-ui/react'
+import { Tooltip } from '@kin-kinetic/web/ui/tooltip'
 import { WebUiAlert } from '@kin-kinetic/web/ui/alert'
 import { WebUiCard } from '@kin-kinetic/web/ui/card'
 import { WebUiLoaderPage } from '@kin-kinetic/web/ui/loader'

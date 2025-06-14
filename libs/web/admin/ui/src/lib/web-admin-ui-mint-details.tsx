@@ -1,4 +1,5 @@
-import { Avatar, Badge, Flex, Stack, Tag, TagLabel, TagLeftIcon, Text, Tooltip } from '@chakra-ui/react'
+import { Avatar, Badge, Flex, Stack, Tag, TagLabel, TagLeftIcon, Text } from '@chakra-ui/react'
+import { Tooltip } from '@kin-kinetic/web/ui/tooltip'
 import { WebUiAddress } from '@kin-kinetic/web/ui/address'
 import { WebUiIdenticon } from '@kin-kinetic/web/ui/identicon'
 import { Mint } from '@kin-kinetic/web/util/sdk'

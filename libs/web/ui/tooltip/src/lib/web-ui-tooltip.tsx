@@ -1,4 +1,4 @@
-import { Tooltip } from '@chakra-ui/react'
+import { Tooltip } from '@kin-kinetic/web/ui/tooltip'
 import { ReactNode } from 'react'
 
 export interface WebUiTooltipProps {
