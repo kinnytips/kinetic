@@ -8,7 +8,6 @@ import {
 } from '@ajna/pagination'
 import { Flex, SimpleGrid } from '@chakra-ui/react'
 import { WebUiTablePaginatorPageSize } from './web-ui-table-paginator-page.size'
-
 export function WebUiTablePaginator({
   currentPage,
   setPage,
@@ -38,7 +37,7 @@ export function WebUiTablePaginator({
                     bg: 'primary.500',
                   }}
                   key={`pagination_page_${page}`}
-                  page={page}
+                  page={page as any}
                 />
               ))}
             </PaginationPageGroup>

@@ -86,6 +86,7 @@
       "@kin-kinetic/web/ui/loader": ["libs/web/ui/loader/src/index.ts"],
       "@kin-kinetic/web/ui/page": ["libs/web/ui/page/src/index.ts"],
       "@kin-kinetic/web/ui/table": ["libs/web/ui/table/src/index.ts"],
+      "@kin-kinetic/web/ui/toaster": ["libs/web/ui/toaster/src/index.ts"],
       "@kin-kinetic/web/ui/tooltip": ["libs/web/ui/tooltip/src/index.ts"],
       "@kin-kinetic/web/util/sdk": ["libs/web/util/sdk/src/index.ts"]
     }
