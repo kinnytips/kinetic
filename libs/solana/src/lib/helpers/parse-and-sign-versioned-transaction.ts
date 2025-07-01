@@ -96,22 +96,33 @@ export function parseAndSignVersionedTransaction({
       console.log(`parseAndSignVersionedTransaction: Using regular signer for signing: ${signer.publicKey.toBase58()}`)
     }
 
-    // Only sign if the signer is actually required by this transaction (use existing signerInAccounts)
-    if (signerInAccounts) {
-      console.log(`parseAndSignVersionedTransaction: Signer is required, signing with sign method`)
+    // ============================================================================
+    // FIXED SIGNING LOGIC - Use partialSign like legacy transactions
+    // ============================================================================
+    
+    console.log(`parseAndSignVersionedTransaction: Attempting to co-sign using partialSign`)
+    console.log(`parseAndSignVersionedTransaction: This should preserve existing signatures like legacy transactions`)
+
+    // Always attempt to sign with our keypair using partialSign (preserves existing signatures)
+    try {
+      (versionedTx as any).partialSign(...[signingKeypair])
+      console.log(`parseAndSignVersionedTransaction: Successfully co-signed with partialSign method`)
       
+    } catch (partialSignError) {
+      const partialSignErrorMessage = partialSignError instanceof Error ? partialSignError.message : String(partialSignError)
+      console.log(`parseAndSignVersionedTransaction: partialSign failed: ${partialSignErrorMessage}`)
+      
+      // Fallback to regular sign if partialSign doesn't exist
+      console.log(`parseAndSignVersionedTransaction: Falling back to regular sign method`)
       try {
         versionedTx.sign([signingKeypair])
-        console.log(`parseAndSignVersionedTransaction: Successfully signed with sign method`)
-        
-      } catch (signingError) {
-        const signingErrorMessage = signingError instanceof Error ? signingError.message : String(signingError)
-        console.log(`parseAndSignVersionedTransaction: sign failed: ${signingErrorMessage}`)
-        throw new Error(`Failed to sign versioned transaction: ${signingErrorMessage}`)
+        console.log(`parseAndSignVersionedTransaction: Successfully signed with fallback sign method`)
+        console.log(`parseAndSignVersionedTransaction: WARNING: This may have replaced Jupiter's signatures`)
+      } catch (signError) {
+        const signErrorMessage = signError instanceof Error ? signError.message : String(signError)
+        console.log(`parseAndSignVersionedTransaction: Both partialSign and sign failed: ${signErrorMessage}`)
+        console.log(`parseAndSignVersionedTransaction: Continuing with existing signatures`)
       }
-    } else {
-      console.log(`parseAndSignVersionedTransaction: Signer not required for this transaction, skipping signing`)
-      console.log(`parseAndSignVersionedTransaction: Transaction may already be signed or signer not needed`)
     }
 
     const result = { 

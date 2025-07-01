@@ -1,5 +1,8 @@
+// File: libs/solana/src/lib/helpers/index.ts
+
 export * from './add-remove-decimals'
 export * from './convert-commitment'
+export * from './extract-address-lookup-tables'
 export * from './generate-close-account-transaction'
 export * from './generate-create-account-transaction'
 export * from './generate-make-transfer-batch-transaction'

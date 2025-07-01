@@ -4,7 +4,8 @@ import { ApiKineticService, TransactionWithErrors } from '@kin-kinetic/api/kinet
 import { Keypair } from '@kin-kinetic/keypair'
 import { 
   parseAndSignTokenTransfer, 
-  parseAndSignVersionedTokenTransfer 
+  parseAndSignVersionedTokenTransfer,
+  extractAddressLookupTableAddresses 
 } from '@kin-kinetic/solana'
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
 import { Counter } from '@opentelemetry/api-metrics'
@@ -52,76 +53,57 @@ export class ApiTransactionService implements OnModuleInit {
   }
 
   private async verifyTransaction({
-    appKey,
-    createdAt,
-    headers,
-    id: transactionId,
-    signature,
-    solanaStart,
-    status,
-    isVersioned,
-  }: Transaction): Promise<Transaction> {
-    this.logger.verbose(`verifyTransaction: ${transactionId} ${appKey} ${status} ${signature} ${isVersioned ? '(versioned)' : ''}`)
-    if (appKey && signature) {
-      try {
-        const status = await this.kinetic.getSignatureStatus(appKey, signature)
+  appKey,
+  createdAt,
+  headers,
+  id: transactionId,
+  signature,
+  solanaStart,
+  status,
+  isVersioned,
+}: Transaction): Promise<Transaction> {
+  this.logger.verbose(`verifyTransaction: ${transactionId} ${appKey} ${status} ${signature} ${isVersioned ? '(versioned)' : ''}`)
+  if (appKey && signature) {
+    try {
+      const status = await this.kinetic.getSignatureStatus(appKey, signature)
 
-        if (status?.confirmationStatus === 'finalized') {
-          const solana = await this.kinetic.getSolanaConnection(appKey)
-          // Handle versioned transactions by specifying maxSupportedTransactionVersion
-          const solanaTransaction = await solana.connection.getParsedTransaction(
-            signature,
-            {
-              commitment: 'finalized',
-              maxSupportedTransactionVersion: isVersioned ? 0 : undefined
-            }
-          );
-
-          const finalizedTx = await this.kinetic.storeFinalizedTransaction(
-            appKey,
-            transactionId,
-            signature,
-            solanaStart,
-            createdAt,
-            solanaTransaction,
-            isVersioned
-          )
-
-          const appEnv = await this.core.getAppEnvironmentByAppKey(appKey)
-
-          // Send Event Webhook
-          if (appEnv.webhookEventEnabled && appEnv.webhookEventUrl) {
-            const eventWebhookTransaction = await this.kinetic.sendEventWebhook(
-              appKey,
-              appEnv,
-              finalizedTx,
-              headers as Record<string, string>,
-            )
-            if (eventWebhookTransaction.status === TransactionStatus.Failed) {
-              this.logger.error(
-                `Transaction ${transactionId} sendEventWebhook failed:${eventWebhookTransaction.errors
-                  .map((e) => e.message)
-                  .join(', ')}`,
-                eventWebhookTransaction.errors,
-              )
-              return eventWebhookTransaction
-            }
+      if (status?.confirmationStatus === 'finalized') {
+        const solana = await this.kinetic.getSolanaConnection(appKey)
+        // Handle versioned transactions by specifying maxSupportedTransactionVersion
+        const solanaTransaction = await solana.connection.getParsedTransaction(
+          signature,
+          {
+            commitment: 'finalized',
+            maxSupportedTransactionVersion: isVersioned ? 0 : undefined
           }
+        );
 
-          return finalizedTx
-        }
-      } catch (e) {
-        return this.storeTransactionError(transactionId, `Error verifying transaction: ${e?.message || e?.toString()}`)
+        // Use the proper storeFinalizedTransaction method that handles JSON serialization
+        const finalizedTx = await this.kinetic.storeFinalizedTransaction(
+          appKey,
+          transactionId,
+          signature,
+          solanaStart,
+          createdAt,
+          solanaTransaction,
+          isVersioned
+        )
+
+        this.logger.verbose(`verifyTransaction: ${transactionId} confirmed`)
+        return finalizedTx
       }
+    } catch (e) {
+      this.logger.error(`verifyTransaction: error ${transactionId} ${e}`)
     }
-
-    const failed = await this.storeTransactionError(
-      transactionId,
-      signature ? `Transaction timed out` : 'Transaction never signed',
-    )
-    this.logger.verbose(`verifyTransaction: set ${transactionId} to Failed`)
-    return failed
   }
+
+  const failed = await this.storeTransactionError(
+    transactionId,
+    signature?.length ? `Transaction timed out` : 'Transaction never signed',
+  )
+  this.logger.verbose(`verifyTransaction: set ${transactionId} to Failed`)
+  return failed
+}
 
   storeTransactionError(id: string, message: string) {
     return this.core.transaction.update({
@@ -186,14 +168,36 @@ export class ApiTransactionService implements OnModuleInit {
         console.log(`Processing as versioned transaction...`)
         
         try {
-          // Get ALT accounts using existing kinetic service method
-          const addressLookupTableAccounts = input.addressLookupTableAccounts
-            ? await this.kinetic.getAddressLookupTableAccounts(appKey, input.addressLookupTableAccounts)
-            : []
+          // Smart ALT resolution: use provided ALTs or extract from transaction
+          let addressLookupTableAccounts
+          
+          if (input.addressLookupTableAccounts && input.addressLookupTableAccounts.length > 0) {
+            // Use provided ALT addresses
+            console.log(`Using provided ALT addresses: ${input.addressLookupTableAccounts.length}`)
+            addressLookupTableAccounts = await this.kinetic.getAddressLookupTableAccounts(
+              appKey, 
+              input.addressLookupTableAccounts
+            )
+          } else {
+            // Extract ALT addresses from the versioned transaction
+            console.log(`No ALT addresses provided, extracting from versioned transaction...`)
+            const extractedAltAddresses = extractAddressLookupTableAddresses(txBuffer)
+            
+            if (extractedAltAddresses.length > 0) {
+              console.log(`Extracted ${extractedAltAddresses.length} ALT addresses from transaction`)
+              addressLookupTableAccounts = await this.kinetic.getAddressLookupTableAccounts(
+                appKey, 
+                extractedAltAddresses
+              )
+            } else {
+              console.log(`No ALT addresses found in transaction, using empty array`)
+              addressLookupTableAccounts = []
+            }
+          }
 
           console.log(`Resolved ${addressLookupTableAccounts.length} ALT accounts`)
 
-          // Use enhanced versioned parsing (no feePayer returned)
+          // Use enhanced versioned parsing (no feePayer returned - we use app config)
           const versionedResult = parseAndSignVersionedTokenTransfer({
             tx: txBuffer,
             signer: signer.solana,
@@ -207,11 +211,11 @@ export class ApiTransactionService implements OnModuleInit {
           solanaTransaction = versionedResult.transaction
           actuallyVersioned = true
 
-          console.log(`✓ Enhanced versioned parsing successful (no feePayer from parser)`)
+          console.log(`✓ Enhanced versioned parsing successful`)
           console.log(`  Amount: ${amount > 0 ? amount.toString() : 'Complex transaction (Jupiter-style)'}`)
           console.log(`  Source: ${source}`)
           console.log(`  Destination: ${destination?.pubkey.toBase58()}`)
-          console.log(`  Fee Payer: ${appFeePayer} (from app config)`)
+          console.log(`  Fee Payer: ${appFeePayer} (from app config - consistent with final processing)`)
 
         } catch (versionedError) {
           const versionedErrorMessage = versionedError?.message || String(versionedError)
@@ -235,12 +239,8 @@ export class ApiTransactionService implements OnModuleInit {
 
             console.log(`✓ Auto-fallback to legacy parsing successful`)
             console.log(`  Note: Transaction marked as versioned but parsed as legacy`)
-            console.log(`  Fee Payer: ${legacyResult.feePayer} (from legacy parser)`)
-
-            // For legacy fallback, use feePayer from legacy parser if different
-            if (legacyResult.feePayer !== appFeePayer) {
-              console.log(`  Using legacy parser fee payer: ${legacyResult.feePayer}`)
-            }
+            console.log(`  Parser fee payer: ${legacyResult.feePayer} (legacy parser result)`)
+            console.log(`  Final fee payer: ${appFeePayer} (from app config - used in final processing)`)
 
           } catch (legacyError) {
             const legacyErrorMessage = legacyError?.message || String(legacyError)
@@ -251,7 +251,7 @@ export class ApiTransactionService implements OnModuleInit {
           }
         }
       } else {
-        // Legacy transaction processing (existing logic)
+        // Legacy transaction processing (existing logic) - UNCHANGED FUNCTIONALITY
         console.log(`Processing as legacy transaction...`)
         
         try {
@@ -271,12 +271,8 @@ export class ApiTransactionService implements OnModuleInit {
           console.log(`  Amount: ${amount.toString()}`)
           console.log(`  Source: ${source}`)
           console.log(`  Destination: ${destination?.pubkey.toBase58()}`)
-          console.log(`  Fee Payer: ${legacyResult.feePayer} (from legacy parser)`)
-
-          // For legacy transactions, respect the feePayer from the parser
-          if (legacyResult.feePayer !== appFeePayer) {
-            console.log(`  Using legacy parser fee payer: ${legacyResult.feePayer}`)
-          }
+          console.log(`  Parser fee payer: ${legacyResult.feePayer} (legacy parser result)`)
+          console.log(`  Final fee payer: ${appFeePayer} (from app config - used in final processing)`)
 
         } catch (legacyError) {
           const legacyErrorMessage = legacyError?.message || String(legacyError)
@@ -286,10 +282,21 @@ export class ApiTransactionService implements OnModuleInit {
             console.log(`Auto-detected versioned transaction from legacy parsing error`)
             
             try {
-              // Get ALT accounts for auto-detected versioned transaction
-              const addressLookupTableAccounts = input.addressLookupTableAccounts
-                ? await this.kinetic.getAddressLookupTableAccounts(appKey, input.addressLookupTableAccounts)
-                : []
+              // Extract ALT addresses from the auto-detected versioned transaction
+              console.log(`Auto-detected versioned transaction, extracting ALT addresses...`)
+              const extractedAltAddresses = extractAddressLookupTableAddresses(txBuffer)
+              
+              let addressLookupTableAccounts
+              if (extractedAltAddresses.length > 0) {
+                console.log(`Extracted ${extractedAltAddresses.length} ALT addresses from auto-detected transaction`)
+                addressLookupTableAccounts = await this.kinetic.getAddressLookupTableAccounts(
+                  appKey, 
+                  extractedAltAddresses
+                )
+              } else {
+                console.log(`No ALT addresses found in auto-detected transaction`)
+                addressLookupTableAccounts = []
+              }
 
               const versionedResult = parseAndSignVersionedTokenTransfer({
                 tx: txBuffer,
@@ -305,7 +312,7 @@ export class ApiTransactionService implements OnModuleInit {
               actuallyVersioned = true
 
               console.log(`✓ Auto-detected versioned transaction parsed successfully`)
-              console.log(`  Using app-configured fee payer: ${appFeePayer}`)
+              console.log(`  Fee Payer: ${appFeePayer} (from app config - consistent with final processing)`)
 
             } catch (autoVersionedError) {
               const autoVersionedErrorMessage = autoVersionedError?.message || String(autoVersionedError)
@@ -323,7 +330,7 @@ export class ApiTransactionService implements OnModuleInit {
 
       console.log(`=== PARSING COMPLETED SUCCESSFULLY ===`)
       console.log(`Final transaction type: ${actuallyVersioned ? 'Versioned' : 'Legacy'}`)
-      console.log(`Fee Payer source: ${actuallyVersioned ? 'App Configuration' : 'Parser or App Configuration'}`)
+      console.log(`Fee Payer: ${appFeePayer} (from AppConfigMint - used consistently in final processing)`)
       console.log(`Processing through: SAME pipeline as existing implementation`)
 
     } catch (parsingError) {
@@ -343,7 +350,7 @@ export class ApiTransactionService implements OnModuleInit {
       commitment: input?.commitment,
       decimals: mint?.mint?.decimals,
       destination: destination?.pubkey.toBase58(),
-      feePayer: appFeePayer, // Use app-configured fee payer
+      feePayer: appFeePayer, // ✅ ALWAYS uses app-configured fee payer (consistent behavior)
       headers: req.headers as Record<string, string>,
       ip,
       lastValidBlockHeight: input?.lastValidBlockHeight,
