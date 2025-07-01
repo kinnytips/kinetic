@@ -96,96 +96,22 @@ export function parseAndSignVersionedTransaction({
       console.log(`parseAndSignVersionedTransaction: Using regular signer for signing: ${signer.publicKey.toBase58()}`)
     }
 
-    // Log transaction details before signing
-    console.log(`parseAndSignVersionedTransaction: Transaction signatures before signing: ${versionedTx.signatures.length}`)
-    console.log(`parseAndSignVersionedTransaction: About to sign with: ${signingKeypair.publicKey.toBase58()}`)
-
-    // Implement true partial signing for VersionedTransaction using constructor
-    console.log(`parseAndSignVersionedTransaction: Implementing true partial signing using VersionedTransaction constructor`)
-    
-    try {
-      const message = versionedTx.message
-      const signerPubkey = signingKeypair.publicKey
+    // Only sign if the signer is actually required by this transaction (use existing signerInAccounts)
+    if (signerInAccounts) {
+      console.log(`parseAndSignVersionedTransaction: Signer is required, signing with sign method`)
       
-      // Get the serialized message for signing
-      const messageBytes = message.serialize()
-      console.log(`parseAndSignVersionedTransaction: Message serialized, length: ${messageBytes.length}`)
-      
-      // Find the signer's position in the message's account keys
-      let signerIndex = -1
-      for (let i = 0; i < message.staticAccountKeys.length; i++) {
-        if (message.staticAccountKeys[i].equals(signerPubkey)) {
-          signerIndex = i
-          break
-        }
-      }
-      
-      console.log(`parseAndSignVersionedTransaction: Signer ${signerPubkey.toBase58()} found at index: ${signerIndex}`)
-      
-      if (signerIndex >= 0) {
-        // Manually create signature for VersionedTransaction (no built-in sign method)
-        console.log(`parseAndSignVersionedTransaction: Creating manual signature for VersionedTransaction`)
+      try {
+        versionedTx.sign([signingKeypair])
+        console.log(`parseAndSignVersionedTransaction: Successfully signed with sign method`)
         
-        try {
-          // Get message bytes to sign
-          const messageBytes = message.serialize()
-          console.log(`parseAndSignVersionedTransaction: Message bytes length: ${messageBytes.length}`)
-          
-          // Create signature using tweetnacl (ed25519)
-          // Note: signingKeypair.secretKey is the private key for signing
-          const nacl = require('tweetnacl')
-          const signature = nacl.sign.detached(messageBytes, signingKeypair.secretKey)
-          console.log(`parseAndSignVersionedTransaction: Created signature: ${Buffer.from(signature).toString('base64').substring(0, 20)}...`)
-          
-          // Create signatures array with proper length
-          const numSigners = message.staticAccountKeys.length
-          const signatures: Uint8Array[] = new Array(numSigners)
-          
-          // Fill with empty signatures (64 zero bytes each)
-          for (let i = 0; i < numSigners; i++) {
-            signatures[i] = new Uint8Array(64).fill(0)
-          }
-          
-          // Set our signature in the correct position
-          signatures[signerIndex] = signature
-          console.log(`parseAndSignVersionedTransaction: Set signature at position ${signerIndex} of ${numSigners} total`)
-          
-          // Reconstruct the VersionedTransaction with our partial signatures
-          const partiallySignedTx = new VersionedTransaction(message, signatures)
-          console.log(`parseAndSignVersionedTransaction: Reconstructed VersionedTransaction with partial signatures`)
-          
-          // Replace the original transaction reference
-          Object.assign(versionedTx, partiallySignedTx)
-          
-          // Log which positions have signatures
-          for (let i = 0; i < signatures.length; i++) {
-            const hasSignature = signatures[i] && signatures[i].some(byte => byte !== 0)
-            console.log(`parseAndSignVersionedTransaction: Signature position ${i}: ${hasSignature ? 'SIGNED' : 'EMPTY'}`)
-          }
-          
-          console.log(`parseAndSignVersionedTransaction: Manual partial signing completed successfully`)
-          
-        } catch (manualSignError) {
-          const signErrorMessage = manualSignError instanceof Error ? manualSignError.message : String(manualSignError)
-          console.log(`parseAndSignVersionedTransaction: Manual signing failed: ${signErrorMessage}`)
-          console.log(`parseAndSignVersionedTransaction: Continuing with unsigned transaction for frontend signing`)
-        }
-        
-      } else {
-        console.log(`parseAndSignVersionedTransaction: Signer not found in message account keys - no signing needed`)
-        console.log(`parseAndSignVersionedTransaction: This is normal for some Jupiter transactions`)
+      } catch (signingError) {
+        const signingErrorMessage = signingError instanceof Error ? signingError.message : String(signingError)
+        console.log(`parseAndSignVersionedTransaction: sign failed: ${signingErrorMessage}`)
+        throw new Error(`Failed to sign versioned transaction: ${signingErrorMessage}`)
       }
-      
-      console.log(`parseAndSignVersionedTransaction: Partial signing completed successfully`)
-      
-    } catch (signingError) {
-      const signingErrorMessage = signingError instanceof Error ? signingError.message : String(signingError)
-      console.log(`parseAndSignVersionedTransaction: Partial signing error: ${signingErrorMessage}`)
-      
-      // Even if partial signing fails, we can still return the transaction
-      // The frontend or another service might complete the signing
-      console.log(`parseAndSignVersionedTransaction: Continuing despite partial signing error`)
-      console.log(`parseAndSignVersionedTransaction: Transaction can be completed by other signers`)
+    } else {
+      console.log(`parseAndSignVersionedTransaction: Signer not required for this transaction, skipping signing`)
+      console.log(`parseAndSignVersionedTransaction: Transaction may already be signed or signer not needed`)
     }
 
     const result = { 

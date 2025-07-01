@@ -94,7 +94,7 @@ export function generateVersionedTransferTransaction(
   // Create the versioned transaction
   const versionedTransaction = new VersionedTransaction(messageV0)
 
-  // Partially sign with the owner
+  // Properly sign with sign method
   versionedTransaction.sign([options.owner])
 
   return versionedTransaction
@@ -168,7 +168,7 @@ export function generateVersionedTransferBatchTransaction(
   // Create the versioned transaction
   const versionedTransaction = new VersionedTransaction(messageV0)
 
-  // Partially sign with the owner
+  // Properly sign with sign method
   versionedTransaction.sign([options.owner])
 
   return versionedTransaction

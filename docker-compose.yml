@@ -3,7 +3,7 @@ version: "3.3"
 services:
   kinetic:
     #image: ghcr.io/kin-labs/kinetic:1.0.0-rc.6
-    #build: .  # Build locally instead of pulling image
+    build: .  # Build locally instead of pulling image
     restart: unless-stopped
     image: kinetic-versioned:v1.0  # This names your image
     container_name: kinetic-container  # This names your container
