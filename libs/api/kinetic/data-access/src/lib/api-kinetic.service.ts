@@ -572,49 +572,22 @@ export class ApiKineticService implements OnModuleInit {
     const sent = await this.sendSolanaTransaction(appKey, transaction.id, solana, solanaTransaction, {
       maxRetries: appEnv.solanaTransactionMaxRetries ?? 0,
       skipPreflight: appEnv.solanaTransactionSkipPreflight ?? false,
-      isVersioned, // Pass the versioned flag
+      isVersioned,
     })
 
-    if (sent.status === TransactionStatus.Failed || !sent.signature) {
+    if (sent.status === TransactionStatus.Failed) {
       this.logger.error(
-        `Transaction ${transaction.id} sendSolanaTransaction failed:${sent.errors.map((e) => e.message).join(', ')}`,
+        `Transaction ${transaction.id} sendSolanaTransaction failed: ${sent.errors.map((e) => e.message).join(', ')}`,
         sent.errors,
       )
       return sent
     }
 
-    // Confirm transaction
-    const confirmedTransaction = await this.confirmTransaction(
-      appKey,
-      blockhash,
-      commitment,
-      lastValidBlockHeight,
-      sent,
-      solana,
-    )
-
-    // Pass the isVersioned flag to confirmSignature
-    this.confirmSignature({
-      appEnv,
-      appKey,
-      transactionId: transaction.id,
-      blockhash,
-      headers,
-      lastValidBlockHeight: lastValidBlockHeight,
-      signature: sent.signature as string,
-      solanaStart: confirmedTransaction.solanaStart,
-      transactionStart: confirmedTransaction.createdAt,
-      isVersioned, // Pass the versioned flag
-    })
-
-    if (confirmedTransaction.status === TransactionStatus.Failed) {
-      this.logger.error(
-        `Transaction ${transaction.id} confirmTransaction failed:${confirmedTransaction.errors
-          .map((e) => e.message)
-          .join(', ')}`,
-        confirmedTransaction.errors,
-      )
-      return confirmedTransaction
+    // Send Event Webhook after the transaction is sent to Solana (fire and forget)
+    if (appEnv.webhookEventEnabled && appEnv.webhookEventUrl) {
+      this.sendEventWebhook(appKey, appEnv, sent, headers).catch((err) => {
+        this.logger.error(`Transaction ${transaction.id} sendEventWebhook failed: ${err.message}`, err)
+      })
     }
 
     return sent
@@ -756,31 +729,32 @@ export class ApiKineticService implements OnModuleInit {
       const solanaCommitted = new Date();
       const solanaCommittedDuration = solanaCommitted.getTime() - solanaStart.getTime();
       this.sendSolanaTransactionConfirmedCounter.add(1, { appKey });
-      this.logger.verbose(`${appKey}: sendSolanaTransaction ${status} ${signature} ${isVersioned ? '(versioned)' : ''}`);
+
       return this.updateTransaction(transactionId, {
         signature,
         status,
         solanaStart,
         solanaCommitted,
         solanaCommittedDuration,
-      });
-    } catch (error) {
-      this.logger.verbose(`${appKey}: sendSolanaTransaction ${error}`)
+      })
+    } catch (err) {
       this.sendSolanaTransactionErrorCounter.add(1, { appKey })
-      const solanaCommitted = new Date()
-      const solanaCommittedDuration = solanaCommitted.getTime() - solanaStart.getTime()
+      const solanaCommittedDuration = new Date().getTime() - solanaStart.getTime()
       return this.handleTransactionError(
         transactionId,
         {
           solanaStart,
-          solanaCommitted,
+          solanaCommitted: new Date(),
           solanaCommittedDuration,
         },
-        parseTransactionError(error, error.type, error.instruction),
+        {
+          type: TransactionErrorType.Unknown,
+          logs: [err.toString()],
+          message: `${err.response?.data?.message ?? err.toString() ?? 'Unknown error'}`,
+        },
       )
     }
   }
-
   private async handleTransactionError(
     transactionId: string,
     data: Prisma.TransactionUpdateInput,
