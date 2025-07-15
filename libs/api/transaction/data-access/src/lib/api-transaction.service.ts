@@ -126,53 +126,49 @@ export class ApiTransactionService implements OnModuleInit {
     })
   }
 
-  // This is the cleaned version of the EXISTING makeTransfer method in api-transaction.service.ts
-// All console.log statements removed, but ALL existing functionality preserved
+  async makeTransfer(req: Request, input: MakeTransferRequest): Promise<Transaction> {
+    // Extract environment and index from headers (matching Android SDK)
+    const environment = req.headers['kinetic-environment'] as string
+    const indexStr = req.headers['kinetic-index'] as string
+    
+    if (!environment || !indexStr) {
+      console.log('Available headers:', Object.keys(req.headers))
+      throw new Error('Missing required headers: kinetic-environment and kinetic-index')
+    }
+    
+    // Parse and validate index
+    const index = parseInt(indexStr)
+    if (isNaN(index)) {
+      throw new Error('Invalid kinetic-index header: must be a number')
+    }
+    
+    // Construct appKey in correct format: app-{index}-{environment}
+    const appKey = `app-${index}-${environment}`
+    
+    // Get appEnv using the constructed appKey
+    const appEnv = await this.core.getAppEnvironmentByAppKey(appKey)
+    
+    const processingStartedAt = new Date().getTime()
 
-async makeTransfer(req: Request, input: MakeTransferRequest): Promise<Transaction> {
-  // Extract environment and index from headers (matching Android SDK)
-  const environment = req.headers['kinetic-environment'] as string
-  const indexStr = req.headers['kinetic-index'] as string
-  
-  if (!environment || !indexStr) {
-    console.log('Available headers:', Object.keys(req.headers))
-    throw new Error('Missing required headers: kinetic-environment and kinetic-index')
-  }
-  
-  // Parse and validate index
-  const index = parseInt(indexStr)
-  if (isNaN(index)) {
-    throw new Error('Invalid kinetic-index header: must be a number')
-  }
-  
-  // Construct appKey in correct format: app-{index}-{environment}
-  const appKey = `app-${index}-${environment}`
-  
-  // Get appEnv using the constructed appKey
-  const appEnv = await this.core.getAppEnvironmentByAppKey(appKey)
-  
-  const processingStartedAt = new Date().getTime()
+    const { ip, ua } = this.kinetic.validateRequest(appEnv, req)
+    const mint = this.kinetic.validateMint(appEnv, appKey, input.mint)
+    const reference = input?.reference || createReference(input?.referenceType, input?.referenceId)
 
-  const { ip, ua } = this.kinetic.validateRequest(appEnv, req)
-  const mint = this.kinetic.validateMint(appEnv, appKey, input.mint)
-  const reference = input?.reference || createReference(input?.referenceType, input?.referenceId)
+    const signer = Keypair.fromSecret(mint.wallet?.secretKey)
+    const txBuffer = Buffer.from(input.tx, 'base64')
 
-  const signer = Keypair.fromSecret(mint.wallet?.secretKey)
-  const txBuffer = Buffer.from(input.tx, 'base64')
+    const appFeePayer = mint.wallet?.publicKey
+    if (!appFeePayer) {
+      throw new Error('No fee payer configured for this mint')
+    }
 
-  const appFeePayer = mint.wallet?.publicKey
-  if (!appFeePayer) {
-    throw new Error('No fee payer configured for this mint')
-  }
+    let amount: bigint
+    let blockhash: string
+    let destination: any
+    let source: string
+    let solanaTransaction: any
+    let actuallyVersioned = false
 
-  let amount: bigint
-  let blockhash: string
-  let destination: any
-  let source: string
-  let solanaTransaction: any
-  let actuallyVersioned: boolean = false
-
-  try {
     if (input.isVersioned) {
       try {
         let addressLookupTableAccounts
@@ -286,30 +282,26 @@ async makeTransfer(req: Request, input: MakeTransferRequest): Promise<Transactio
       }
     }
 
-  } catch (parsingError) {
-    throw parsingError
+    return this.kinetic.processTransaction({
+      amount,
+      appEnv,
+      appKey,
+      blockhash,
+      commitment: input?.commitment,
+      decimals: mint?.mint?.decimals,
+      destination: destination?.pubkey.toBase58(),
+      feePayer: appFeePayer,
+      headers: req.headers as Record<string, string>,
+      ip,
+      lastValidBlockHeight: input?.lastValidBlockHeight,
+      mintPublicKey: mint?.mint?.address,
+      processingStartedAt,
+      reference,
+      solanaTransaction,
+      source,
+      tx: input.tx,
+      ua,
+      isVersioned: actuallyVersioned,
+    })
   }
-
-  return this.kinetic.processTransaction({
-    amount,
-    appEnv,
-    appKey,
-    blockhash,
-    commitment: input?.commitment,
-    decimals: mint?.mint?.decimals,
-    destination: destination?.pubkey.toBase58(),
-    feePayer: appFeePayer,
-    headers: req.headers as Record<string, string>,
-    ip,
-    lastValidBlockHeight: input?.lastValidBlockHeight,
-    mintPublicKey: mint?.mint?.address,
-    processingStartedAt,
-    reference,
-    solanaTransaction,
-    source,
-    tx: input.tx,
-    ua,
-    isVersioned: actuallyVersioned,
-  })
-}
 }
