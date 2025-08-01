@@ -132,7 +132,7 @@ export class ApiTransactionService implements OnModuleInit {
     const indexStr = req.headers['kinetic-index'] as string
     
     if (!environment || !indexStr) {
-      console.log('Available headers:', Object.keys(req.headers))
+      this.logger.debug('Available headers:', Object.keys(req.headers))
       throw new Error('Missing required headers: kinetic-environment and kinetic-index')
     }
     
