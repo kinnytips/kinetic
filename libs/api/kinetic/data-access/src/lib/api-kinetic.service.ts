@@ -586,7 +586,7 @@ export class ApiKineticService implements OnModuleInit {
     // Send Event Webhook after the transaction is sent to Solana (fire and forget)
     if (appEnv.webhookEventEnabled && appEnv.webhookEventUrl) {
       this.sendEventWebhook(appKey, appEnv, sent, headers).catch((err) => {
-        this.logger.error(`Transaction ${transaction.id} sendEventWebhook failed: ${err.message}`, err)
+        this.logger.error(`Transaction ${transaction.id} sendEventWebhook failed: ${err?.message ?? String(err)}`, err)
       })
     }
 
