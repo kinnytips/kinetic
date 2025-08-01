@@ -750,7 +750,7 @@ export class ApiKineticService implements OnModuleInit {
         {
           type: TransactionErrorType.Unknown,
           logs: [err.toString()],
-          message: `${err.response?.data?.message ?? err.toString() ?? 'Unknown error'}`,
+          message: `${err?.message ?? err.toString() ?? 'Unknown error'}`,
         },
       )
     }
