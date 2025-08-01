@@ -55,6 +55,7 @@ function resolveAccountKeysEnhanced(
           }
         }
       } catch (altError) {
+        console.error('Error processing ALT:', altError);
         // Continue processing other ALTs
       }
     }
