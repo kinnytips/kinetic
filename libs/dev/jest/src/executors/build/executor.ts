@@ -1,5 +1,5 @@
-import { ExecutorContext, logger, parseTargetString, readTargetOptions, runExecutor } from '@nrwl/devkit'
-import jestExecutor from '@nrwl/jest/src/executors/jest/jest.impl'
+import { ExecutorContext, logger, parseTargetString, readTargetOptions, runExecutor } from '@nx/devkit'
+import jestExecutor from '@nx/jest/src/executors/jest/jest.impl'
 import { BuildExecutorSchema } from './schema'
 
 export default async function jestDevServer(options: BuildExecutorSchema, context: ExecutorContext) {

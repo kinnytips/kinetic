@@ -1,4 +1,4 @@
-import { Tree } from '@nrwl/devkit'
+import { Tree } from '@nx/devkit'
 import { addImportFrom } from './helpers/add-import-from'
 import { getCrudMethods } from './helpers/get-crud-methods'
 import { updateSourceFile } from './helpers/update-source-file'

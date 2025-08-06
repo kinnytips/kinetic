@@ -3,14 +3,14 @@
   "sourceRoot": "libs/api/auth/data-access/src",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/api/auth/data-access/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/api/auth/data-access"],
       "options": {
         "jestConfig": "libs/api/auth/data-access/jest.config.ts",

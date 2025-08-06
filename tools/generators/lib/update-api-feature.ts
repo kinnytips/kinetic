@@ -1,4 +1,4 @@
-import { getWorkspaceLayout, names, ProjectConfiguration, readProjectConfiguration, Tree } from '@nrwl/devkit'
+import { getWorkspaceLayout, names, ProjectConfiguration, readProjectConfiguration, Tree } from '@nx/devkit'
 import { join } from 'path'
 import { ObjectLiteralExpression } from 'ts-morph'
 import { apiCrudController } from './api-crud-controller'

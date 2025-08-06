@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -90,5 +89,6 @@
       "@kin-kinetic/web/util/sdk": ["libs/web/util/sdk/src/index.ts"]
     }
   },
+  "include": ["apps/**/*.ts", "libs/**/*.ts"],
   "exclude": ["node_modules", "tmp"]
 }
