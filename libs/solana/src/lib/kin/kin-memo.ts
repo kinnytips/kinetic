@@ -12,7 +12,7 @@ export class KinMemo {
 
   static from(b: Buffer): KinMemo {
     const buf = Buffer.alloc(b.length)
-    buf.set(b)
+    b.copy(buf)
     return new this(buf)
   }
 
