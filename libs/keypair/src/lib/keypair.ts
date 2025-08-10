@@ -13,7 +13,7 @@ export class Keypair {
   secretKey?: string
 
   constructor(secretKey: string) {
-    this.solanaKeypair = SolanaKeypair.fromSecretKey(new Uint8Array(bs58.decode(secretKey)))
+    this.solanaKeypair = SolanaKeypair.fromSecretKey(bs58.decode(secretKey))
     this.publicKey = this.solanaKeypair.publicKey.toBase58()
     this.secretKey = bs58.encode(this.solanaKeypair.secretKey)
   }
