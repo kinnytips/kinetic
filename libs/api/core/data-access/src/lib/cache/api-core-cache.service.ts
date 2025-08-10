@@ -66,6 +66,6 @@ export class ApiCoreCacheService {
    * Set a value in the cache based on the namespace and key.
    */
   private set<T>(namespace: CacheNamespace, key: string, value: T, ttl?: number) {
-    return this.cache.set<T>(getCacheKey(namespace, key), value, ttl ?? 5)
+    return this.cache.set<T>(getCacheKey(namespace, key), value, { ttl: ttl ?? 5 })
   }
 }
