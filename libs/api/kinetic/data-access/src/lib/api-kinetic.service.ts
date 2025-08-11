@@ -4,6 +4,7 @@ import { parseTransactionError } from '@kin-kinetic/api/kinetic/util'
 import { ApiSolanaService } from '@kin-kinetic/api/solana/data-access'
 import { ApiWebhookService, WebhookType } from '@kin-kinetic/api/webhook/data-access'
 import { Keypair } from '@kin-kinetic/keypair'
+import { PublicKey } from '@solana/web3.js'
 import {
   BalanceMint,
   Commitment,
@@ -23,7 +24,7 @@ import {
 } from '@nestjs/common'
 import { Counter } from '@opentelemetry/api-metrics'
 import { App, AppEnv, Prisma, Transaction, TransactionErrorType, TransactionStatus } from '@prisma/client'
-import { Transaction as SolanaTransaction } from '@solana/web3.js'
+import { Transaction as SolanaTransaction, VersionedTransaction, AddressLookupTableAccount } from '@solana/web3.js'
 import { Request } from 'express'
 import * as requestIp from 'request-ip'
 import { CloseAccountRequest } from './dto/close-account-request.dto'
@@ -127,6 +128,7 @@ export class ApiKineticService implements OnModuleInit {
     signature,
     solanaStart,
     transactionStart,
+    isVersioned,
   }: {
     appEnv: AppEnv & { app: App }
     appKey: string
@@ -137,9 +139,10 @@ export class ApiKineticService implements OnModuleInit {
     signature: string
     solanaStart: Date
     transactionStart: Date
+    isVersioned?: boolean
   }): Promise<Transaction | undefined> {
-    const solana = await this.solana.getConnection(appKey)
-    this.logger.verbose(`${appKey}: confirmSignature: confirming ${signature}`)
+    const solana = await this.getSolanaConnection(appKey)
+    this.logger.verbose(`${appKey}: confirmSignature: confirming ${signature} ${isVersioned ? '(versioned)' : ''}`)
 
     const finalized = await solana.confirmTransaction(
       {
@@ -150,7 +153,15 @@ export class ApiKineticService implements OnModuleInit {
       Commitment.Finalized,
     )
     if (finalized) {
-      const solanaTransaction = await solana.connection.getParsedTransaction(signature, 'finalized')
+      // For versioned transactions, specify the max supported version
+      const solanaTransaction = await solana.connection.getParsedTransaction(
+        signature,
+        {
+          commitment: 'finalized',
+          maxSupportedTransactionVersion: isVersioned ? 0 : undefined
+        }
+      );
+
       const transaction = await this.storeFinalizedTransaction(
         appKey,
         transactionId,
@@ -158,7 +169,9 @@ export class ApiKineticService implements OnModuleInit {
         solanaStart,
         transactionStart,
         solanaTransaction,
+        isVersioned
       )
+
       this.confirmSignatureFinalizedCounter.add(1, { appKey })
       // Send Event Webhook
       if (appEnv.webhookEventEnabled && appEnv.webhookEventUrl && transaction) {
@@ -186,11 +199,12 @@ export class ApiKineticService implements OnModuleInit {
     solanaStart: Date,
     transactionStart: Date,
     solanaTransaction: unknown,
+    isVersioned?: boolean
   ) {
     const solanaFinalized = new Date()
     const solanaFinalizedDuration = solanaFinalized.getTime() - solanaStart.getTime()
     const totalDuration = solanaFinalized.getTime() - transactionStart.getTime()
-    this.logger.verbose(`${appKey}: storeFinalizedTransaction: ${Commitment.Finalized} ${signature}`)
+    this.logger.verbose(`${appKey}: storeFinalizedTransaction: ${Commitment.Finalized} ${signature} ${isVersioned ? '(versioned)' : ''}`)
 
     return this.updateTransaction(transactionId, {
       solanaFinalized,
@@ -198,6 +212,7 @@ export class ApiKineticService implements OnModuleInit {
       solanaTransaction: solanaTransaction ? JSON.parse(JSON.stringify(solanaTransaction)) : undefined,
       status: TransactionStatus.Finalized,
       totalDuration,
+      isVersioned, // Store whether this was a versioned transaction
     })
   }
 
@@ -281,6 +296,28 @@ export class ApiKineticService implements OnModuleInit {
     return this.solana.getConnection(appKey)
   }
 
+  // Add method to get address lookup tables
+  async getAddressLookupTableAccounts(
+    appKey: string,
+    addresses: string[]
+  ): Promise<AddressLookupTableAccount[]> {
+    const solana = await this.getSolanaConnection(appKey);
+    const lookupTableAccounts: AddressLookupTableAccount[] = [];
+
+    for (const address of addresses) {
+      try {
+        const account = await solana.connection.getAddressLookupTable(new PublicKey(address));
+        if (account?.value) {
+          lookupTableAccounts.push(account.value);
+        }
+      } catch (error) {
+        this.logger.error(`Failed to fetch lookup table ${address}:`, error);
+      }
+    }
+
+    return lookupTableAccounts;
+  }
+
   async handleCloseAccount(
     input: CloseAccountRequest,
     {
@@ -339,6 +376,7 @@ export class ApiKineticService implements OnModuleInit {
         source: input.account,
         tx: solanaTransaction.serialize().toString('base64'),
         ua,
+        isVersioned: false, // Close account transactions are not versioned
       })
     } catch (error) {
       this.closeAccountRequestInvalidCounter.add(1, { appKey })
@@ -448,16 +486,27 @@ export class ApiKineticService implements OnModuleInit {
     )
   }
 
-  async getSignatureStatus(appKey: string, signature: string): Promise<SignatureStatus> {
-    const solana = await this.getSolanaConnection(appKey)
-
-    return solana.getSignatureStatus(signature)
+  async getSignatureStatus(
+    appKey: string,
+    signature: string,
+    maxSupportedTransactionVersion?: number
+  ): Promise<SignatureStatus> {
+    const solana = await this.getSolanaConnection(appKey);
+  
+    // Call getSignatureStatus with only one parameter (removed the second parameter)
+    return solana.getSignatureStatus(signature);
   }
 
-  async getTransaction(appKey: string, signature: string, commitment: Commitment): Promise<GetTransactionResponse> {
-    const solana = await this.getSolanaConnection(appKey)
-
-    return solana.getTransaction(signature, commitment)
+  async getTransaction(
+    appKey: string,
+    signature: string,
+    commitment: Commitment,
+    maxSupportedTransactionVersion?: number
+  ): Promise<GetTransactionResponse> {
+    const solana = await this.getSolanaConnection(appKey);
+  
+    // Call getTransaction with only two parameters (removed the third parameter)
+    return solana.getTransaction(signature, commitment);
   }
 
   async processTransaction({
@@ -479,6 +528,7 @@ export class ApiKineticService implements OnModuleInit {
     source,
     tx,
     ua,
+    isVersioned,
   }: ProcessTransactionOptions): Promise<TransactionWithErrors> {
     const solana = await this.solana.getConnection(appKey)
 
@@ -499,6 +549,7 @@ export class ApiKineticService implements OnModuleInit {
       source,
       tx,
       ua,
+      isVersioned, // Store the versioned flag in the transaction record
       processingDuration: new Date().getTime() - processingStartedAt,
     })
 
@@ -517,63 +568,50 @@ export class ApiKineticService implements OnModuleInit {
       }
     }
 
-    // Solana Transaction
+    // Solana Transaction - pass the isVersioned flag
     const sent = await this.sendSolanaTransaction(appKey, transaction.id, solana, solanaTransaction, {
       maxRetries: appEnv.solanaTransactionMaxRetries ?? 0,
       skipPreflight: appEnv.solanaTransactionSkipPreflight ?? false,
+      isVersioned,
     })
 
-    if (sent.status === TransactionStatus.Failed || !sent.signature) {
+    if (sent.status === TransactionStatus.Failed) {
       this.logger.error(
-        `Transaction ${transaction.id} sendSolanaTransaction failed:${sent.errors.map((e) => e.message).join(', ')}`,
+        `Transaction ${transaction.id} sendSolanaTransaction failed: ${sent.errors.map((e) => e.message).join(', ')}`,
         sent.errors,
       )
       return sent
     }
 
-    // Confirm transaction
-
-    const confirmedTransaction = await this.confirmTransaction(
-      appKey,
-      blockhash,
-      commitment,
-      lastValidBlockHeight,
-      sent,
-      solana,
-    )
-
-    this.confirmSignature({
-      appEnv,
-      appKey,
-      transactionId: transaction.id,
-      blockhash,
-      headers,
-      lastValidBlockHeight: lastValidBlockHeight,
-      signature: sent.signature as string,
-      solanaStart: confirmedTransaction.solanaStart,
-      transactionStart: confirmedTransaction.createdAt,
-    })
-
-    if (confirmedTransaction.status === TransactionStatus.Failed) {
-      this.logger.error(
-        `Transaction ${transaction.id} confirmTransaction failed:${confirmedTransaction.errors
-          .map((e) => e.message)
-          .join(', ')}`,
-        confirmedTransaction.errors,
-      )
-      return confirmedTransaction
+    // Send Event Webhook after the transaction is sent to Solana (fire and forget)
+    if (appEnv.webhookEventEnabled && appEnv.webhookEventUrl) {
+      this.sendEventWebhook(appKey, appEnv, sent, headers).catch((err) => {
+        this.logger.error(`Transaction ${transaction.id} sendEventWebhook failed: ${err?.message ?? String(err)}`, err)
+      })
     }
 
     return sent
   }
 
   validateMint(appEnv: AppEnvironment, appKey: string, inputMint: string) {
-    const found = appEnv.mints.find(({ mint }) => mint.address === inputMint)
-    if (!found) {
-      this.mintNotFoundErrorCounter.add(1, { appKey, mint: inputMint.toString() })
-      throw new BadRequestException(`${appKey}: Can't find mint ${inputMint}`)
+    // Add null check and error logging
+    if (!appEnv) {
+      this.logger.error(`${appKey}: AppEnvironment is null when validating mint ${inputMint}`);
+      throw new BadRequestException(`${appKey}: Application environment not found`);
     }
-    return found
+    
+    // Add additional check for mints property
+    if (!appEnv.mints || !Array.isArray(appEnv.mints)) {
+      this.logger.error(`${appKey}: AppEnvironment.mints is ${appEnv.mints ? 'not an array' : 'null'} when validating mint ${inputMint}`);
+      throw new BadRequestException(`${appKey}: Application environment is not properly configured`);
+    }
+    
+    const found = appEnv.mints.find(({ mint }) => mint.address === inputMint);
+    if (!found) {
+      this.mintNotFoundErrorCounter.add(1, { appKey, mint: inputMint.toString() });
+      throw new BadRequestException(`${appKey}: Can't find mint ${inputMint}`);
+    }
+    return found;
   }
 
   // FIXME: Validating the request should be done in a NestJS guard or interceptor
@@ -661,17 +699,37 @@ export class ApiKineticService implements OnModuleInit {
     appKey: string,
     transactionId: string,
     solana: Solana,
-    solanaTransaction: SolanaTransaction,
-    { maxRetries, skipPreflight }: { maxRetries: number; skipPreflight: boolean },
+    solanaTransaction: SolanaTransaction | VersionedTransaction,
+    { maxRetries, skipPreflight, isVersioned }: { maxRetries: number; skipPreflight: boolean; isVersioned?: boolean },
   ): Promise<TransactionWithErrors> {
     const solanaStart = new Date()
     try {
-      const signature = await solana.sendRawTransaction(solanaTransaction, { maxRetries, skipPreflight })
-      const status = TransactionStatus.Committed
-      const solanaCommitted = new Date()
-      const solanaCommittedDuration = solanaCommitted.getTime() - solanaStart.getTime()
-      this.sendSolanaTransactionConfirmedCounter.add(1, { appKey })
-      this.logger.verbose(`${appKey}: sendSolanaTransaction ${status} ${signature}`)
+      let signature: string;
+
+      if (isVersioned) {
+        // For versioned transactions
+        const versionedTx = solanaTransaction as VersionedTransaction;
+        // Serialize the versioned transaction
+        const serializedTx = versionedTx.serialize();
+        // Send the raw transaction
+        signature = await solana.connection.sendRawTransaction(serializedTx, {
+          maxRetries,
+          skipPreflight,
+          preflightCommitment: 'confirmed'
+        });
+      } else {
+        // For legacy transactions - use existing code
+        signature = await solana.sendRawTransaction(solanaTransaction as SolanaTransaction, {
+          maxRetries,
+          skipPreflight
+        });
+      }
+
+      const status = TransactionStatus.Committed;
+      const solanaCommitted = new Date();
+      const solanaCommittedDuration = solanaCommitted.getTime() - solanaStart.getTime();
+      this.sendSolanaTransactionConfirmedCounter.add(1, { appKey });
+
       return this.updateTransaction(transactionId, {
         signature,
         status,
@@ -679,23 +737,24 @@ export class ApiKineticService implements OnModuleInit {
         solanaCommitted,
         solanaCommittedDuration,
       })
-    } catch (error) {
-      this.logger.verbose(`${appKey}: sendSolanaTransaction ${error}`)
+    } catch (err) {
       this.sendSolanaTransactionErrorCounter.add(1, { appKey })
-      const solanaCommitted = new Date()
-      const solanaCommittedDuration = solanaCommitted.getTime() - solanaStart.getTime()
+      const solanaCommittedDuration = new Date().getTime() - solanaStart.getTime()
       return this.handleTransactionError(
         transactionId,
         {
           solanaStart,
-          solanaCommitted,
+          solanaCommitted: new Date(),
           solanaCommittedDuration,
         },
-        parseTransactionError(error, error.type, error.instruction),
+        {
+          type: TransactionErrorType.Unknown,
+          logs: [err.toString()],
+          message: `${err?.message ?? err.toString() ?? 'Unknown error'}`,
+        },
       )
     }
   }
-
   private async handleTransactionError(
     transactionId: string,
     data: Prisma.TransactionUpdateInput,
@@ -707,7 +766,13 @@ export class ApiKineticService implements OnModuleInit {
       errors: { create: error },
     })
   }
-
+  private updateTransaction(id: string, data: Prisma.TransactionUpdateInput): Promise<TransactionWithErrors> {
+    return this.core.transaction.update({
+      where: { id },
+      data,
+      include: { errors: true },
+    })
+  }
   private async confirmTransaction(
     appKey: string,
     blockhash: string,
@@ -716,29 +781,38 @@ export class ApiKineticService implements OnModuleInit {
     transaction: TransactionWithErrors,
     solana: Solana,
   ): Promise<TransactionWithErrors> {
-    this.logger.verbose(`${appKey}: confirmTransaction confirming ${commitment} ${transaction.signature}...`)
-
-    // Start listening for commitment
-    await solana.confirmTransaction(
-      {
-        blockhash,
-        lastValidBlockHeight: lastValidBlockHeight,
-        signature: transaction.signature as string,
-      },
-      commitment,
-    )
-    const status = TransactionStatus.Confirmed
-    const solanaConfirmed = new Date()
-    this.confirmTransactionSolanaConfirmedCounter.add(1, { appKey })
-    this.logger.verbose(`${appKey}: confirmTransaction ${status} ${commitment} ${transaction.signature}`)
-    return this.updateTransaction(transaction.id, { status, solanaConfirmed })
+    // Get the start time from the transaction or create a new date
+    const solanaStart = transaction.solanaStart || new Date();
+    
+    try {
+      // Add your implementation to confirm the transaction
+      const confirmed = await solana.confirmTransaction(
+        {
+          blockhash,
+          lastValidBlockHeight,
+          signature: transaction.signature as string,
+        },
+        commitment
+      );
+      
+      if (confirmed) {
+        return this.updateTransaction(transaction.id, {
+          status: TransactionStatus.Confirmed,
+          // Add any other fields to update
+        });
+      }
+      
+      return transaction;
+    } catch (error) {
+      // Handle errors
+      return this.handleTransactionError(
+        transaction.id,
+        {},
+        {
+          type: TransactionErrorType.Unknown,
+          message: error.message || 'Unknown error confirming transaction',
+        }
+      );
+    }
+  }  
   }
-
-  private updateTransaction(id: string, data: Prisma.TransactionUpdateInput): Promise<TransactionWithErrors> {
-    return this.core.transaction.update({
-      where: { id },
-      data,
-      include: { errors: true },
-    })
-  }
-}

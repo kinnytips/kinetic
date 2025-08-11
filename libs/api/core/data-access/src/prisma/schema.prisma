@@ -155,6 +155,8 @@ model Transaction {
   destination             String?
   errors                  TransactionError[]
   feePayer                String?
+  isVersioned             Boolean @default(false)
+  addressLookupTables     Json?
   headers                 Json?
   ip                      String?
   lastValidBlockHeight    Int?
