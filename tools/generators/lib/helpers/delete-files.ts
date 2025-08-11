@@ -1,4 +1,4 @@
-import { Tree } from '@nrwl/devkit'
+import { Tree } from '@nx/devkit'
 import { join } from 'path'
 
 export function deleteFiles(tree: Tree, files: string[], root = '') {

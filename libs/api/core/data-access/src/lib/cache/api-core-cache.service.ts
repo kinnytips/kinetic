@@ -1,4 +1,5 @@
-import { CACHE_MANAGER, Inject, Injectable, Logger } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { style } from '@ogma/styler'
 import { Cache } from 'cache-manager'
 

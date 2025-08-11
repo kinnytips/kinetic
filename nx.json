@@ -7,16 +7,13 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "N2VmY2JhMjctMGJhNC00NDg1LTkwZTUtMmIxYTQxNGQ4OWUxfHJlYWQtd3JpdGU="
-      }
+      "runner": "nx/tasks-runners/default"
     }
   },
+
   "defaultProject": "api",
   "generators": {
-    "@nrwl/react": {
+    "@nx/react": {
       "application": {
         "style": "css",
         "linter": "eslint",

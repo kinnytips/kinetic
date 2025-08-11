@@ -1,4 +1,4 @@
-import { readProjectConfiguration, Tree } from '@nrwl/devkit'
+import { readProjectConfiguration, Tree } from '@nx/devkit'
 import { generateApiLib } from './generate-api-lib'
 import { updateApiFeature } from './update-api-feature'
 

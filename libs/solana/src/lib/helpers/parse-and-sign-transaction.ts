@@ -7,8 +7,7 @@ export function parseAndSignTransaction({ tx, signer }: { tx: Buffer; signer: Ke
   transaction: Transaction
 } {
   // Decode the transaction
-  const transaction = Transaction.from(Buffer.from(tx))
-
+  const transaction = Transaction.from(toUint8Array(tx))
   // Sign it
   transaction.partialSign(...[signer])
 

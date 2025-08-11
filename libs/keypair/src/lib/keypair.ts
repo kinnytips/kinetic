@@ -95,7 +95,7 @@ export class Keypair {
   }
 
   private static fromSeed(seed: Buffer): Keypair {
-    return this.fromSecretKey(bs58.encode(SolanaKeypair.fromSeed(seed).secretKey))
+    return this.fromSecretKey(bs58.encode(new Uint8Array(SolanaKeypair.fromSeed(new Uint8Array(seed)).secretKey)))
   }
 
   private static isByteArray(secret: string) {
