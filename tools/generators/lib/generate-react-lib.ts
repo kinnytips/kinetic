@@ -1,6 +1,6 @@
-import { Tree } from '@nrwl/devkit'
-import { Linter } from '@nrwl/linter'
-import { libraryGenerator } from '@nrwl/react'
+import { Tree } from '@nx/devkit'
+import { Linter } from '@nx/linter'
+import { libraryGenerator } from '@nx/react'
 
 export function generateReactLib(
   tree: Tree,

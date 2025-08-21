@@ -1,12 +1,13 @@
 import { ApiConfigDataAccessModule, ApiConfigService } from '@kin-kinetic/api/config/data-access'
-import { CacheModule, Module } from '@nestjs/common'
-import * as redisStore from 'cache-manager-redis-store'
+import { Module } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-yet';
 
 import { ApiCoreCacheService } from './api-core-cache.service'
 
 @Module({
   imports: [
-    CacheModule.registerAsync({
+    CacheModule.register({
       imports: [ApiConfigDataAccessModule],
       inject: [ApiConfigService],
       isGlobal: false,

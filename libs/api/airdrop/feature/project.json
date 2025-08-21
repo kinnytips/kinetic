@@ -3,14 +3,14 @@
   "sourceRoot": "libs/api/airdrop/feature/src",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/api/airdrop/feature/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/api/airdrop/feature"],
       "options": {
         "jestConfig": "libs/api/airdrop/feature/jest.config.ts",

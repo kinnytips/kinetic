@@ -1,5 +1,5 @@
-import { Tree } from '@nrwl/devkit'
-import { libraryGenerator } from '@nrwl/nest'
+import { Tree } from '@nx/devkit'
+import { libraryGenerator } from '@nx/nest'
 
 export function generateApiLib(tree: Tree, app: string, name: string, type: 'data-access' | 'feature' | 'util') {
   return libraryGenerator(tree, {

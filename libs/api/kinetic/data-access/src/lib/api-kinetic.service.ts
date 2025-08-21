@@ -37,6 +37,8 @@ import { SignatureStatus } from './entities/signature-status.entity'
 import { validateCloseAccount } from './helpers/validate-close.account'
 import { ProcessTransactionOptions } from './interfaces/process-transaction-options'
 import { TransactionWithErrors } from './interfaces/transaction-with-errors'
+import { AxiosHeaders } from 'axios';
+
 
 @Injectable()
 export class ApiKineticService implements OnModuleInit {
@@ -105,6 +107,12 @@ export class ApiKineticService implements OnModuleInit {
       `api_kinetic_send_verify_webhook_success_counter`,
       { description: 'Number of makeTransfer webhook verify success' },
     )
+  }
+
+  private toAxiosHeaders(h?: Record<string, string>) {
+    const ax = new AxiosHeaders();
+    for (const [k, v] of Object.entries(h ?? {})) ax.set(k, String(v));
+    return ax;
   }
 
   createAppEnvTransaction(appEnvId: string, options: Prisma.TransactionCreateInput): Promise<TransactionWithErrors> {
@@ -607,7 +615,7 @@ export class ApiKineticService implements OnModuleInit {
   ): Promise<TransactionWithErrors> {
     const webhookEventStart = new Date()
     try {
-      await this.webhook.sendWebhook(appEnv, { type: WebhookType.Event, transaction, headers })
+      await this.webhook.sendWebhook(appEnv, { type: WebhookType.Event, transaction, headers: this.toAxiosHeaders(headers) })
       const webhookEventEnd = new Date()
       const webhookEventDuration = webhookEventEnd?.getTime() - webhookEventStart.getTime()
       this.sendEventWebhookSuccessCounter.add(1, { appKey })
@@ -636,7 +644,7 @@ export class ApiKineticService implements OnModuleInit {
   ): Promise<TransactionWithErrors> {
     const webhookVerifyStart = new Date()
     try {
-      await this.webhook.sendWebhook(appEnv, { type: WebhookType.Verify, transaction, headers })
+      await this.webhook.sendWebhook(appEnv, { type: WebhookType.Verify, transaction, headers: this.toAxiosHeaders(headers) })
       const webhookVerifyEnd = new Date()
       const webhookVerifyDuration = webhookVerifyEnd?.getTime() - webhookVerifyStart.getTime()
       this.sendVerifyWebhookSuccessCounter.add(1, { appKey })

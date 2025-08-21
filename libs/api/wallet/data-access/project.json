@@ -3,14 +3,14 @@
   "sourceRoot": "libs/api/wallet/data-access/src",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/api/wallet/data-access/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/api/wallet/data-access"],
       "options": {
         "jestConfig": "libs/api/wallet/data-access/jest.config.ts",

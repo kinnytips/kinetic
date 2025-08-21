@@ -1,4 +1,4 @@
-import { generateFiles, getProjects, names, Tree } from '@nrwl/devkit'
+import { generateFiles, getProjects, names, Tree } from '@nx/devkit'
 import { join } from 'path'
 import { generateReactLib } from './generate-react-lib'
 

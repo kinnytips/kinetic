@@ -1,4 +1,4 @@
-import { names } from '@nrwl/devkit'
+import { names } from '@nx/devkit'
 
 export function getCrudMethods({ name, plural }: { name: string; plural: string }) {
   const { className } = names(name)

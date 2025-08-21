@@ -5,14 +5,14 @@
   "tags": ["scope:web", "type:feature"],
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/web/toolbox/feature/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["coverage/libs/web/toolbox/feature"],
       "options": {
         "jestConfig": "libs/web/toolbox/feature/jest.config.ts",

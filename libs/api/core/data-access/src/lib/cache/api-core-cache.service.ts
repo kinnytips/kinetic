@@ -1,6 +1,8 @@
-import { CACHE_MANAGER, Inject, Injectable, Logger } from '@nestjs/common'
+import {Inject, Injectable, Logger } from '@nestjs/common'
 import { style } from '@ogma/styler'
 import { Cache } from 'cache-manager'
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+
 
 export type CacheNamespace = 'solana'
 
@@ -35,13 +37,14 @@ export class ApiCoreCacheService {
     value: Value<T>,
     ttl?: number,
     validate: (value: Value<T>) => boolean = (value) => !!value,
-  ): Promise<T> {
+  ): Promise<T | undefined> {
     const fn: ValueFn<T> = (typeof value === 'function' ? value : () => Promise.resolve(value)) as ValueFn<T>
     const cacheKey = getCacheKey(namespace, key)
     const found = await this.get<T>(namespace, key)
     if (!found) {
       const result = await fn()
       if (validate(result)) {
+        const ttlMs = (ttl ?? 5) * 1000;
         await this.set<T>(namespace, key, result, ttl)
         this.logger.verbose(`${style.bYellow.apply('[CACHE MISS]')} ${cacheKey} ttl=${ttl} seconds`)
         return result
@@ -64,7 +67,16 @@ export class ApiCoreCacheService {
   /**
    * Set a value in the cache based on the namespace and key.
    */
-  private set<T>(namespace: CacheNamespace, key: string, value: T, ttl?: number) {
-    return this.cache.set<T>(getCacheKey(namespace, key), value, { ttl: ttl ?? 5 })
+  private async set<T>(
+    namespace: CacheNamespace,
+    key: string,
+    value: T,
+    ttlMs = 5000 // default 5 seconds
+  ): Promise<void> {
+    const cacheKey = getCacheKey(namespace, key);
+    await this.cache.set<T>(cacheKey, value, ttlMs );
   }
+
+
+
 }
