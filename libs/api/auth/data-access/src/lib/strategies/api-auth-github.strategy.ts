@@ -8,7 +8,10 @@ import { ApiAuthService } from '../api-auth.service'
 
 @Injectable()
 export class ApiAuthGithubStrategy extends PassportStrategy(Strategy, 'github') {
-  constructor(private core: ApiCoreService, private service: ApiAuthService) {
+  constructor(
+    private core: ApiCoreService,
+    private service: ApiAuthService,
+  ) {
     // TODO: We need to make sure to dynamically load ApiAuthGithubStrategy only when the
     //       environment variable is set.
     super({

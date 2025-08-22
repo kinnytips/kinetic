@@ -13,7 +13,10 @@ import { AppUserRole } from './entity/app-user-role.enum'
 export class ApiAppAdminService implements OnModuleInit {
   private readonly logger = new Logger(ApiAppAdminService.name)
 
-  constructor(private readonly app: ApiAppService, private readonly core: ApiCoreService) {}
+  constructor(
+    private readonly app: ApiAppService,
+    private readonly core: ApiCoreService,
+  ) {}
 
   async onModuleInit() {
     await this.configureProvisionedApps()

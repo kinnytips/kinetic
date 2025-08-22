@@ -41,7 +41,11 @@ export class ApiCoreService extends PrismaClient implements OnModuleInit {
   private getAppByEnvironmentIndexCounter: Counter
   private getAppByIndexCounter: Counter
 
-  constructor(readonly cache: ApiCoreCacheService, readonly config: ApiConfigService, readonly metrics: MetricService) {
+  constructor(
+    readonly cache: ApiCoreCacheService,
+    readonly config: ApiConfigService,
+    readonly metrics: MetricService,
+  ) {
     super()
   }
 

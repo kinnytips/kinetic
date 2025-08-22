@@ -1,7 +1,7 @@
 import { ApiConfigDataAccessModule, ApiConfigService } from '@kin-kinetic/api/config/data-access'
-import { Module } from '@nestjs/common';
-import { CacheModule } from '@nestjs/cache-manager';
-import { redisStore } from 'cache-manager-redis-yet';
+import { Module } from '@nestjs/common'
+import { CacheModule } from '@nestjs/cache-manager'
+import { redisStore } from 'cache-manager-redis-yet'
 
 import { ApiCoreCacheService } from './api-core-cache.service'
 

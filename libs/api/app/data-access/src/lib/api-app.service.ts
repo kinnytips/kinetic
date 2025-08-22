@@ -38,7 +38,10 @@ export class ApiAppService implements OnModuleInit {
   private getAppConfigErrorCounter: Counter
   private getAppConfigSuccessCounter: Counter
 
-  constructor(private readonly core: ApiCoreService, private readonly kinetic: ApiKineticService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly kinetic: ApiKineticService,
+  ) {}
 
   async onModuleInit() {
     this.getAppConfigErrorCounter = this.core.metrics.getCounter('api_app_get_app_config_error_counter', {

@@ -15,7 +15,10 @@ import { UserAppUserUpdateRoleInput } from './dto/user-app-user-update-role.inpu
 @Injectable()
 export class ApiAppUserService {
   private readonly logger = new Logger(ApiAppUserService.name)
-  constructor(private readonly app: ApiAppService, private readonly core: ApiCoreService) {}
+  constructor(
+    private readonly app: ApiAppService,
+    private readonly core: ApiCoreService,
+  ) {}
 
   async userApps(userId: string) {
     const user = await this.core.getUserById(userId)
