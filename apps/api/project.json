@@ -43,6 +43,7 @@
       "outputs": ["{options.outputFile}"],
       "options": { "lintFilePatterns": ["apps/api/**/*.ts"] }
     },
+
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/api"],

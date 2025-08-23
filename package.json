@@ -3,6 +3,11 @@
   "version": "1.0.0-rc.18",
   "license": "MIT",
   "private": true,
+  "lint-staged": {
+    "*.js": "eslint --fix",
+    "*.ts": "eslint --fix",
+    "*.{json,md,css}": "prettier --write"
+  },
   "scripts": {
     "build": "yarn build:web && yarn prisma generate && yarn build:api",
     "build:api": "nx build api --prod",
@@ -161,6 +166,7 @@
     "@nx/workspace": "21.4.0",
     "eslint": "8.57.0",
     "husky": "8.0.3",
+    "lint-staged": "^16.1.5",
     "nodemon": "2.0.22",
     "npm-check-updates": "16.14.20",
     "nx": "21.4.0",
