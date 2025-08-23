@@ -1,4 +1,4 @@
-import { Tree } from '@nrwl/devkit'
+import { Tree } from '@nx/devkit'
 import { ObjectLiteralExpression } from 'ts-morph'
 import { updateSourceFile } from './helpers/update-source-file'
 

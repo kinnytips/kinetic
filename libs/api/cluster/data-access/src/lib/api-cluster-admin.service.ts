@@ -12,7 +12,10 @@ import { ClusterStatus } from './entity/cluster-status.enum'
 @Injectable()
 export class ApiClusterAdminService {
   private readonly logger = new Logger(ApiClusterAdminService.name)
-  constructor(private readonly core: ApiCoreService, private readonly kinetic: ApiKineticService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly kinetic: ApiKineticService,
+  ) {}
 
   async adminCreateCluster(userId: string, data: AdminClusterCreateInput) {
     await this.core.ensureAdminUser(userId)

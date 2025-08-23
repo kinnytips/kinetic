@@ -11,7 +11,10 @@ import { ApiQueueCloseAccountService } from './api-queue-close-account.service'
 export class ApiQueueCloseAccountProcessor {
   private readonly logger = new Logger(ApiQueueCloseAccountProcessor.name)
 
-  constructor(private readonly kinetic: ApiKineticService, private readonly service: ApiQueueCloseAccountService) {}
+  constructor(
+    private readonly kinetic: ApiKineticService,
+    private readonly service: ApiQueueCloseAccountService,
+  ) {}
 
   @Process(QueueOptions[QueueType.CloseAccount])
   async handleProcess(job: Job, cb: DoneCallback) {

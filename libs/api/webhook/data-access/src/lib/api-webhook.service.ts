@@ -3,7 +3,7 @@ import { getAppKey } from '@kin-kinetic/api/core/util'
 import { HttpService } from '@nestjs/axios'
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common'
 import { App, AppEnv, Transaction, WebhookDirection, WebhookType } from '@prisma/client'
-import { AxiosRequestHeaders } from 'axios'
+import { AxiosRequestHeaders, AxiosRequestConfig, AxiosHeaders } from 'axios'
 import { Response } from 'express'
 import { IncomingHttpHeaders } from 'http'
 import { switchMap } from 'rxjs'
@@ -25,7 +25,10 @@ function isValidWebhookType(type: string) {
 @Injectable()
 export class ApiWebhookService {
   private readonly logger = new Logger(ApiWebhookService.name)
-  constructor(private readonly core: ApiCoreService, private readonly http: HttpService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly http: HttpService,
+  ) {}
 
   sendWebhook(appEnv: AppEnv & { app: App }, options: WebhookOptions) {
     const appKey = getAppKey(appEnv.name, appEnv.app?.index)
@@ -137,8 +140,10 @@ export class ApiWebhookService {
     const headers = this.getAppEnvHeaders(appEnv, options)
     const payload = { balance: options.balance, publicKey: options.publicKey }
     return new Promise((resolve, reject) => {
+      const config: AxiosRequestConfig = { headers }
+
       this.http
-        .post(url, payload, { headers })
+        .post(url, payload, config)
         .pipe(
           switchMap((res) =>
             this.core.webhook.create({
@@ -227,18 +232,25 @@ export class ApiWebhookService {
   }
 
   private getTxHeaders = (appEnv: AppEnv & { app: App }, options: WebhookOptions) => {
-    // Pass along any request headers that start with 'kinetic'
-    const headers = Object.keys(options.headers || {})
-      .filter((k) => k.startsWith('kinetic-'))
-      .reduce((acc, curr) => ({ ...acc, [curr]: options.headers[curr] }), {})
+    const base = options.headers instanceof AxiosHeaders ? (options.headers.toJSON?.() ?? {}) : (options.headers ?? {})
 
-    return this.getAppEnvHeaders(appEnv, {
-      ...options,
-      headers: {
-        ...headers,
-        'kinetic-tx-id': options.transaction?.id ? options.transaction.id : 'N/A',
-      },
-    })
+    const kineticOnly = Object.keys(base)
+      .filter((k) => k.startsWith('kinetic-'))
+      .reduce<Record<string, string>>((acc, k) => {
+        acc[k] = String((base as any)[k])
+        return acc
+      }, {})
+
+    const merged = {
+      ...kineticOnly,
+      'kinetic-tx-id': options.transaction?.id ?? 'N/A',
+    }
+
+    // build a real AxiosHeaders so it matches the type
+    const ax = new AxiosHeaders()
+    for (const [k, v] of Object.entries(merged)) ax.set(k, String(v))
+
+    return this.getAppEnvHeaders(appEnv, { ...options, headers: ax })
   }
 
   private getAppEnvHeaders = (appEnv: AppEnv & { app: App }, options: WebhookOptions) => {

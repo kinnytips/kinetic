@@ -52,6 +52,6 @@ function writeFile(file, NAME, VERSION) {
   const CONST_VERSION = `export const VERSION = '${VERSION}'`
 
   writeFileSync(file, [CONST_NAME, CONST_VERSION].join('\n'))
-  execSync(`prettier --write ${file}`)
+  execSync(`${__dirname}/../node_modules/.bin/prettier --write ${file}`, { stdio: 'inherit' })
   console.log(` => Updating ${file}`, { NAME, VERSION })
 }

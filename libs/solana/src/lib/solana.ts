@@ -33,7 +33,10 @@ export class Solana {
   readonly endpoint: string
   readonly connection: Connection
 
-  constructor(endpoint: string, private readonly config: SolanaConfig = {}) {
+  constructor(
+    endpoint: string,
+    private readonly config: SolanaConfig = {},
+  ) {
     this.endpoint = parseEndpoint(endpoint)
     this.connection = new Connection(this.endpoint)
     config.logger?.log(`${NAME}: Solana RPC Endpoint: ${this.endpoint}`)

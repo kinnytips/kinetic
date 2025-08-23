@@ -5,7 +5,10 @@ import { Cron } from '@nestjs/schedule'
 
 @Injectable()
 export class ApiCronService {
-  constructor(private readonly wallet: ApiWalletUserService, private readonly transaction: ApiTransactionService) {}
+  constructor(
+    private readonly wallet: ApiWalletUserService,
+    private readonly transaction: ApiTransactionService,
+  ) {}
 
   @Cron('25 * * * * *')
   checkBalance() {

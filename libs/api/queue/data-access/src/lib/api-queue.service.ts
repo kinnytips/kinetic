@@ -11,7 +11,10 @@ import { ApiQueueCloseAccountService } from './queue/close-account/api-queue-clo
 @Injectable()
 export class ApiQueueService {
   private readonly logger = new Logger(ApiQueueService.name)
-  constructor(private readonly core: ApiCoreService, private readonly accountQueue: ApiQueueCloseAccountService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly accountQueue: ApiQueueCloseAccountService,
+  ) {}
 
   async adminQueues(): Promise<Queue[]> {
     const queues = [this.accountQueue]

@@ -12,7 +12,10 @@ export class ApiAirdropService {
   private readonly airdrop = new Map<string, Airdrop>()
   private readonly logger = new Logger(ApiAirdropService.name)
 
-  constructor(private readonly core: ApiCoreService, private readonly kinetic: ApiKineticService) {}
+  constructor(
+    private readonly core: ApiCoreService,
+    private readonly kinetic: ApiKineticService,
+  ) {}
 
   async requestAirdrop(input: RequestAirdropRequest): Promise<RequestAirdropResponse> {
     const appKey = getAppKey(input.environment, input.index)

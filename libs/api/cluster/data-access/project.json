@@ -3,14 +3,14 @@
   "sourceRoot": "libs/api/cluster/data-access/src",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/api/cluster/data-access/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/api/cluster/data-access"],
       "options": {
         "jestConfig": "libs/api/cluster/data-access/jest.config.ts",

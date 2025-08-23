@@ -8,7 +8,10 @@ import { QueueOptions, QueueType } from '../../entity/queue-type.enum'
 @Injectable()
 export class ApiQueueCloseAccountService implements OnModuleInit {
   private readonly logger = new Logger(ApiQueueCloseAccountService.name)
-  constructor(@InjectQueue(QueueType.CloseAccount) readonly queue: Queue, readonly core: ApiCoreService) {}
+  constructor(
+    @InjectQueue(QueueType.CloseAccount) readonly queue: Queue,
+    readonly core: ApiCoreService,
+  ) {}
 
   async onModuleInit(): Promise<void> {
     if (this.core.config.queueCloseAccountStart) {

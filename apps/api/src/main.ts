@@ -40,8 +40,8 @@ async function bootstrap() {
         config.corsBypass
           ? 'Bypassed'
           : config?.corsOrigins
-          ? `enabled for: ${Array.isArray(config?.corsOrigins) ? config?.corsOrigins?.join(', ') : config?.corsOrigins}`
-          : 'disabled'
+            ? `enabled for: ${Array.isArray(config?.corsOrigins) ? config?.corsOrigins?.join(', ') : config?.corsOrigins}`
+            : 'disabled'
       }`,
     )
 

@@ -6,7 +6,10 @@ import { ApiAppAdminService } from './api-app-admin.service'
 export class ApiAppEnvAdminService {
   private readonly logger = new Logger(ApiAppEnvAdminService.name)
 
-  constructor(private readonly appAdmin: ApiAppAdminService, private readonly core: ApiCoreService) {}
+  constructor(
+    private readonly appAdmin: ApiAppAdminService,
+    private readonly core: ApiCoreService,
+  ) {}
 
   async adminDeleteAppEnv(userId: string, appId: string, appEnvId: string) {
     this.logger.warn(`Admin ${userId} deleted AppEnv ${appEnvId} from App ${appId}`)
