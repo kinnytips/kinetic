@@ -110,7 +110,7 @@
     "graphql-tag": "^2.12.6",
     "joi": "^17.7.0",
     "json-bigint-patch": "^0.0.8",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "micro-ed25519-hdkey": "^0.1.2",
     "nestjs-otel": "^5.0.0",
     "opentelemetry-node-metrics": "^3.0.0",
